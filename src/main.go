@@ -15,7 +15,7 @@ func main() {
 
 	host := main_configurations_yml.GetYmlConfigBean().Spring.Datasource.PostgresHost
 
-	value := main_configurations_yml.ReplaceEnvNameToItsValue(host)
+	value := main_configurations_yml.ReplaceEnvNameToValue(host)
 
 	log.Print(value)
 

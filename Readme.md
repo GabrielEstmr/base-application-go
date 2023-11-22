@@ -7,12 +7,11 @@
 - [ ] Kafka Integration;
 - [ ] RabbitMQ Integration;
 - [ ] FF4J integration;
-- [ ] YML Properties Integration;
-- [ ] Swagger
+- [X] YML Properties Integration;
+- [X] Swagger
 - [ ] Msg Bundle
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ] Redis Caching
+- [ ] Redis Locking
 - [ ] 
 
 ## Notes:
