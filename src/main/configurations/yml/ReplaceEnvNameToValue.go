@@ -9,7 +9,7 @@ import (
 const IDX_START_ENV_SEPARATOR = "${"
 const IDX_END_ENV_SEPARATOR = "}"
 
-func ReplaceEnvNameToItsValue(value string) string {
+func ReplaceEnvNameToValue(value string) string {
 	if hasEnvToSubstitute(value) {
 		substituteEnvToValue(value)
 	}
