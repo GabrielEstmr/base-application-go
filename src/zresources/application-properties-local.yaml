@@ -1,0 +1,77 @@
+logging:
+  level:
+    root: 'INFO'
+    com.challenger: 'DEBUG'
+    org.springframework.data.mongodb.core.MongoTemplate: 'DEBUG'
+
+spring:
+  datasource:
+    platform: postgres
+    postgres-host: localhost
+    url: jdbc:postgresql://${USER}:5432/app_account_challenger
+    name: app_account_challenger
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+    continue-on-error: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database: POSTGRESQL
+    show-sql: true
+    format_sql: true
+    hibernate:
+      ddl-auto: update
+      properties:
+        hibernate:
+          show_sql: true
+          format_sql: true
+  cache.type: redis
+  data:
+    redis:
+      password: redispassword
+      sentinel:
+        master: mymaster
+        nodes:
+          - 127.0.0.1:26379
+          - 127.0.0.1:26380
+          - 127.0.0.1:26381
+      lettuce:
+        shutdown-timeout: 200ms
+      repositories:
+        enabled: true
+      default-manager:
+        ttl-in-minutes: 60
+      locking:
+        ttl-in-minutes: 15
+  kafka:
+    default-config:
+      bootstrap-servers: localhost:9093
+      listener:
+        concurrency: 1
+      consumer:
+        bootstrap-servers: ${spring.kafka.default-config.bootstrap-servers}
+        group-id: mp-customer-service
+        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        auto-offset-reset: earliest
+        max-poll-records: 5
+        session-timeout-ms: 60000
+        max-poll-interval-ms: 250000
+        max-retries: 20
+      producer:
+        bootstrap-servers: ${spring.kafka.default-config.bootstrap-servers}
+        retries: 10
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.apache.kafka.common.serialization.StringSerializer
+app-account-challenger:
+  openapi:
+    dev-url: http://localhost:8080
+    prod-url: http://localhost:8080
+  async:
+    default:
+      thread-max-core-pool-size: 4
+      max-pool-size: 4
+      queue-capacity: 500

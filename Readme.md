@@ -1,30 +1,56 @@
-# Mp-Indicator-Go:
+# Base Application in Golang
 
-## Main Goals:
+## ToDos:
 
-- It's an application to allow me to have contact with the main technologies used by me at work but in the Golang world.
+- [ ] MongoDB Integration;
+- [ ] PostgresDB integration;
+- [ ] Kafka Integration;
+- [ ] RabbitMQ Integration;
+- [ ] FF4J integration;
+- [ ] YML Properties Integration;
+- [ ] Swagger
+- [ ] Msg Bundle
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
 
-## Application Goals:
+## Notes:
 
-- It's a fake application which extract's some data from other service and summarize and normalize to its database to
-  allow to make available some indicators based on this data.
-- The main architecture is based on the image bellow:
-    - Important: It's not the best architecture based on golang language (I used the kafka cluster to provide the load
-      balance between pods and threads) but as I said before, this application it's a case study so this architecture
-      was the one that allowed me to use all technologies I use right now at my everyday work.
+### Golang Packages:
 
-![img_1.png](img_1.png)
+Create go modules: go to main path and use the command below:
 
-## Technologies Used:
+```
+go mod init
+```
 
-- Kafka
-- RabbitMQ
-- Redis
-- Redis Memory Lock
-- Docker & Kubernetes
-- Redis distributed lock
-  - curl --request GET \
-    --url http://localhost:8081/indicators/63bd5e150ef74b0e3bc5f2ba
+Build project into one native executable file: (in main's path file)
 
-seq 1 7 | xargs -n1 -P8 curl --request GET \
---url http://localhost:8081/indicators/63bd5e150ef74b0e3bc5f2ba
+```
+go build
+```
+
+Get external libs
+
+```
+go get gopkg.in/yaml.v3
+```
+
+To use external libs: use last part of the import reference:
+
+```go
+package main
+
+import (
+	"fmt"
+	"modulo/auxiliar"
+)
+
+func main() {
+	fmt.Print("Some log message")
+	auxiliar.Execute("id")
+}
+```
+
+https://zhwt.github.io/yaml-to-go/
