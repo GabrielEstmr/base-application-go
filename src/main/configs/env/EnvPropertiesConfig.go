@@ -1,7 +1,7 @@
-package main_configurations_env
+package mainConfigsEnv
 
 import (
-	main_utils "baseapplicationgo/main/utils"
+	mainUtils "baseapplicationgo/main/utils"
 	"errors"
 	"github.com/joho/godotenv"
 	"log"
@@ -9,8 +9,8 @@ import (
 	"sync"
 )
 
-const MSG_ENV_BEAN = "Invalid env property value."
-const MSG_ERROR_READ_ENV_FILE = "Error to read .env file."
+const _MSG_ENV_BEAN = "Invalid env property value."
+const _MSG_ERROR_READ_ENV_FILE = "Error to read .env file."
 
 const YML_BASE_DIRECTORY_MAIN_REFERENCE = "./zresources"
 
@@ -33,13 +33,13 @@ func getEnvConfig() *map[string]string {
 	}
 
 	err := godotenv.Load(YML_BASE_DIRECTORY_MAIN_REFERENCE + "/.env")
-	main_utils.FailOnError(err, MSG_ERROR_READ_ENV_FILE)
+	mainUtils.FailOnError(err, _MSG_ERROR_READ_ENV_FILE)
 
 	data := make(map[string]string)
 	for _, value := range envNames {
 		envValue := os.Getenv(value)
 		if envValue == "" {
-			log.Panicf("%s: %s", MSG_ENV_BEAN, errors.New(MSG_ENV_BEAN))
+			log.Panicf("%s: %s", _MSG_ENV_BEAN, errors.New(_MSG_ENV_BEAN))
 		}
 		data[value] = envValue
 	}

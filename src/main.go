@@ -1,21 +1,21 @@
 package main
 
 import (
-	main_configurations_yml "baseapplicationgo/main/configurations/yml"
+	mainConfigsYml "baseapplicationgo/main/configurations/yml"
 	"log"
 )
 
 func init() {
 
-	main_configurations_yml.GetYmlConfigBean()
+	mainConfigsYml.GetYmlConfigBean()
 
 }
 
 func main() {
 
-	host := main_configurations_yml.GetYmlConfigBean().Spring.Datasource.PostgresHost
+	host := mainConfigsYml.GetYmlConfigBean().Spring.Datasource.PostgresHost
 
-	value := main_configurations_yml.ReplaceEnvNameToValue(host)
+	value := mainConfigsYml.ReplaceEnvNameToValue(host)
 
 	log.Print(value)
 

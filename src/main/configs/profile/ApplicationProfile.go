@@ -1,4 +1,4 @@
-package main_configurations_profile
+package mainConfigsProfile
 
 import (
 	"errors"
