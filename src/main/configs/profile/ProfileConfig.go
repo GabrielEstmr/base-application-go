@@ -1,8 +1,8 @@
-package mainConfigsProfile
+package main_configs_profile
 
 import (
-	mainConfigsEnv "baseapplicationgo/main/configurations/env"
-	mainUtils "baseapplicationgo/main/utils"
+	configsEnv "baseapplicationgo/main/configs/env"
+	utils "baseapplicationgo/main/utils"
 	"sync"
 )
 
@@ -22,8 +22,8 @@ func GetProfileBean() *ApplicationProfile {
 }
 
 func getProfile() *ApplicationProfile {
-	profile := mainConfigsEnv.GetBeanPropertyByName(mainConfigsEnv.MP_INDICATOR_APPLICATION_PROFILE)
+	profile := configsEnv.GetBeanPropertyByName(configsEnv.MP_INDICATOR_APPLICATION_PROFILE)
 	appProfile, err := FindApplicationProfileByDescription(profile)
-	mainUtils.FailOnError(err, MSG_ERROR_TO_GET_PROFILE)
+	utils.FailOnError(err, MSG_ERROR_TO_GET_PROFILE)
 	return &appProfile
 }

@@ -1,7 +1,7 @@
-package mainConfigsEnv
+package main_configs_env
 
 import (
-	mainUtils "baseapplicationgo/main/utils"
+	utils "baseapplicationgo/main/utils"
 	"errors"
 	"github.com/joho/godotenv"
 	"log"
@@ -33,7 +33,7 @@ func getEnvConfig() *map[string]string {
 	}
 
 	err := godotenv.Load(YML_BASE_DIRECTORY_MAIN_REFERENCE + "/.env")
-	mainUtils.FailOnError(err, _MSG_ERROR_READ_ENV_FILE)
+	utils.FailOnError(err, _MSG_ERROR_READ_ENV_FILE)
 
 	data := make(map[string]string)
 	for _, value := range envNames {

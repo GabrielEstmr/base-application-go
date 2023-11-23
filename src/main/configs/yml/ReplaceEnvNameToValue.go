@@ -1,4 +1,4 @@
-package mainConfigsYml
+package main_configs_yml
 
 import (
 	"fmt"

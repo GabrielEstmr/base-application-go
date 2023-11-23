@@ -1,4 +1,4 @@
-package mainConfigsEnv
+package main_configs_env
 
 func GetBeanPropertyByName(envName EnvironmentProperty) string {
 	GetEnvConfigBean()

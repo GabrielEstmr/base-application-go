@@ -1,8 +1,8 @@
-package mainConfigsYml
+package main_configs_yml
 
 import (
-	mainConfigsProfile "baseapplicationgo/main/configurations/profile"
-	mainUtils "baseapplicationgo/main/utils"
+	configsProfile "baseapplicationgo/main/configs/profile"
+	utils "baseapplicationgo/main/utils"
 	"fmt"
 	"gopkg.in/yaml.v3"
 	"log"
@@ -39,16 +39,16 @@ func GetYmlConfigBean() *map[string]Property {
 func getYmlConfig() *map[string]Property {
 
 	log.Println(_MSG_YML_BEANS)
-	profile := mainConfigsProfile.GetProfileBean().GetLowerCaseDescription()
+	profile := configsProfile.GetProfileBean().GetLowerCaseDescription()
 	ymlPath := YML_BASE_DIRECTORY_MAIN_REFERENCE + fmt.Sprintf(
 		YML_FILE_DEFAULT_BASE_NAME, profile)
 
 	yFile, err := os.ReadFile(ymlPath)
-	mainUtils.FailOnError(err, _MSG_ERROR_READ_YML)
+	utils.FailOnError(err, _MSG_ERROR_READ_YML)
 
 	data := make(map[string]Property)
 	err2 := yaml.Unmarshal(yFile, &data)
-	mainUtils.FailOnError(err2, _MSG_ERROR_PARSE_YML)
+	utils.FailOnError(err2, _MSG_ERROR_PARSE_YML)
 
 	for key, _ := range data {
 		newValue := ReplaceEnvNameToValue(data[key].Value)

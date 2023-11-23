@@ -1,4 +1,4 @@
-package mainConfigsRouter
+package main_configs_router
 
 import (
 	"github.com/gorilla/mux"
