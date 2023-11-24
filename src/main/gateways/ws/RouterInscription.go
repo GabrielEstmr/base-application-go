@@ -7,7 +7,7 @@ import (
 	"sync"
 )
 
-type Routes struct {
+type Route struct {
 	URI          string
 	Method       string
 	Function     func(http.ResponseWriter, *http.Request)
@@ -16,40 +16,38 @@ type Routes struct {
 
 var once sync.Once
 
-var RoutesBean *[]Routes = nil
+var routes *[]Route = nil
+var routesBean []Route = nil
 
-func GetRoutesBean() *[]Routes {
+func GetRoutesBean() *[]Route {
 	once.Do(func() {
-
-		if RoutesBean == nil {
-			RoutesBean = getFunctionBeans()
+		if routesBean == nil {
+			routesBean = getFunctionBeans()
+			routes = &routesBean
 		}
-
 	})
-	return RoutesBean
+	return routes
 }
 
-func getFunctionBeans() *[]Routes {
-
+func getFunctionBeans() []Route {
 	beans := mainGatewaysWsBeans.GetControllerBeans()
-
-	var RoutesConfig = []Routes{
+	var RoutesConfig = []Route{
 		{
-			URI:          "/accounts",
-			Method:       http.MethodGet,
-			Function:     beans.AccountControllerBean.FindAccount,
+			URI:          "/users",
+			Method:       http.MethodPost,
+			Function:     beans.UserControllerV1Bean.CreateUser,
 			AuthRequired: false,
 		},
 	}
-
-	return &RoutesConfig
+	return RoutesConfig
 }
 
-func ConfigRoutes(r *mux.Router, routes []Routes) *mux.Router {
+// TODO: ver como colocar swagger
+func ConfigRoutes(r *mux.Router, routes []Route) *mux.Router {
 	for _, route := range routes {
 		r.HandleFunc(route.URI, route.Function).Methods(route.Method)
 	}
-	sh := http.StripPrefix("/swagger-ui/", http.FileServer(http.Dir("./main/configurations/doc/dist/")))
+	sh := http.StripPrefix("/swagger-ui/", http.FileServer(http.Dir("./main/configs/doc/dist/")))
 	r.PathPrefix("/swagger-ui/").Handler(sh)
 	return r
 }

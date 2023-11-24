@@ -1,7 +1,7 @@
 package main_configs_yml
 
 func GetYmlValueByName(propertyName string) string {
-	properties := *YmlConfigs
+	properties := *GetYmlConfigBean()
 	property := properties[propertyName]
 	return property.Value
 }

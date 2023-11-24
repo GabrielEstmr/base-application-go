@@ -1,35 +1,29 @@
 package main
 
 import (
+	main_configs "baseapplicationgo/main/configs"
 	mainConfigsRouterHttp "baseapplicationgo/main/configs/router"
-	mainConfigsYml "baseapplicationgo/main/configs/yml"
+	main_configs_yml "baseapplicationgo/main/configs/yml"
 	mainGatewaysWs "baseapplicationgo/main/gateways/ws"
 	main_utils "baseapplicationgo/main/utils"
 	"log"
 	"net/http"
 )
 
-const MSG_INITIALIZING_APPLICATION = "Initializing application."
 const MSG_APPLICATION_FAILED = "Application has failed to start"
 const MSG_LISTENER = "Listener on port: %s"
-
 const IDX_APPLICATION_PORT = "Application.Port"
-const IDX_TRACING_SERVER_NAME = "Tracing.server.name"
 
 func init() {
-	log.Println(MSG_INITIALIZING_APPLICATION)
-	mainConfigsYml.GetYmlConfigBean()
-
+	main_configs.InitConfigBeans()
 }
 
 func main() {
+	defer main_configs.TerminateConfigBeans()
 
-	applicationPort := mainConfigsYml.GetYmlValueByName(IDX_APPLICATION_PORT)
-	//tracingServerName := mainConfigsYml.GetYmlValueByName(IDX_TRACING_SERVER_NAME)
+	applicationPort := main_configs_yml.GetYmlValueByName(IDX_APPLICATION_PORT)
 	routes := mainGatewaysWs.GetRoutesBean()
-
 	router := mainGatewaysWs.ConfigRoutes(mainConfigsRouterHttp.GetRouterBean(), *routes)
-	//router.Use(otelmux.Middleware(tracingServerName))
 
 	err := http.ListenAndServe(":"+applicationPort, router)
 	if err != nil {

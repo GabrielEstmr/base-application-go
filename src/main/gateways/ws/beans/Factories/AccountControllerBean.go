@@ -1,4 +1,4 @@
-package main_gateways_ws_beans
+package main_gateways_ws_beans_factories
 
 import gatewaysWsV1 "baseapplicationgo/main/gateways/ws/v1"
 

@@ -2,9 +2,11 @@ package main_domains
 
 import "time"
 
-type Account struct {
+type User struct {
 	Id               string
-	UserId           string
+	Name             string
+	DocumentNumber   string
+	Birthday         time.Time
 	CreatedDate      time.Time
 	LastModifiedDate time.Time
 }

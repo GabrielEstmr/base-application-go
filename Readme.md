@@ -53,3 +53,12 @@ func main() {
 ```
 
 https://zhwt.github.io/yaml-to-go/
+
+
+
+https://stackoverflow.com/questions/64712646/how-to-properly-disconnect-mongodb-client
+
+
+// TODO: check func
+// WHen to close connection
+// IF Connection failed, how to solve

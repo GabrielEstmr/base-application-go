@@ -19,29 +19,33 @@ const _MSG_ERROR_TO_PING_DATABASE = "Application has been failed to ping mongo d
 const MONGO_URI_NAME = "MongoDB.URI"
 const MONGO_DATABASE_NAME = "MongoDB.DatabaseName"
 
-var MongoDatabase *mongo.Database = nil
 var once sync.Once
+var mongoDatabase *mongo.Database = nil
+var mongoDatabaseBean mongo.Database
 
-func GetDatabaseBean() *mongo.Database {
+func GetMongoDbBean() *mongo.Database {
 	once.Do(func() {
-
-		if MongoDatabase == nil {
-			MongoDatabase = getDatabaseConnection()
+		if mongoDatabase == nil {
+			mongoDatabaseBean = getDatabaseConnection()
+			mongoDatabase = &mongoDatabaseBean
 		}
-
 	})
-	return MongoDatabase
+	return mongoDatabase
 }
 
+// TODO: check if its really necessary
 func CloseConnection() {
 	log.Println(_MSG_MONGO_BEAN_CLOSING_CONNECTION)
-	err := MongoDatabase.Client().Disconnect(context.TODO())
+	err := mongoDatabase.Client().Disconnect(context.TODO())
 	if err != nil {
 		return
 	}
 }
 
-func getDatabaseConnection() *mongo.Database {
+// TODO: check func
+// WHen to close connection
+// IF Connection failed, how to solve
+func getDatabaseConnection() mongo.Database {
 	log.Println(_MSG_MONGO_BEAN_INITIALIZING)
 	databaseUri := configsYml.GetYmlValueByName(MONGO_URI_NAME)
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(databaseUri))
@@ -54,5 +58,5 @@ func getDatabaseConnection() *mongo.Database {
 		panic(err)
 	}
 	log.Println(_MSG_MONGO_BEAN_PINGED)
-	return client.Database(MONGO_DATABASE_NAME)
+	return *client.Database(configsYml.GetYmlValueByName(MONGO_DATABASE_NAME))
 }
