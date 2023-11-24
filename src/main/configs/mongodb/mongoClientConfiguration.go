@@ -1,7 +1,7 @@
 package main_configs_mongo
 
 import (
-	configsYml "baseapplicationgo/main/configs/yml"
+	main_configs_yml "baseapplicationgo/main/configs/yml"
 	"context"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -47,7 +47,7 @@ func CloseConnection() {
 // IF Connection failed, how to solve
 func getDatabaseConnection() mongo.Database {
 	log.Println(_MSG_MONGO_BEAN_INITIALIZING)
-	databaseUri := configsYml.GetYmlValueByName(MONGO_URI_NAME)
+	databaseUri := main_configs_yml.GetYmlValueByName(MONGO_URI_NAME)
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(databaseUri))
 	if err != nil {
 		log.Fatalf(_MSG_ERROR_TO_CONNECT_TO_DATABASE, databaseUri)
@@ -58,5 +58,5 @@ func getDatabaseConnection() mongo.Database {
 		panic(err)
 	}
 	log.Println(_MSG_MONGO_BEAN_PINGED)
-	return *client.Database(configsYml.GetYmlValueByName(MONGO_DATABASE_NAME))
+	return *client.Database(main_configs_yml.GetYmlValueByName(MONGO_DATABASE_NAME))
 }

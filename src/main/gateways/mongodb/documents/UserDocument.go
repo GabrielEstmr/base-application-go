@@ -1,7 +1,7 @@
 package main_gateways_mongodb_documents
 
 import (
-	domains "baseapplicationgo/main/domains"
+	main_domains "baseapplicationgo/main/domains"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -14,7 +14,7 @@ type UserDocument struct {
 	LastModifiedDate primitive.DateTime `json:"lastModifiedDate,omitempty"`
 }
 
-func NewUserDocument(user domains.User) UserDocument {
+func NewUserDocument(user main_domains.User) UserDocument {
 	return UserDocument{
 		Name:           user.Name,
 		DocumentNumber: user.DocumentNumber,
@@ -22,8 +22,8 @@ func NewUserDocument(user domains.User) UserDocument {
 	}
 }
 
-func (thisDoc *UserDocument) ToDomain() domains.User {
-	return domains.User{
+func (thisDoc *UserDocument) ToDomain() main_domains.User {
+	return main_domains.User{
 		Id:               thisDoc.Id.Hex(),
 		Name:             thisDoc.Name,
 		DocumentNumber:   thisDoc.DocumentNumber,

@@ -15,8 +15,8 @@ type UserController struct {
 	createNewUser main_usecases.CreateNewUser
 }
 
-func NewUserController(createNewUser *main_usecases.CreateNewUser) *UserController {
-	return &UserController{*createNewUser}
+func NewUserController(createNewUser main_usecases.CreateNewUser) UserController {
+	return UserController{createNewUser}
 }
 
 func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {

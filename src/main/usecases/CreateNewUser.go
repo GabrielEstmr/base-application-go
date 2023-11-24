@@ -22,8 +22,8 @@ type CreateNewUser struct {
 //	return &CreateNewUser{*accountDatabaseGateway}
 //}
 
-func NewCreateNewUser(userDatabaseGateway *gateways.UserDatabaseGateway) *CreateNewUser {
-	return &CreateNewUser{*userDatabaseGateway}
+func NewCreateNewUser(userDatabaseGateway gateways.UserDatabaseGateway) CreateNewUser {
+	return CreateNewUser{userDatabaseGateway}
 }
 
 func (this *CreateNewUser) Execute(name string, documentNumber string, birthday time.Time) (string, error) {

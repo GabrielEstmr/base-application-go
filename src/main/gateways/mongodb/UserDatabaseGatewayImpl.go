@@ -1,21 +1,21 @@
 package main_gateways_mongodb
 
 import (
-	mainDomains "baseapplicationgo/main/domains"
-	gatewaysMongodbDocuments "baseapplicationgo/main/gateways/mongodb/documents"
-	gatewaysMongodbRepositories "baseapplicationgo/main/gateways/mongodb/repositories"
+	main_domains "baseapplicationgo/main/domains"
+	main_gateways_mongodb_documents "baseapplicationgo/main/gateways/mongodb/documents"
+	main_gateways_mongodb_repositories "baseapplicationgo/main/gateways/mongodb/repositories"
 )
 
 type UserDatabaseGatewayImpl struct {
-	userRepository *gatewaysMongodbRepositories.UserRepository
+	userRepository *main_gateways_mongodb_repositories.UserRepository
 }
 
-func NewUserDatabaseGatewayImpl(userRepository *gatewaysMongodbRepositories.UserRepository) *UserDatabaseGatewayImpl {
+func NewUserDatabaseGatewayImpl(userRepository *main_gateways_mongodb_repositories.UserRepository) *UserDatabaseGatewayImpl {
 	return &UserDatabaseGatewayImpl{userRepository}
 }
 
-func (this *UserDatabaseGatewayImpl) Save(user mainDomains.User) (string, error) {
-	userDocument := gatewaysMongodbDocuments.NewUserDocument(user)
+func (this *UserDatabaseGatewayImpl) Save(user main_domains.User) (string, error) {
+	userDocument := main_gateways_mongodb_documents.NewUserDocument(user)
 	id, err := this.userRepository.Save(userDocument)
 	if err != nil {
 		return "", err
@@ -23,7 +23,7 @@ func (this *UserDatabaseGatewayImpl) Save(user mainDomains.User) (string, error)
 	return id, nil
 }
 
-func (thisGateway *UserDatabaseGatewayImpl) FindById(id string) (mainDomains.User, error) {
+func (thisGateway *UserDatabaseGatewayImpl) FindById(id string) (main_domains.User, error) {
 	userDocument, err := thisGateway.userRepository.FindById(id)
 	return userDocument.ToDomain(), err
 }

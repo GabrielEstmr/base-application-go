@@ -1,8 +1,8 @@
 package main_gateways_mongodb_repositories
 
 import (
-	configsMongo "baseapplicationgo/main/configs/mongodb"
-	gatewaysMongodbDocuments "baseapplicationgo/main/gateways/mongodb/documents"
+	main_configs_mongo "baseapplicationgo/main/configs/mongodb"
+	main_gateways_mongodb_documents "baseapplicationgo/main/gateways/mongodb/documents"
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
@@ -18,13 +18,13 @@ type UserRepository struct {
 }
 
 func NewUserRepository() *UserRepository {
-	return &UserRepository{database: configsMongo.GetMongoDbBean()}
+	return &UserRepository{database: main_configs_mongo.GetMongoDbBean()}
 }
 
-func (thisRepository *UserRepository) FindById(id string) (gatewaysMongodbDocuments.UserDocument, error) {
+func (this *UserRepository) FindById(id string) (main_gateways_mongodb_documents.UserDocument, error) {
 
-	collection := thisRepository.database.Collection(USERS_COLLECTION_NAME)
-	var result gatewaysMongodbDocuments.UserDocument
+	collection := this.database.Collection(USERS_COLLECTION_NAME)
+	var result main_gateways_mongodb_documents.UserDocument
 	objectId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return result, err
@@ -37,11 +37,10 @@ func (thisRepository *UserRepository) FindById(id string) (gatewaysMongodbDocume
 	return result, nil
 }
 
-func (thisRepository *UserRepository) Save(
-	userDocument gatewaysMongodbDocuments.UserDocument) (string, error) {
+func (this *UserRepository) Save(user main_gateways_mongodb_documents.UserDocument) (string, error) {
 
-	collection := thisRepository.database.Collection(USERS_COLLECTION_NAME)
-	result, err := collection.InsertOne(context.TODO(), userDocument)
+	collection := this.database.Collection(USERS_COLLECTION_NAME)
+	result, err := collection.InsertOne(context.TODO(), user)
 	if err != nil {
 		return "", err
 	}
