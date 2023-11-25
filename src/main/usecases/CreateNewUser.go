@@ -7,23 +7,12 @@ import (
 	"time"
 )
 
-// *
-// serve para atribuir valor REAL de um ponteiro
-// serve para falar que uma var é um ponteiro
-
-// &
-// serve para pegar referencia em memoria de uma var
-
 type CreateNewUser struct {
 	userDatabaseGateway gateways.UserDatabaseGateway
 }
 
-//func NewCreateNewUser(accountDatabaseGateway *gateways.AccountDatabaseGateway) *CreateNewUser {
-//	return &CreateNewUser{*accountDatabaseGateway}
-//}
-
-func NewCreateNewUser(userDatabaseGateway gateways.UserDatabaseGateway) CreateNewUser {
-	return CreateNewUser{userDatabaseGateway}
+func NewCreateNewUser(userDatabaseGateway gateways.UserDatabaseGateway) *CreateNewUser {
+	return &CreateNewUser{userDatabaseGateway}
 }
 
 func (this *CreateNewUser) Execute(name string, documentNumber string, birthday time.Time) (string, error) {

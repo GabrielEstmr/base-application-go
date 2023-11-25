@@ -5,21 +5,21 @@ import (
 	"sync"
 )
 
-var Router *mux.Router = nil
-
 var once sync.Once
+var routerBean *mux.Router = nil
+var router mux.Router
 
 func GetRouterBean() *mux.Router {
 	once.Do(func() {
-
-		if Router == nil {
-			Router = getMuxRouterRouter()
+		if routerBean == nil {
+			router = getMuxRouterRouter()
+			routerBean = &router
 		}
 
 	})
-	return Router
+	return routerBean
 }
 
-func getMuxRouterRouter() *mux.Router {
-	return mux.NewRouter()
+func getMuxRouterRouter() mux.Router {
+	return *mux.NewRouter()
 }

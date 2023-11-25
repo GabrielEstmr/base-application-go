@@ -2,7 +2,7 @@
 
 ## ToDos:
 
-- [ ] MongoDB Integration;
+- [X] MongoDB Integration;
 - [ ] PostgresDB integration;
 - [ ] Kafka Integration;
 - [ ] RabbitMQ Integration;
