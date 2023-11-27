@@ -6,12 +6,12 @@ import (
 )
 
 type UserDocument struct {
-	Id               primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
-	Name             string             `json:"name,omitempty"`
-	DocumentNumber   string             `json:"documentNumber,omitempty"`
-	Birthday         primitive.DateTime `json:"birthday,omitempty"`
-	CreatedDate      primitive.DateTime `json:"createdDate,omitempty"`
-	LastModifiedDate primitive.DateTime `json:"lastModifiedDate,omitempty"`
+	Id               primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	Name             string             `json:"name,omitempty" bson:"name,omitempty"`
+	DocumentNumber   string             `json:"documentNumber,omitempty" bson:"documentNumber,omitempty"`
+	Birthday         primitive.DateTime `json:"birthday,omitempty" bson:"birthday,omitempty"`
+	CreatedDate      primitive.DateTime `json:"createdDate,omitempty" bson:"createdDate"`
+	LastModifiedDate primitive.DateTime `json:"lastModifiedDate,omitempty" bson:"lastModifiedDate"`
 }
 
 func NewUserDocument(user main_domains.User) UserDocument {
@@ -22,13 +22,16 @@ func NewUserDocument(user main_domains.User) UserDocument {
 	}
 }
 
-func (thisDoc *UserDocument) ToDomain() main_domains.User {
+func (this *UserDocument) ToDomain() main_domains.User {
+	if (*this == UserDocument{}) {
+		return main_domains.User{}
+	}
 	return main_domains.User{
-		Id:               thisDoc.Id.Hex(),
-		Name:             thisDoc.Name,
-		DocumentNumber:   thisDoc.DocumentNumber,
-		Birthday:         thisDoc.Birthday.Time(),
-		CreatedDate:      thisDoc.CreatedDate.Time(),
-		LastModifiedDate: thisDoc.LastModifiedDate.Time(),
+		Id:               this.Id.Hex(),
+		Name:             this.Name,
+		DocumentNumber:   this.DocumentNumber,
+		Birthday:         this.Birthday.Time(),
+		CreatedDate:      this.CreatedDate.Time(),
+		LastModifiedDate: this.LastModifiedDate.Time(),
 	}
 }

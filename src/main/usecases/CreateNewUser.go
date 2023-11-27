@@ -1,10 +1,10 @@
 package main_usecases
 
 import (
-	domains "baseapplicationgo/main/domains"
+	main_domains "baseapplicationgo/main/domains"
+	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	gateways "baseapplicationgo/main/gateways"
 	main_utils "baseapplicationgo/main/utils"
-	"time"
 )
 
 type CreateNewUser struct {
@@ -15,16 +15,17 @@ func NewCreateNewUser(userDatabaseGateway gateways.UserDatabaseGateway) *CreateN
 	return &CreateNewUser{userDatabaseGateway}
 }
 
-func (this *CreateNewUser) Execute(name string, documentNumber string, birthday time.Time) (string, error) {
+func (this *CreateNewUser) Execute(user main_domains.User) (main_domains.User, main_domains_exceptions.ApplicationException) {
 
-	user := domains.User{
-		Name:           name,
-		DocumentNumber: documentNumber,
-		Birthday:       birthday,
+	userAlreadyPersisted, err := this.userDatabaseGateway.FindByDocumentNumber(user.DocumentNumber)
+
+	if (userAlreadyPersisted != main_domains.User{}) {
+		return main_domains.User{}, &main_domains_exceptions.ConflictException{Code: 409, Message: "ijasdjijajifj"}
 	}
 
-	save, err := this.userDatabaseGateway.Save(user)
-	main_utils.FailOnError(err, "oiasokf")
+	idPersistedUser, err := this.userDatabaseGateway.Save(user)
+	main_utils.FailOnError(err, user.Id)
+	user.Id = idPersistedUser
 
-	return save, nil
+	return user, nil
 }

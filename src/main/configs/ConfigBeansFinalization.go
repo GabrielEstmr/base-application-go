@@ -5,8 +5,8 @@ import (
 	"log"
 )
 
-const _MSG_TERMINATING_APPLICATION_BEANS = "Terminating application's configuration beans."
-const _MSG_APPLICATION_BEANS_TERMINATED = "Application configuration beans successfully terminated."
+const _MSG_TERMINATING_APPLICATION_BEANS = "Terminating application's configuration beans"
+const _MSG_APPLICATION_BEANS_TERMINATED = "Application configuration beans successfully terminated"
 
 func TerminateConfigBeans() {
 	log.Println(_MSG_TERMINATING_APPLICATION_BEANS)

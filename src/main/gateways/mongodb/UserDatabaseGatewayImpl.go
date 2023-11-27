@@ -23,7 +23,12 @@ func (this *UserDatabaseGatewayImpl) Save(user main_domains.User) (string, error
 	return id, nil
 }
 
-func (thisGateway *UserDatabaseGatewayImpl) FindById(id string) (main_domains.User, error) {
-	userDocument, err := thisGateway.userRepository.FindById(id)
+func (this *UserDatabaseGatewayImpl) FindById(id string) (main_domains.User, error) {
+	userDocument, err := this.userRepository.FindById(id)
+	return userDocument.ToDomain(), err
+}
+
+func (this *UserDatabaseGatewayImpl) FindByDocumentNumber(documentNumber string) (main_domains.User, error) {
+	userDocument, err := this.userRepository.FindByDocumentNumber(documentNumber)
 	return userDocument.ToDomain(), err
 }

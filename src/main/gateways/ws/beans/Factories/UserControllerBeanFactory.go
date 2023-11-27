@@ -1,12 +1,12 @@
 package main_gateways_ws_beans_factories
 
 import (
-	gatewaysWsV1 "baseapplicationgo/main/gateways/ws/v1"
+	main_gateways_ws_v1 "baseapplicationgo/main/gateways/ws/v1"
 	main_usecases_beans "baseapplicationgo/main/usecases/beans"
 )
 
-func UserControllerBeanFactory() gatewaysWsV1.UserController {
+func UserControllerBeanFactory() *main_gateways_ws_v1.UserController {
 	usecaseBeans := main_usecases_beans.GetUsecaseBeans()
-	userController := gatewaysWsV1.NewUserController(usecaseBeans.CreateNewUser)
-	return userController
+	userController := *main_gateways_ws_v1.NewUserController(usecaseBeans.CreateNewUser)
+	return &userController
 }

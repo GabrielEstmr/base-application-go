@@ -25,6 +25,6 @@ func GetControllerBeans() *ControllerBeans {
 
 func subscriptControllerBeans() *ControllerBeans {
 	return &ControllerBeans{
-		UserControllerV1Bean: main_gateways_ws_beans_factories.UserControllerBeanFactory(),
+		UserControllerV1Bean: *main_gateways_ws_beans_factories.UserControllerBeanFactory(),
 	}
 }

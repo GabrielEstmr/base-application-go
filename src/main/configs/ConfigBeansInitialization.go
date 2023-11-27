@@ -6,12 +6,12 @@ import (
 	"log"
 )
 
-const _MSG_INITIALIZING_APPLICATION_BEANS = "Initializing application's configuration beans."
-const _MSG_APPLICATION_BEANS_INITIATED = "Application configuration beans successfully initiated."
+const _MSG_INITIALIZING_APPLICATION_BEANS = "Initializing application's configuration beans"
+const _MSG_APPLICATION_BEANS_INITIATED = "Application configuration beans successfully initiated"
 
 func InitConfigBeans() {
 	log.Println(_MSG_INITIALIZING_APPLICATION_BEANS)
 	main_configs_yml.GetYmlConfigBean()
-	main_configs_mongo.GetMongoDbBean()
+	main_configs_mongo.InitConfigBeans()
 	log.Println(_MSG_APPLICATION_BEANS_INITIATED)
 }
