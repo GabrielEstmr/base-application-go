@@ -10,3 +10,7 @@ type User struct {
 	CreatedDate      time.Time
 	LastModifiedDate time.Time
 }
+
+func (this *User) IsEmpty() bool {
+	return *this == User{}
+}

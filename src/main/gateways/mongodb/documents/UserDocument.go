@@ -22,6 +22,10 @@ func NewUserDocument(user main_domains.User) UserDocument {
 	}
 }
 
+func (this *UserDocument) IsEmpty() bool {
+	return *this == UserDocument{}
+}
+
 func (this *UserDocument) ToDomain() main_domains.User {
 	if (*this == UserDocument{}) {
 		return main_domains.User{}

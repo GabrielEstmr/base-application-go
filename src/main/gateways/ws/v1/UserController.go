@@ -35,14 +35,14 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	err2 := userRequest.Validate()
 	if err2 != nil {
-		main_utils.ERROR(w, http.StatusBadRequest, err2)
+		main_utils.ERROR_APP(w, err2)
 		return
 	}
 	user := userRequest.ToDomain()
 
-	persistedUser, err := this.createNewUser.Execute(user)
-	if err != nil {
-		main_utils.ERROR(w, http.StatusInternalServerError, err)
+	persistedUser, errApp := this.createNewUser.Execute(user)
+	if errApp != nil {
+		main_utils.ERROR_APP(w, errApp)
 		return
 	}
 
