@@ -1,20 +1,29 @@
 package main_usecases
 
 import (
+	main_configs_logs "baseapplicationgo/main/configs/log"
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	gateways "baseapplicationgo/main/gateways"
+	"fmt"
+	"log/slog"
 )
 
 type CreateNewUser struct {
 	userDatabaseGateway gateways.UserDatabaseGateway
+	apLog               *slog.Logger
 }
 
 func NewCreateNewUser(userDatabaseGateway gateways.UserDatabaseGateway) *CreateNewUser {
-	return &CreateNewUser{userDatabaseGateway}
+	return &CreateNewUser{
+		userDatabaseGateway,
+		main_configs_logs.GetLogConfigBean(),
+	}
 }
 
 func (this *CreateNewUser) Execute(user main_domains.User) (main_domains.User, main_domains_exceptions.ApplicationException) {
+
+	this.apLog.Info(fmt.Sprintf("Creating new User with documentNumber: %s", user.DocumentNumber))
 
 	userAlreadyPersisted, err := this.userDatabaseGateway.FindByDocumentNumber(user.DocumentNumber)
 	if !userAlreadyPersisted.IsEmpty() {

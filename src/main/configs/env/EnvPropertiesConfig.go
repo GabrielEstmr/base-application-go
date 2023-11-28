@@ -15,15 +15,15 @@ const _MSG_ERROR_READ_ENV_FILE = "Error to read .env file."
 const YML_BASE_DIRECTORY_MAIN_REFERENCE = "./zresources"
 
 var once sync.Once
-var EnvValues *map[string]string
+var envValues *map[string]string
 
 func GetEnvConfigBean() *map[string]string {
 	once.Do(func() {
-		if EnvValues == nil {
-			EnvValues = getEnvConfig()
+		if envValues == nil {
+			envValues = getEnvConfig()
 		}
 	})
-	return EnvValues
+	return envValues
 }
 
 func getEnvConfig() *map[string]string {

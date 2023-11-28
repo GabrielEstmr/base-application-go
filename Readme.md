@@ -12,7 +12,8 @@
 - [ ] Msg Bundle
 - [ ] Redis Caching
 - [ ] Redis Locking
-- [ ] Request Validation
+- [X] Request Validation
+- [ ] Logs
 
 ## Notes:
 

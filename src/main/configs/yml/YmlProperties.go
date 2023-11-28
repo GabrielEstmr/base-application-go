@@ -10,7 +10,8 @@ import (
 	"sync"
 )
 
-const _MSG_YML_BEANS = "Initializing yml properties bean."
+const _MSG_INITIALIZING_YML_BEANS = "Initializing Yml configuration beans"
+const _MSG_YML_BEANS_INITIATED = "Yml configuration beans successfully initiated"
 const _MSG_ERROR_READ_YML = "Error to read yml file."
 const _MSG_ERROR_PARSE_YML = "Error to parse yml file."
 
@@ -38,7 +39,7 @@ func GetYmlConfigBean() *map[string]Property {
 
 func getYmlConfig() map[string]Property {
 
-	log.Println(_MSG_YML_BEANS)
+	log.Println(_MSG_INITIALIZING_YML_BEANS)
 	profile := configsProfile.GetProfileBean().GetLowerCaseDescription()
 	ymlPath := _YML_BASE_DIRECTORY_MAIN_REFERENCE + fmt.Sprintf(
 		_YML_FILE_DEFAULT_BASE_NAME, profile)
@@ -55,5 +56,6 @@ func getYmlConfig() map[string]Property {
 		data[key] = Property{newValue}
 
 	}
+	log.Println(_MSG_YML_BEANS_INITIATED)
 	return data
 }
