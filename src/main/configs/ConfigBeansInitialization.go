@@ -1,6 +1,7 @@
 package main_configs
 
 import (
+	main_configs_messages "baseapplicationgo/main/configs/messages"
 	main_configs_mongo "baseapplicationgo/main/configs/mongodb"
 	main_configs_yml "baseapplicationgo/main/configs/yml"
 	"log"
@@ -11,6 +12,7 @@ const _MSG_APPLICATION_BEANS_INITIATED = "Application configuration beans succes
 
 func InitConfigBeans() {
 	log.Println(_MSG_INITIALIZING_APPLICATION_BEANS)
+	main_configs_messages.GetMessagesConfigBean()
 	main_configs_yml.GetYmlConfigBean()
 	main_configs_mongo.InitConfigBeans()
 	log.Println(_MSG_APPLICATION_BEANS_INITIATED)

@@ -9,11 +9,12 @@
 - [ ] FF4J integration;
 - [X] YML Properties Integration;
 - [X] Swagger
-- [ ] Msg Bundle
+- [X] Msg Bundle
 - [ ] Redis Caching
 - [ ] Redis Locking
+- [ ] OTEL integration
 - [X] Request Validation
-- [ ] Logs
+- [X] Logs
 
 ## Notes:
 

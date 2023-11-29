@@ -1,7 +1,7 @@
 package main_configs_yml
 
 import (
-	configsProfile "baseapplicationgo/main/configs/profile"
+	main_configs_profile "baseapplicationgo/main/configs/profile"
 	utils "baseapplicationgo/main/utils"
 	"fmt"
 	"gopkg.in/yaml.v3"
@@ -19,14 +19,14 @@ const _YML_BASE_DIRECTORY_MAIN_REFERENCE = "./zresources"
 const _YML_FILE_DEFAULT_BASE_NAME = "/application-properties-%s.yaml"
 
 var once sync.Once
-var ymlConfigs *map[string]Property
-var ymlConfigsBean map[string]Property
+var ymlConfigs *map[string]property
+var ymlConfigsBean map[string]property
 
-type Property struct {
+type property struct {
 	Value string
 }
 
-func GetYmlConfigBean() *map[string]Property {
+func GetYmlConfigBean() *map[string]property {
 	once.Do(func() {
 		if ymlConfigs == nil {
 			ymlConfigsBean = getYmlConfig()
@@ -37,23 +37,23 @@ func GetYmlConfigBean() *map[string]Property {
 	return ymlConfigs
 }
 
-func getYmlConfig() map[string]Property {
+func getYmlConfig() map[string]property {
 
 	log.Println(_MSG_INITIALIZING_YML_BEANS)
-	profile := configsProfile.GetProfileBean().GetLowerCaseDescription()
+	profile := main_configs_profile.GetProfileBean().GetLowerCaseName()
 	ymlPath := _YML_BASE_DIRECTORY_MAIN_REFERENCE + fmt.Sprintf(
 		_YML_FILE_DEFAULT_BASE_NAME, profile)
 
 	yFile, err := os.ReadFile(ymlPath)
 	utils.FailOnError(err, _MSG_ERROR_READ_YML)
 
-	data := make(map[string]Property)
+	data := make(map[string]property)
 	err2 := yaml.Unmarshal(yFile, &data)
 	utils.FailOnError(err2, _MSG_ERROR_PARSE_YML)
 
 	for key, _ := range data {
 		newValue := ReplaceEnvNameToValue(data[key].Value)
-		data[key] = Property{newValue}
+		data[key] = property{newValue}
 
 	}
 	log.Println(_MSG_YML_BEANS_INITIATED)
