@@ -2,17 +2,19 @@
 
 ## ToDos:
 
-- [ ] MongoDB Integration;
+- [X] MongoDB Integration;
 - [ ] PostgresDB integration;
 - [ ] Kafka Integration;
 - [ ] RabbitMQ Integration;
 - [ ] FF4J integration;
 - [X] YML Properties Integration;
 - [X] Swagger
-- [ ] Msg Bundle
+- [X] Msg Bundle
 - [ ] Redis Caching
 - [ ] Redis Locking
-- [ ] 
+- [ ] OTEL integration
+- [X] Request Validation
+- [X] Logs
 
 ## Notes:
 
@@ -53,3 +55,12 @@ func main() {
 ```
 
 https://zhwt.github.io/yaml-to-go/
+
+
+
+https://stackoverflow.com/questions/64712646/how-to-properly-disconnect-mongodb-client
+
+
+// TODO: check func
+// WHen to close connection
+// IF Connection failed, how to solve

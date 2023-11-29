@@ -1,22 +1,33 @@
 package main
 
 import (
-	main_configurations_yml "baseapplicationgo/main/configurations/yml"
+	main_configs "baseapplicationgo/main/configs"
+	mainConfigsRouterHttp "baseapplicationgo/main/configs/router"
+	main_configs_yml "baseapplicationgo/main/configs/yml"
+	mainGatewaysWs "baseapplicationgo/main/gateways/ws"
+	main_utils "baseapplicationgo/main/utils"
 	"log"
+	"net/http"
 )
 
+const MSG_APPLICATION_FAILED = "Application has failed to start"
+const MSG_LISTENER = "Listener on port: %s"
+const IDX_APPLICATION_PORT = "Application.Port"
+
 func init() {
-
-	main_configurations_yml.GetYmlConfigBean()
-
+	main_configs.InitConfigBeans()
 }
 
 func main() {
+	defer main_configs.TerminateConfigBeans()
 
-	host := main_configurations_yml.GetYmlConfigBean().Spring.Datasource.PostgresHost
+	applicationPort := main_configs_yml.GetYmlValueByName(IDX_APPLICATION_PORT)
+	routes := mainGatewaysWs.GetRoutesBean()
+	router := mainGatewaysWs.ConfigRoutes(mainConfigsRouterHttp.GetRouterBean(), *routes)
 
-	value := main_configurations_yml.ReplaceEnvNameToValue(host)
-
-	log.Print(value)
-
+	err := http.ListenAndServe(":"+applicationPort, router)
+	if err != nil {
+		main_utils.FailOnError(err, MSG_APPLICATION_FAILED)
+	}
+	log.Printf(MSG_LISTENER, applicationPort)
 }

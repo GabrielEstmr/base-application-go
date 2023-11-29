@@ -1,4 +1,4 @@
-package main_configurations_env
+package main_configs_env
 
 type EnvironmentProperty string
 

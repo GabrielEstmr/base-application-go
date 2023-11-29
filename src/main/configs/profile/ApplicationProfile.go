@@ -1,4 +1,4 @@
-package main_configurations_profile
+package main_configs_profile
 
 import (
 	"errors"
@@ -19,7 +19,7 @@ const (
 	PRD   ApplicationProfile = prdApplicationProfileDescription
 )
 
-func (s ApplicationProfile) GetDescription() string {
+func (s ApplicationProfile) ApplicationProfileName() string {
 	switch s {
 	case LOCAL:
 		return localApplicationProfileDescription
@@ -31,8 +31,8 @@ func (s ApplicationProfile) GetDescription() string {
 	return "unknown"
 }
 
-func (s ApplicationProfile) GetLowerCaseDescription() string {
-	return strings.ToLower(s.GetDescription())
+func (s ApplicationProfile) GetLowerCaseName() string {
+	return strings.ToLower(s.ApplicationProfileName())
 }
 
 func FindApplicationProfileByDescription(description string) (ApplicationProfile, error) {
