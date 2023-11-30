@@ -9,7 +9,9 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"log"
 	"log/slog"
+	"net"
 	"net/http"
 )
 
@@ -27,7 +29,24 @@ func NewUserController(createNewUser main_usecases.CreateNewUser) *UserControlle
 	}
 }
 
+func ReadUserIP(r *http.Request) string {
+	IPAddress := r.Header.Get("X-Real-Ip")
+	if IPAddress == "" {
+		IPAddress = r.Header.Get("X-Forwarded-For")
+	}
+	if IPAddress == "" {
+		IPAddress = r.RemoteAddr
+	}
+	return IPAddress
+}
+
 func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
+
+	ipAddress, port, err := net.SplitHostPort(ReadUserIP(r))
+	ip := net.ParseIP(ipAddress)
+	log.Println(ip)
+	log.Println(port)
+
 	requestBody, err := io.ReadAll(r.Body)
 	if err != nil || len(requestBody) == 0 {
 		errLog := errors.New(_MSG_MALFORMED_REQUEST_BODY)

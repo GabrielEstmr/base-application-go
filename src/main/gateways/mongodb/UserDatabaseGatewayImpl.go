@@ -7,10 +7,10 @@ import (
 )
 
 type UserDatabaseGatewayImpl struct {
-	userRepository *main_gateways_mongodb_repositories.UserRepository
+	userRepository main_gateways_mongodb_repositories.UserRepository
 }
 
-func NewUserDatabaseGatewayImpl(userRepository *main_gateways_mongodb_repositories.UserRepository) *UserDatabaseGatewayImpl {
+func NewUserDatabaseGatewayImpl(userRepository main_gateways_mongodb_repositories.UserRepository) *UserDatabaseGatewayImpl {
 	return &UserDatabaseGatewayImpl{userRepository}
 }
 

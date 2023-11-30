@@ -15,6 +15,10 @@
 - [ ] OTEL integration
 - [X] Request Validation
 - [X] Logs
+- [ ] How to unmarshall structs with private props
+- [ ] Review Redis Repository
+- [ ] Review Redis Repository: findByDocumentNumber
+- [ ] Get Locale from proxy
 
 ## Notes:
 
@@ -59,6 +63,9 @@ https://zhwt.github.io/yaml-to-go/
 
 
 https://stackoverflow.com/questions/64712646/how-to-properly-disconnect-mongodb-client
+
+https://apiux.com/2013/04/25/how-to-localize-your-api/
+https://ip2location-go.readthedocs.io/en/latest/quickstart.html
 
 
 // TODO: check func

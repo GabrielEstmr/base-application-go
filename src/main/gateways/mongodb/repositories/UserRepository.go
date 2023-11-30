@@ -21,7 +21,7 @@ type UserRepository struct {
 }
 
 func NewUserRepository() *UserRepository {
-	return &UserRepository{database: main_configs_mongo.GetMongoDbBean()}
+	return &UserRepository{database: main_configs_mongo.GetMongoDBClient()}
 }
 
 func (this *UserRepository) Save(user main_gateways_mongodb_documents.UserDocument) (string, error) {

@@ -10,7 +10,7 @@ import (
 	"sync"
 )
 
-const _MSG_MONGO_BEAN_INITIALIZING = "Initializing mongo database bean."
+const _MSG_MONGO_BEAN_INITIALIZING = "Initializing mongo database client."
 const _MSG_MONGO_BEAN_PINGED = "Successfully connected and pinged."
 const _MSG_MONGO_BEAN_CLOSING_CONNECTION = "Closing connection of mongo database bean."
 const _MSG_ERROR_TO_CONNECT_TO_DATABASE = "Application has been failed to connect to mongo database. URI: %s"
@@ -23,7 +23,7 @@ var once sync.Once
 var mongoDatabase *mongo.Database = nil
 var mongoDatabaseBean mongo.Database
 
-func GetMongoDbBean() *mongo.Database {
+func GetMongoDBClient() *mongo.Database {
 	once.Do(func() {
 		if mongoDatabase == nil {
 			mongoDatabaseBean = getDatabaseConnection()
@@ -33,7 +33,6 @@ func GetMongoDbBean() *mongo.Database {
 	return mongoDatabase
 }
 
-// TODO: check if its really necessary
 func CloseConnection() {
 	log.Println(_MSG_MONGO_BEAN_CLOSING_CONNECTION)
 	err := mongoDatabase.Client().Disconnect(context.TODO())
@@ -42,8 +41,6 @@ func CloseConnection() {
 	}
 }
 
-// TODO: check func
-// WHen to close connection
 // IF Connection failed, how to solve
 func getDatabaseConnection() mongo.Database {
 	log.Println(_MSG_MONGO_BEAN_INITIALIZING)
