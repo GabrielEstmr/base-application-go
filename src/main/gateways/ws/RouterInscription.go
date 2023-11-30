@@ -38,6 +38,12 @@ func getFunctionBeans() []Route {
 			Function:     beans.UserControllerV1Bean.CreateUser,
 			AuthRequired: false,
 		},
+		{
+			URI:          "/users/{id}",
+			Method:       http.MethodGet,
+			Function:     beans.UserControllerV1Bean.FindUserById,
+			AuthRequired: false,
+		},
 	}
 	return RoutesConfig
 }

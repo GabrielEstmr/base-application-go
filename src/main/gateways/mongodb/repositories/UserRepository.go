@@ -24,7 +24,7 @@ func NewUserRepository() *UserRepository {
 	return &UserRepository{database: main_configs_mongo.GetMongoDBClient()}
 }
 
-func (this *UserRepository) Save(user main_gateways_mongodb_documents.UserDocument) (string, error) {
+func (this *UserRepository) Save(user main_gateways_mongodb_documents.UserDocument) (main_gateways_mongodb_documents.UserDocument, error) {
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
 	indexModel := mongo.IndexModel{
 		Keys: bson.D{{_DOCUMENT_NUMBER, 1}},
@@ -37,9 +37,12 @@ func (this *UserRepository) Save(user main_gateways_mongodb_documents.UserDocume
 
 	result, err := collection.InsertOne(context.TODO(), user)
 	if err != nil {
-		return "", err
+		return main_gateways_mongodb_documents.UserDocument{}, err
 	}
-	return fmt.Sprint(result.InsertedID), nil
+
+	oid, _ := result.InsertedID.(primitive.ObjectID)
+	user.Id = oid
+	return user, nil
 }
 
 func (this *UserRepository) FindById(id string) (*main_gateways_mongodb_documents.UserDocument, error) {
@@ -52,10 +55,10 @@ func (this *UserRepository) FindById(id string) (*main_gateways_mongodb_document
 	filter := bson.D{{_USERS_IDX_INDICATOR_MONGO_ID, objectId}}
 	err2 := collection.FindOne(context.TODO(), filter).Decode(&result)
 	if err2 != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) {
+		if errors.Is(err2, mongo.ErrNoDocuments) {
 			return &result, nil
 		}
-		return &result, err
+		return &result, err2
 	}
 	return &result, nil
 }

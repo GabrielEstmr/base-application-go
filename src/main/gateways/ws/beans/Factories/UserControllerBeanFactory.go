@@ -7,6 +7,6 @@ import (
 
 func UserControllerBeanFactory() *main_gateways_ws_v1.UserController {
 	usecaseBeans := main_usecases_beans.GetUsecaseBeans()
-	userController := *main_gateways_ws_v1.NewUserController(usecaseBeans.CreateNewUser)
+	userController := *main_gateways_ws_v1.NewUserController(usecaseBeans.CreateNewUser, usecaseBeans.FindUserById)
 	return &userController
 }

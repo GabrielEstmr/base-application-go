@@ -15,10 +15,13 @@ type UserDocument struct {
 }
 
 func NewUserDocument(user main_domains.User) UserDocument {
+	// TODO: create id from user.id
 	return UserDocument{
-		Name:           user.Name,
-		DocumentNumber: user.DocumentNumber,
-		Birthday:       primitive.NewDateTimeFromTime(user.Birthday),
+		Name:             user.Name,
+		DocumentNumber:   user.DocumentNumber,
+		Birthday:         primitive.NewDateTimeFromTime(user.Birthday),
+		CreatedDate:      primitive.NewDateTimeFromTime(user.CreatedDate),
+		LastModifiedDate: primitive.NewDateTimeFromTime(user.LastModifiedDate),
 	}
 }
 

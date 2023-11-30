@@ -34,21 +34,23 @@ func (this *CreateNewUser) Execute(user main_domains.User) (main_domains.User, m
 
 	this.apLog.Info(fmt.Sprintf("Creating new User with documentNumber: %s", user.DocumentNumber))
 	userAlreadyPersisted, err := this.userDatabaseGateway.FindByDocumentNumber(user.DocumentNumber)
+	if err != nil {
+		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg("Failed to Save Document")
+	}
 	if !userAlreadyPersisted.IsEmpty() {
 		return main_domains.User{}, main_domains_exceptions.NewConflictExceptionSglMsg(
 			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(_MSG_LEY_DOC_ALREADY_EXISTS))
 	}
 
-	idPersistedUser, err := this.userDatabaseGateway.Save(user)
+	persistedUser, err := this.userDatabaseGateway.Save(user)
 	if err != nil {
 		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg("Failed to Save Document")
 	}
-	user.Id = idPersistedUser
 
-	_, errCache := this.userDatabaseCacheGateway.Save(user)
+	_, errCache := this.userDatabaseCacheGateway.Save(persistedUser)
 	if errCache != nil {
 		log.Println(errCache)
 	}
 
-	return user, nil
+	return persistedUser, nil
 }
