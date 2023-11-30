@@ -3,7 +3,7 @@ package main_configs_profile
 import (
 	configsEnv "baseapplicationgo/main/configs/env"
 	utils "baseapplicationgo/main/utils"
-	"log"
+	"log/slog"
 	"sync"
 )
 
@@ -25,10 +25,10 @@ func GetProfileBean() *ApplicationProfile {
 }
 
 func getProfile() *ApplicationProfile {
-	log.Println(_MSG_INITIALIZING_PROFILE_BEANS)
+	slog.Info(_MSG_INITIALIZING_PROFILE_BEANS)
 	profile := configsEnv.GetBeanPropertyByName(configsEnv.MP_INDICATOR_APPLICATION_PROFILE)
 	appProfile, err := FindApplicationProfileByDescription(profile)
 	utils.FailOnError(err, _MSG_ERROR_TO_GET_PROFILE)
-	log.Println(_MSG_PROFILE_BEANS_INITIATED)
+	slog.Info(_MSG_PROFILE_BEANS_INITIATED)
 	return &appProfile
 }

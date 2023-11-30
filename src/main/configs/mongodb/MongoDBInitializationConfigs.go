@@ -2,15 +2,15 @@ package main_configs_mongo
 
 import (
 	main_configs_mongo_indexes "baseapplicationgo/main/configs/mongodb/indexes"
-	"log"
+	"log/slog"
 )
 
 const _MSG_INITIALIZING_MONGODB_BEANS = "Initializing MongoDB configuration beans"
 const _MSG_MONGODB_BEANS_INITIATED = "MongoDB configuration beans successfully initiated"
 
 func InitMongoConfigBeans() {
-	log.Println(_MSG_INITIALIZING_MONGODB_BEANS)
+	slog.Info(_MSG_INITIALIZING_MONGODB_BEANS)
 	GetMongoDBClient()
 	CreateIndexes(main_configs_mongo_indexes.GetUserIndexes())
-	log.Println(_MSG_MONGODB_BEANS_INITIATED)
+	slog.Info(_MSG_MONGODB_BEANS_INITIATED)
 }

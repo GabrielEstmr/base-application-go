@@ -1,7 +1,6 @@
 package main_configs_log
 
 import (
-	"log"
 	"log/slog"
 	"os"
 	"sync"
@@ -23,7 +22,7 @@ func GetLogConfigBean() *slog.Logger {
 }
 
 func getLogConfig() *slog.Logger {
-	log.Println(_MSG_INITIALIZING_LOG_BEANS)
+	slog.Info(_MSG_INITIALIZING_LOG_BEANS)
 	logLevel := new(slog.LevelVar)
 	l := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: logLevel}))
 
@@ -32,7 +31,7 @@ func getLogConfig() *slog.Logger {
 	//slog.SetDefault(l)
 
 	// "!BADKEY": pois sempre tem que ser key/value
-	log.Println(_MSG_LOG_BEANS_INITIATED)
+	slog.Info(_MSG_LOG_BEANS_INITIATED)
 
 	return l
 }

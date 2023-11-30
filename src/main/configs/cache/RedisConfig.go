@@ -4,7 +4,7 @@ import (
 	main_configs_yml "baseapplicationgo/main/configs/yml"
 	"context"
 	"github.com/redis/go-redis/v9"
-	"log"
+	"log/slog"
 	"sync"
 )
 
@@ -30,7 +30,7 @@ func GetRedisClusterBean() *redis.Client {
 func getRedisCluster() *redis.Client {
 	redisHost := main_configs_yml.GetYmlValueByName(_REDIS_HOST_NODE1)
 
-	log.Printf(_MSG_ATTEMPT_TO_CONNECT_TO_REDIS_CLIENT, redisHost)
+	slog.Info(_MSG_ATTEMPT_TO_CONNECT_TO_REDIS_CLIENT, redisHost)
 
 	client := redis.NewClient(&redis.Options{
 		Addr:     redisHost,
@@ -43,6 +43,6 @@ func getRedisCluster() *redis.Client {
 		panic(err)
 	}
 
-	log.Printf(_MSG_SUCECSSFULLY_CONNECTED_TO_REDIS_CLIENT, redisHost)
+	slog.Info(_MSG_SUCECSSFULLY_CONNECTED_TO_REDIS_CLIENT, redisHost)
 	return client
 }

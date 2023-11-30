@@ -5,7 +5,7 @@ import (
 	utils "baseapplicationgo/main/utils"
 	"fmt"
 	"gopkg.in/yaml.v3"
-	"log"
+	"log/slog"
 	"os"
 	"sync"
 )
@@ -39,7 +39,7 @@ func GetYmlConfigBean() *map[string]property {
 
 func getYmlConfig() map[string]property {
 
-	log.Println(_MSG_INITIALIZING_YML_BEANS)
+	slog.Info(_MSG_INITIALIZING_YML_BEANS)
 	profile := main_configs_profile.GetProfileBean().GetLowerCaseName()
 	ymlPath := _YML_BASE_DIRECTORY_MAIN_REFERENCE + fmt.Sprintf(
 		_YML_FILE_DEFAULT_BASE_NAME, profile)
@@ -56,6 +56,6 @@ func getYmlConfig() map[string]property {
 		data[key] = property{newValue}
 
 	}
-	log.Println(_MSG_YML_BEANS_INITIATED)
+	slog.Info(_MSG_YML_BEANS_INITIATED)
 	return data
 }

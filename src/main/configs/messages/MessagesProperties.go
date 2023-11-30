@@ -5,7 +5,7 @@ import (
 	main_utils "baseapplicationgo/main/utils"
 	"bufio"
 	"fmt"
-	"log"
+	"log/slog"
 	"os"
 	"strings"
 	"sync"
@@ -33,7 +33,7 @@ func GetMessagesConfigBean() *main_configs_messages_resources.ApplicationMessage
 }
 
 func getMessagesConfig() *main_configs_messages_resources.ApplicationMessages {
-	log.Println(_MSG_INITIALIZING_MSG_BEANS)
+	slog.Info(_MSG_INITIALIZING_MSG_BEANS)
 	var config = make(map[string]string)
 	for _, langEnum := range main_configs_messages_resources.GetLanguageProfileValues() {
 		lang := langEnum.GetLanguageProfileDescription()
@@ -50,7 +50,7 @@ func getMessagesConfig() *main_configs_messages_resources.ApplicationMessages {
 			}
 		}
 	}
-	log.Println(_MSG_MSG_BEANS_INITIATED)
+	slog.Info(_MSG_MSG_BEANS_INITIATED)
 	return main_configs_messages_resources.NewApplicationMessages(config)
 }
 
