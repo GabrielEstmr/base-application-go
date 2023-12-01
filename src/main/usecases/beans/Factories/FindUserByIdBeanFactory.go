@@ -17,5 +17,7 @@ func FindUserByIdBean() *main_usecases.FindUserById {
 	userRedisRepository := main_gateways_redis_repositories.NewUserRedisRepository()
 	var userDatabaseCacheGateway main_gateways.UserDatabaseCacheGateway = main_gateways_redis.NewUserDatabaseCacheGatewayImpl(*userRedisRepository)
 
-	return main_usecases.NewFindUserById(userDatabaseGateway, userDatabaseCacheGateway)
+	var cachedUserDatabaseGateway main_gateways.UserDatabaseGateway = main_gateways_mongodb.NewCachedUserDatabaseGatewayImpl(userDatabaseGateway, userDatabaseCacheGateway)
+
+	return main_usecases.NewFindUserById(cachedUserDatabaseGateway)
 }

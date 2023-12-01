@@ -7,25 +7,21 @@ import (
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
 	"fmt"
-	"log"
 	"log/slog"
 )
 
 const _MSG_LEY_DOC_ALREADY_EXISTS = "create.user.user.with.given.document.already.exists"
 
 type CreateNewUser struct {
-	userDatabaseGateway      main_gateways.UserDatabaseGateway
-	userDatabaseCacheGateway main_gateways.UserDatabaseCacheGateway
-	apLog                    *slog.Logger
+	userDatabaseGateway main_gateways.UserDatabaseGateway
+	apLog               *slog.Logger
 }
 
 func NewCreateNewUser(
 	userDatabaseGateway main_gateways.UserDatabaseGateway,
-	userDatabaseCacheGateway main_gateways.UserDatabaseCacheGateway,
 ) *CreateNewUser {
 	return &CreateNewUser{
 		userDatabaseGateway,
-		userDatabaseCacheGateway,
 		main_configs_logs.GetLogConfigBean(),
 	}
 }
@@ -46,11 +42,5 @@ func (this *CreateNewUser) Execute(user main_domains.User) (main_domains.User, m
 	if err != nil {
 		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg("Failed to Save Document")
 	}
-
-	_, errCache := this.userDatabaseCacheGateway.Save(persistedUser)
-	if errCache != nil {
-		log.Println(errCache)
-	}
-
 	return persistedUser, nil
 }

@@ -10,13 +10,13 @@
 - [X] YML Properties Integration;
 - [X] Swagger
 - [X] Msg Bundle
-- [ ] Redis Caching
 - [ ] Redis Locking
 - [ ] OTEL integration
 - [X] Request Validation
 - [X] Logs
 - [ ] How to unmarshall structs with private props
-- [ ] Review Redis Repository
+- [ ] Review Redis Repository (With Sentinel)
+  - https://redis.uptrace.dev/guide/go-redis.html
 - [ ] Review Redis Repository: findByDocumentNumber
 - [ ] Get Locale from proxy
 

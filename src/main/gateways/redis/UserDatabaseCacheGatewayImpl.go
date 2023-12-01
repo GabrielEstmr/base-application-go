@@ -31,3 +31,8 @@ func (this *UserDatabaseCacheGatewayImpl) FindById(id string) (main_domains.User
 	userDocument, err := this.userRedisRepository.FindById(id)
 	return userDocument.ToDomain(), err
 }
+
+func (this *UserDatabaseCacheGatewayImpl) FindByDocumentNumber(documentNumber string) (main_domains.User, error) {
+	userDocument, err := this.userRedisRepository.FindByDocumentNumber(documentNumber)
+	return userDocument.ToDomain(), err
+}
