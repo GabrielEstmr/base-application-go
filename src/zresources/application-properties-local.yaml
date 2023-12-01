@@ -8,30 +8,30 @@ MongoDB.URI:
 MongoDB.DatabaseName:
   value: dbApplicationGo
 
-# Kafka Properties
-Kafka.bootstrap.servers:
-  value: localhost:9093
-Kafka.group.id:
-  value: mp-indicator
-Kafka.auto.offset.reset:
-  value: earliest
+## Kafka Properties
+#Kafka.bootstrap.servers:
+#  value: localhost:9093
+#Kafka.group.id:
+#  value: mp-indicator
+#Kafka.auto.offset.reset:
+#  value: earliest
 
-# RabbitMQ Properties
-RabbitMQ.URI:
-  value: amqp://dev_mktplace:riS9udae@localhost:5672/dev01_mktplace
-
-# Rest Integration Properties
-Integration.mp-order-search.url:
-  value: https://mkt-ingress-prd.luizalabs.com/mp-order-search
+## RabbitMQ Properties
+#RabbitMQ.URI:
+#  value: amqp://dev_mktplace:riS9udae@localhost:5672/dev01_mktplace
+#
+## Rest Integration Properties
+#Integration.mp-order-search.url:
+#  value: https://mkt-ingress-prd.luizalabs.com/mp-order-search
 
 # Cache Properties
 Redis.hosts:
   value: localhost:6379
 
-# Tracing Properties
-Tracing.server.name:
-  value: mp-indicator-go
-Tracing.service.name.key:
-  value: mp-indicator-go
-Tracing.server.url:
-  value: http://localhost:9411/api/v2/spans
+## Tracing Properties
+#Tracing.server.name:
+#  value: mp-indicator-go
+#Tracing.service.name.key:
+#  value: mp-indicator-go
+#Tracing.server.url:
+#  value: http://localhost:9411/api/v2/spans

@@ -52,8 +52,16 @@ func getYmlConfig() map[string]property {
 	utils.FailOnError(err2, _MSG_ERROR_PARSE_YML)
 
 	for key, _ := range data {
-		newValue := ReplaceEnvNameToValue(data[key].Value)
-		data[key] = property{newValue}
+		for {
+			newValue, hasIdx := ReplaceEnvNameToValue(data[key].Value)
+			data[key] = property{newValue}
+			if hasIdx {
+				data[key] = property{newValue}
+			}
+			if !hasIdx {
+				break
+			}
+		}
 
 	}
 	slog.Info(_MSG_YML_BEANS_INITIATED)
