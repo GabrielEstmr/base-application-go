@@ -18,7 +18,7 @@ func NewBadRequestException(messages []string) *BadRequestException {
 
 func NewBadRequestExceptionSglMsg(message string) *BadRequestException {
 	return &BadRequestException{
-		code:     http.StatusConflict,
+		code:     http.StatusBadRequest,
 		messages: []string{message},
 	}
 }

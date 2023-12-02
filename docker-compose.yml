@@ -1,23 +1,23 @@
 version: "3.9"
 services:
 
-    app-account-challenger:
-      build:
-        context: ./
-        dockerfile: Dockerfile
-      restart: always
-      environment:
-        MONGO_INITDB_ROOT_USERNAME: admin
-        MONGO_INITDB_ROOT_PASSWORD: admin
-        DB_MONGO_HOST: mongo
-        REDIS_HOST: redis
-      ports:
-        - "8080:8080"
-      depends_on:
-        - mongo
-        - redis
-      networks:
-        - broker-kafka
+#    app-account-challenger:
+#      build:
+#        context: ./
+#        dockerfile: Dockerfile
+#      restart: always
+#      environment:
+#        MONGO_INITDB_ROOT_USERNAME: admin
+#        MONGO_INITDB_ROOT_PASSWORD: admin
+#        DB_MONGO_HOST: mongo
+#        REDIS_HOST: redis
+#      ports:
+#        - "8080:8080"
+#      depends_on:
+#        - mongo
+#        - redis
+#      networks:
+#        - broker-kafka
 
     mongo:
       image: mongo:latest

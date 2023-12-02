@@ -19,8 +19,7 @@ const _YML_BASE_DIRECTORY_MAIN_REFERENCE = "./zresources"
 const _YML_FILE_DEFAULT_BASE_NAME = "/application-properties-%s.yaml"
 
 var once sync.Once
-var ymlConfigs *map[string]property
-var ymlConfigsBean map[string]property
+var ymlConfigsBean *map[string]property
 
 type property struct {
 	Value string
@@ -28,16 +27,14 @@ type property struct {
 
 func GetYmlConfigBean() *map[string]property {
 	once.Do(func() {
-		if ymlConfigs == nil {
+		if ymlConfigsBean == nil {
 			ymlConfigsBean = getYmlConfig()
-			ymlConfigs = &ymlConfigsBean
 		}
-
 	})
-	return ymlConfigs
+	return ymlConfigsBean
 }
 
-func getYmlConfig() map[string]property {
+func getYmlConfig() *map[string]property {
 
 	slog.Info(_MSG_INITIALIZING_YML_BEANS)
 	profile := main_configs_profile.GetProfileBean().GetLowerCaseName()
@@ -55,9 +52,6 @@ func getYmlConfig() map[string]property {
 		for {
 			newValue, hasIdx := ReplaceEnvNameToValue(data[key].Value)
 			data[key] = property{newValue}
-			if hasIdx {
-				data[key] = property{newValue}
-			}
 			if !hasIdx {
 				break
 			}
@@ -65,5 +59,5 @@ func getYmlConfig() map[string]property {
 
 	}
 	slog.Info(_MSG_YML_BEANS_INITIATED)
-	return data
+	return &data
 }

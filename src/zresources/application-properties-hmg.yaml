@@ -6,7 +6,7 @@ Application.Port:
 MongoDB.URI:
   value: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${DB_MONGO_HOST}:27017
 MongoDB.DatabaseName:
-  value: mp-indicator
+  value: dbApplicationGo
 
 ## Kafka Properties
 #Kafka.bootstrap.servers:

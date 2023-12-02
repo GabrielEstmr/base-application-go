@@ -9,14 +9,14 @@ type InternalServerErrorException struct {
 
 func NewInternalServerErrorException(messages []string) *InternalServerErrorException {
 	return &InternalServerErrorException{
-		code:     http.StatusNotFound,
+		code:     http.StatusInternalServerError,
 		messages: messages,
 	}
 }
 
 func NewInternalServerErrorExceptionSglMsg(message string) *InternalServerErrorException {
 	return &InternalServerErrorException{
-		code:     http.StatusConflict,
+		code:     http.StatusInternalServerError,
 		messages: []string{message},
 	}
 }

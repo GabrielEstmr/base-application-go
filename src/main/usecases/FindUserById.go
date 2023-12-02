@@ -10,6 +10,8 @@ import (
 	"log/slog"
 )
 
+const _MSG_FIND_DOC_BY_ID_DOC_NOT_FOUND = "find.user.user.not.found"
+
 type FindUserById struct {
 	userDatabaseGateway main_gateways.UserDatabaseGateway
 	apLog               *slog.Logger
@@ -35,7 +37,7 @@ func (this *FindUserById) Execute(id string) (main_domains.User, main_domains_ex
 	}
 	if user.IsEmpty() {
 		return main_domains.User{}, main_domains_exceptions.NewResourceNotFoundExceptionSglMsg(
-			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(_MSG_LEY_DOC_ALREADY_EXISTS))
+			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(_MSG_FIND_DOC_BY_ID_DOC_NOT_FOUND))
 	}
 	return user, nil
 }

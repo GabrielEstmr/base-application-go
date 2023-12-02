@@ -10,11 +10,15 @@ import (
 	"log/slog"
 )
 
-const _MSG_LEY_DOC_ALREADY_EXISTS = "create.user.user.with.given.document.already.exists"
+const _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS = "create.user.user.with.given.document.already.exists"
 
 type CreateNewUser struct {
 	userDatabaseGateway main_gateways.UserDatabaseGateway
 	apLog               *slog.Logger
+}
+
+func (this *CreateNewUser) get_MSG_DOC_ALREADY_EXISTS() string {
+	return "create.user.user.with.given.document.already.exists"
 }
 
 func NewCreateNewUser(
@@ -35,7 +39,7 @@ func (this *CreateNewUser) Execute(user main_domains.User) (main_domains.User, m
 	}
 	if !userAlreadyPersisted.IsEmpty() {
 		return main_domains.User{}, main_domains_exceptions.NewConflictExceptionSglMsg(
-			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(_MSG_LEY_DOC_ALREADY_EXISTS))
+			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS))
 	}
 
 	persistedUser, err := this.userDatabaseGateway.Save(user)
