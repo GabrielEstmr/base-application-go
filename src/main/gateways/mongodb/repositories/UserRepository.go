@@ -3,6 +3,7 @@ package main_gateways_mongodb_repositories
 import (
 	main_configs_mongo "baseapplicationgo/main/configs/mongodb"
 	main_configs_mongo_collections "baseapplicationgo/main/configs/mongodb/collections"
+	main_domains "baseapplicationgo/main/domains"
 	main_gateways_mongodb_documents "baseapplicationgo/main/gateways/mongodb/documents"
 	"context"
 	"errors"
@@ -50,7 +51,7 @@ func (this *UserRepository) FindById(id string) (*main_gateways_mongodb_document
 	var result main_gateways_mongodb_documents.UserDocument
 	objectId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
-		return &result, err
+		return &result, nil
 	}
 	filter := bson.D{{_USERS_IDX_INDICATOR_MONGO_ID, objectId}}
 	err2 := collection.FindOne(context.TODO(), filter).Decode(&result)
@@ -64,6 +65,20 @@ func (this *UserRepository) FindById(id string) (*main_gateways_mongodb_document
 }
 
 func (this *UserRepository) FindByDocumentNumber(documentNumber string) (*main_gateways_mongodb_documents.UserDocument, error) {
+	collection := this.database.Collection(_USERS_COLLECTION_NAME)
+	filter := bson.D{{_DOCUMENT_NUMBER, documentNumber}}
+	var result main_gateways_mongodb_documents.UserDocument
+	err := collection.FindOne(context.TODO(), filter).Decode(&result)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return &result, nil
+		}
+		return &result, err
+	}
+	return &result, nil
+}
+
+func (this *UserRepository) FindByFilter(filter main_domains.FindUserFilter) (*main_domains.Page, error) {
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
 	filter := bson.D{{_DOCUMENT_NUMBER, documentNumber}}
 	var result main_gateways_mongodb_documents.UserDocument

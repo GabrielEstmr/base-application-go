@@ -6,11 +6,11 @@ import (
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
-	"fmt"
 	"log/slog"
 )
 
-const _MSG_FIND_DOC_BY_ID_DOC_NOT_FOUND = "find.user.user.not.found"
+const _MSG_FIND_USER_BY_ID_DOC_NOT_FOUND = "find.user.user.not.found"
+const _MSG_FIND_USER_BY_ID_ARCH_ISSUE = "exceptions.architecture.application.issue"
 
 type FindUserById struct {
 	userDatabaseGateway main_gateways.UserDatabaseGateway
@@ -27,17 +27,14 @@ func NewFindUserById(
 }
 
 func (this *FindUserById) Execute(id string) (main_domains.User, main_domains_exceptions.ApplicationException) {
-
-	this.apLog.Debug(fmt.Sprintf("Finding User by id: %s", id))
-
 	user, err := this.userDatabaseGateway.FindById(id)
 	if err != nil {
 		return main_domains.User{},
-			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg("Failed to Find Document")
+			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(_MSG_FIND_USER_BY_ID_ARCH_ISSUE)
 	}
 	if user.IsEmpty() {
 		return main_domains.User{}, main_domains_exceptions.NewResourceNotFoundExceptionSglMsg(
-			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(_MSG_FIND_DOC_BY_ID_DOC_NOT_FOUND))
+			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(_MSG_FIND_USER_BY_ID_DOC_NOT_FOUND))
 	}
 	return user, nil
 }

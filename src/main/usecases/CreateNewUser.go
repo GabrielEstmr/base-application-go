@@ -10,15 +10,12 @@ import (
 	"log/slog"
 )
 
-const _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS = "create.user.user.with.given.document.already.exists"
+const _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS = "providers.create.user.user.with.given.document.already.exists"
+const _MSG_CREATE_NEW_DOC_ARCH_ISSUE = "exceptions.architecture.application.issue"
 
 type CreateNewUser struct {
 	userDatabaseGateway main_gateways.UserDatabaseGateway
 	apLog               *slog.Logger
-}
-
-func (this *CreateNewUser) get_MSG_DOC_ALREADY_EXISTS() string {
-	return "create.user.user.with.given.document.already.exists"
 }
 
 func NewCreateNewUser(
@@ -35,7 +32,7 @@ func (this *CreateNewUser) Execute(user main_domains.User) (main_domains.User, m
 	this.apLog.Info(fmt.Sprintf("Creating new User with documentNumber: %s", user.DocumentNumber))
 	userAlreadyPersisted, err := this.userDatabaseGateway.FindByDocumentNumber(user.DocumentNumber)
 	if err != nil {
-		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg("Failed to Save Document")
+		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(_MSG_CREATE_NEW_DOC_ARCH_ISSUE)
 	}
 	if !userAlreadyPersisted.IsEmpty() {
 		return main_domains.User{}, main_domains_exceptions.NewConflictExceptionSglMsg(
@@ -44,7 +41,7 @@ func (this *CreateNewUser) Execute(user main_domains.User) (main_domains.User, m
 
 	persistedUser, err := this.userDatabaseGateway.Save(user)
 	if err != nil {
-		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg("Failed to Save Document")
+		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(_MSG_CREATE_NEW_DOC_ARCH_ISSUE)
 	}
 	return persistedUser, nil
 }
