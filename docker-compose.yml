@@ -1,143 +1,42 @@
 version: "3.9"
 services:
 
-  #  app-account-challenger:
-  ##    container_name: app-account-challenger
-  #    build:
-  #      context: ./accounts
-  #      dockerfile: Dockerfile
-  #    restart: always
-  #    environment:
-  #      POSTGRES_HOST: postgres
-  #      POSTGRES_USER: admin
-  #      POSTGRES_PASSWORD: admin
-  #      REDIS_HOST: redis
-  #      OTEL_COLLECTOR_HOST: otel-collector
-  #    ports:
-  #      - "8080:8080"
-  #    depends_on:
-  #      - postgres
-  #      - redis
-  #    networks:
-  #      - broker-kafka
+#    app-account-challenger:
+#      build:
+#        context: ./
+#        dockerfile: Dockerfile
+#      restart: always
+#      environment:
+#        MONGO_INITDB_ROOT_USERNAME: admin
+#        MONGO_INITDB_ROOT_PASSWORD: admin
+#        DB_MONGO_HOST: mongo
+#        REDIS_HOST: redis
+#      ports:
+#        - "8080:8080"
+#      depends_on:
+#        - mongo
+#        - redis
+#      networks:
+#        - broker-kafka
 
+    mongo:
+      image: mongo:latest
+      environment:
+        - MONGO_DATA_DIR=/data/db
+        - MONGO_INITDB_DATABASE=mongodb
+        - MONGO_INITDB_ROOT_USERNAME=admin
+        - MONGO_INITDB_ROOT_PASSWORD=admin
+      ports:
+        - 27017:27017
+      networks:
+        - broker-kafka
 
-  #  redis:
-  #    image: "redis:alpine"
-  #    ports:
-  #      - 6379:6379
-  #    networks:
-  #      - broker-kafka
-
-  redis-master:
-    container_name: redis-master
-    image: 'bitnami/redis:latest'
-    environment:
-      - REDIS_REPLICATION_MODE=master
-      - REDIS_PASSWORD=redispassword
-    ports:
-      - "6379:6379"
-  redis-slave:
-    container_name: slave-redis
-    image: 'bitnami/redis:latest'
-    environment:
-      - REDIS_REPLICATION_MODE=slave
-      - REDIS_MASTER_HOST=redis-master
-      - REDIS_MASTER_PASSWORD=redispassword
-      - REDIS_PASSWORD=redispassword
-    ports:
-      - "7000:6379"
-    depends_on:
-      - redis-master
-  redis-sentinel-1:
-    image: 'bitnami/redis-sentinel:latest'
-    container_name: sentinel-1
-    environment:
-      - REDIS_MASTER_SET=mymaster
-      - REDIS_MASTER_HOST=127.0.0.1
-      - REDIS_MASTER_PASSWORD=redispassword
-      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=10000
-    depends_on:
-      - redis-master
-      - redis-slave
-    ports:
-      - "26379:26379"
-  redis-sentinel-2:
-    image: 'bitnami/redis-sentinel:latest'
-    container_name: sentinel-2
-    environment:
-      - REDIS_MASTER_SET=mymaster
-      - REDIS_MASTER_HOST=127.0.0.1
-      - REDIS_MASTER_PASSWORD=redispassword
-      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=10000
-    depends_on:
-      - redis-master
-      - redis-slave
-    ports:
-      - "26380:26379"
-  redis-sentinel-3:
-    image: 'bitnami/redis-sentinel:latest'
-    container_name: sentinel-3
-    environment:
-      - REDIS_MASTER_SET=mymaster
-      - REDIS_MASTER_HOST=127.0.0.1
-      - REDIS_MASTER_PASSWORD=redispassword
-      - REDIS_SENTINEL_DOWN_AFTER_MILLISECONDS=10000
-    depends_on:
-      - redis-master
-      - redis-slave
-    ports:
-      - "26381:26379"
-
-  zookeeper1:
-    image: confluentinc/cp-zookeeper:7.5.1
-    container_name: zookeeper1
-    hostname: zookeeper1
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181 # porta interna => a mesma para integrar
-      ZOOKEEPER_TICK_TIME: 2000
-      ZOOKEEPER_SERVER_ID: 1
-      ZOOKEEPER_SERVERS: "zookeeper1:22888:23888"
-    ports: # AQUI: PORTA PARA O EXTERIOR : INTERNA
-      - 2181:2181
-    networks:
-      - broker-kafka
-
-  kafka1:
-    image: confluentinc/cp-kafka:7.5.1
-    container_name: kafka1
-    hostname: kafka1
-    restart: always
-    depends_on:
-      - zookeeper1
-    ports: #Porta externa
-      - 9093:9093
-    environment:
-      # KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT #MUDA SÒ OUTSIDE
-      KAFKA_LISTENERS: INTERNAL://:29092,OUTSIDE://:9093
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka1:29092,OUTSIDE://localhost:9093 #INTERNAL: Constante
-      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL # BrokerListener: INTERNAL
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      # KAFKA_LOG_DIRS: /var/lib/kafka/log
-    networks:
-      - broker-kafka
-
-
-  postgres:
-    image: postgres:16
-    restart: always
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: app_account_challenger
-    networks:
-      - broker-kafka
-    ports:
-      - 5432:5432
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+    redis:
+      image: "redis:alpine"
+      ports:
+        - 6379:6379
+      networks:
+        - broker-kafka
 
 networks:
   broker-kafka:

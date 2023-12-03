@@ -12,11 +12,12 @@ const _MSG_ERROR_MANDATORY_SEPARATOR = "Mandatory separator not found: %s"
 const _IDX_START_ENV_SEPARATOR = "${"
 const _IDX_END_ENV_SEPARATOR = "}"
 
-func ReplaceEnvNameToValue(value string) string {
-	if hasEnvToSubstitute(value) {
-		substituteEnvToValue(value)
+func ReplaceEnvNameToValue(value string) (string, bool) {
+	hasIdx := hasEnvToSubstitute(value)
+	if hasIdx {
+		return substituteEnvToValue(value), hasIdx
 	}
-	return value
+	return value, hasIdx
 }
 
 func hasEnvToSubstitute(value string) bool {

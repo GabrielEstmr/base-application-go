@@ -9,7 +9,7 @@ import (
 	main_usecases "baseapplicationgo/main/usecases"
 )
 
-func CreateNewUserBean() *main_usecases.CreateNewUser {
+func FindUserByIdBean() *main_usecases.FindUserById {
 
 	userRepository := main_gateways_mongodb_repositories.NewUserRepository()
 	var userDatabaseGateway main_gateways.UserDatabaseGateway = main_gateways_mongodb.NewUserDatabaseGatewayImpl(*userRepository)
@@ -19,5 +19,5 @@ func CreateNewUserBean() *main_usecases.CreateNewUser {
 
 	var cachedUserDatabaseGateway main_gateways.UserDatabaseGateway = main_gateways_mongodb.NewCachedUserDatabaseGatewayImpl(userDatabaseGateway, userDatabaseCacheGateway)
 
-	return main_usecases.NewCreateNewUser(cachedUserDatabaseGateway)
+	return main_usecases.NewFindUserById(cachedUserDatabaseGateway)
 }

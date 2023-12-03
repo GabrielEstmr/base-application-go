@@ -16,7 +16,7 @@ func NewResourceNotFoundException(messages []string) *ResourceNotFoundException 
 
 func NewResourceNotFoundExceptionSglMsg(message string) *ResourceNotFoundException {
 	return &ResourceNotFoundException{
-		code:     http.StatusConflict,
+		code:     http.StatusNotFound,
 		messages: []string{message},
 	}
 }

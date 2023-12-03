@@ -9,25 +9,48 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"log"
 	"log/slog"
+	"net"
 	"net/http"
+	"strings"
 )
 
 const _MSG_MALFORMED_REQUEST_BODY = "A require param was missing or malformed"
+const _PATH_PREFIX = "/users/"
 
 type UserController struct {
 	createNewUser main_usecases.CreateNewUser
+	findUserById  main_usecases.FindUserById
 	apLog         *slog.Logger
 }
 
-func NewUserController(createNewUser main_usecases.CreateNewUser) *UserController {
+func NewUserController(createNewUser main_usecases.CreateNewUser, findUserById main_usecases.FindUserById) *UserController {
 	return &UserController{
 		createNewUser,
+		findUserById,
 		main_configs_logs.GetLogConfigBean(),
 	}
 }
 
+func ReadUserIP(r *http.Request) string {
+	IPAddress := r.Header.Get("X-Real-Ip")
+	if IPAddress == "" {
+		IPAddress = r.Header.Get("X-Forwarded-For")
+	}
+	if IPAddress == "" {
+		IPAddress = r.RemoteAddr
+	}
+	return IPAddress
+}
+
 func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
+
+	ipAddress, port, err := net.SplitHostPort(ReadUserIP(r))
+	ip := net.ParseIP(ipAddress)
+	log.Println(ip)
+	log.Println(port)
+
 	requestBody, err := io.ReadAll(r.Body)
 	if err != nil || len(requestBody) == 0 {
 		errLog := errors.New(_MSG_MALFORMED_REQUEST_BODY)
@@ -52,6 +75,21 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 	user := userRequest.ToDomain()
 
 	persistedUser, errApp := this.createNewUser.Execute(user)
+	if errApp != nil {
+		this.apLog.Error(errApp.Error(), "Error", errApp)
+		main_utils.ERROR_APP(w, errApp)
+		return
+	}
+
+	main_utils.JSON(w, http.StatusCreated, main_gateways_ws_v1_response.NewUserResponse(persistedUser))
+}
+
+func (this *UserController) FindUserById(w http.ResponseWriter, r *http.Request) {
+
+	id := strings.TrimPrefix(r.URL.Path, _PATH_PREFIX)
+	log.Println(id)
+
+	persistedUser, errApp := this.findUserById.Execute(id)
 	if errApp != nil {
 		this.apLog.Error(errApp.Error(), "Error", errApp)
 		main_utils.ERROR_APP(w, errApp)

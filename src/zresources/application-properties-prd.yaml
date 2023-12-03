@@ -4,34 +4,34 @@ Application.Port:
 
 # MongoDB Properties
 MongoDB.URI:
-  value: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${DB_MONGO_HOST}:${DB_MONGO_PORT}
+  value: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${DB_MONGO_HOST}:27017
 MongoDB.DatabaseName:
-  value: mp-indicator
+  value: dbApplicationGo
 
-# Kafka Properties
-Kafka.bootstrap.servers:
-  value: ${KAFKA_HOST}:${KAFKA_PORT}
-Kafka.group.id:
-  value: ${KAFKA_GROUP_ID}
-Kafka.auto.offset.reset:
-  value: earliest
+## Kafka Properties
+#Kafka.bootstrap.servers:
+#  value: ${KAFKA_HOST}:${KAFKA_PORT}
+#Kafka.group.id:
+#  value: ${KAFKA_GROUP_ID}
+#Kafka.auto.offset.reset:
+#  value: earliest
+#
+## RabbitMQ Properties
+#RabbitMQ.URI:
+#  value: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:5672/${RABBITMQ_DEFAULT_VHOST}
 
-# RabbitMQ Properties
-RabbitMQ.URI:
-  value: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:${RABBITMQ_PORT}/${RABBITMQ_DEFAULT_VHOST}
-
-# Rest Integration Properties
-Integration.mp-order-search.url:
-  value: ${INTEGRATION_MP_ORDER_SEARCH_URL}/mp-order-search
+## Rest Integration Properties
+#Integration.mp-order-search.url:
+#  value: ${INTEGRATION_MP_ORDER_SEARCH_URL}/mp-order-search
 
 # Cache Properties
 Redis.hosts:
-  value: ${REDIS_HOST}:${REDIS_PORT}
+  value: ${REDIS_HOST}:6379
 
-# Tracing Properties
-Tracing.server.name:
-  value: mp-indicator-go
-Tracing.service.name.key:
-  value: mp-indicator-go
-Tracing.server.url:
-  value: ${ZIPKIN_HOST}:${ZIPKIN_PORT}/api/v2/spans
+## Tracing Properties
+#Tracing.server.name:
+#  value: mp-indicator-go
+#Tracing.service.name.key:
+#  value: mp-indicator-go
+#Tracing.server.url:
+#  value: ${ZIPKIN_HOST}:${ZIPKIN_PORT}/api/v2/spans

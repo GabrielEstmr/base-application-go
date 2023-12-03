@@ -4,23 +4,27 @@ import (
 	main_domains "baseapplicationgo/main/domains"
 	main_gateways_mongodb_documents "baseapplicationgo/main/gateways/mongodb/documents"
 	main_gateways_mongodb_repositories "baseapplicationgo/main/gateways/mongodb/repositories"
+	"time"
 )
 
 type UserDatabaseGatewayImpl struct {
-	userRepository *main_gateways_mongodb_repositories.UserRepository
+	userRepository main_gateways_mongodb_repositories.UserRepository
 }
 
-func NewUserDatabaseGatewayImpl(userRepository *main_gateways_mongodb_repositories.UserRepository) *UserDatabaseGatewayImpl {
+func NewUserDatabaseGatewayImpl(userRepository main_gateways_mongodb_repositories.UserRepository) *UserDatabaseGatewayImpl {
 	return &UserDatabaseGatewayImpl{userRepository}
 }
 
-func (this *UserDatabaseGatewayImpl) Save(user main_domains.User) (string, error) {
+func (this *UserDatabaseGatewayImpl) Save(user main_domains.User) (main_domains.User, error) {
+	now := time.Now()
+	user.CreatedDate = now
+	user.LastModifiedDate = now
 	userDocument := main_gateways_mongodb_documents.NewUserDocument(user)
-	id, err := this.userRepository.Save(userDocument)
+	persistedUserDocument, err := this.userRepository.Save(userDocument)
 	if err != nil {
-		return "", err
+		return main_domains.User{}, err
 	}
-	return id, nil
+	return persistedUserDocument.ToDomain(), nil
 }
 
 func (this *UserDatabaseGatewayImpl) FindById(id string) (main_domains.User, error) {

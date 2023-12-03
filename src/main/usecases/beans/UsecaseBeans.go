@@ -12,6 +12,7 @@ var usecaseBeans *UsecaseBeans
 
 type UsecaseBeans struct {
 	CreateNewUser main_usecases.CreateNewUser
+	FindUserById  main_usecases.FindUserById
 }
 
 func GetUsecaseBeans() *UsecaseBeans {
@@ -26,5 +27,6 @@ func GetUsecaseBeans() *UsecaseBeans {
 func subscriptUsecaseBeans() *UsecaseBeans {
 	return &UsecaseBeans{
 		CreateNewUser: *main_usecases_beans_factories.CreateNewUserBean(),
+		FindUserById:  *main_usecases_beans_factories.FindUserByIdBean(),
 	}
 }
