@@ -1,5 +1,7 @@
 package main_domains
 
+import "math"
+
 type Page struct {
 	content       []Content
 	page          int64
@@ -40,7 +42,7 @@ func NewContent(obj any) *Content {
 	return &Content{obj: obj}
 }
 
-func NewPage(
+func NewPageAllArgs(
 	content []Content,
 	page int64,
 	size int64,
@@ -53,4 +55,38 @@ func NewPage(
 		totalElements: totalElements,
 		totalPages:    totalPages,
 	}
+}
+
+func NewPage(
+	content []Content,
+	page int64,
+	size int64,
+	totalElements int64,
+) *Page {
+	return &Page{
+		content: content,
+		page:    page, size: size,
+		totalElements: totalElements,
+		totalPages:    buildTotalPages(size, totalElements),
+	}
+}
+
+func NewPageFromContentAndPage(
+	content []Content,
+	page Page,
+) *Page {
+	return NewPageAllArgs(
+		content,
+		page.GetPage(),
+		page.GetSize(),
+		page.GetTotalElements(),
+		page.GetTotalPages(),
+	)
+}
+
+func buildTotalPages(size int64,
+	totalElements int64) int64 {
+	var result float64
+	result = float64(totalElements) / float64(size)
+	return int64(math.Ceil(result))
 }

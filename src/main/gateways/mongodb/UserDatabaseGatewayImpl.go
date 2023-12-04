@@ -39,5 +39,14 @@ func (this *UserDatabaseGatewayImpl) FindByDocumentNumber(documentNumber string)
 
 func (this *UserDatabaseGatewayImpl) FindByFilter(filter main_domains.FindUserFilter, pageable main_domains.Pageable) (main_domains.Page, error) {
 	page, err := this.userRepository.FindByFilter(filter, pageable)
-	return *page, err
+	if err != nil {
+		return main_domains.Page{}, err
+	}
+	contentDoc := page.GetContent()
+	var content []main_domains.Content
+	for _, value := range contentDoc {
+		userDoc := value.GetObj().(main_gateways_mongodb_documents.UserDocument)
+		content = append(content, *main_domains.NewContent(userDoc.ToDomain()))
+	}
+	return *main_domains.NewPageFromContentAndPage(content, *page), err
 }

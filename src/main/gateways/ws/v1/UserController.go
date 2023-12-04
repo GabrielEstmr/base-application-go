@@ -65,7 +65,9 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	requestBody, err := io.ReadAll(r.Body)
 	if err != nil || len(requestBody) == 0 {
-		errLog := errors.New(main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(_USER_CONTROLLER_MSG_MALFORMED_REQUEST_BODY))
+		errLog := errors.New(
+			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(
+				_USER_CONTROLLER_MSG_MALFORMED_REQUEST_BODY))
 		main_utils.ERROR(w, http.StatusBadRequest, errLog)
 		return
 	}
@@ -128,30 +130,20 @@ func (this *UserController) FindUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	contentTest := page.GetContent()
-	var contentFinal []main_gateways_ws_v1_response.UserResponse
-	//contentFinal = append(contentFinal, *new(main_gateways_ws_v1_response.UserResponse))
-	for _, value := range contentTest {
-		contentFinal = append(contentFinal, main_gateways_ws_v1_response.NewUserResponse(value.GetObj().(main_domains.User)))
+	content := page.GetContent()
+	respContent := make([]main_gateways_ws_v1_response.UserResponse, 0)
+	for _, value := range content {
+		test := value.GetObj()
+		user := test.(main_domains.User)
+		respContent = append(respContent,
+			main_gateways_ws_v1_response.NewUserResponse(user))
 	}
-
-	if len(contentFinal) != 0 {
-
-		main_utils.JSON(w, http.StatusOK,
-			main_gateways_ws_commons.NewPageResponse(
-				contentFinal,
-				page.GetPage(),
-				page.GetSize(),
-				page.GetTotalElements(),
-				page.GetTotalPages()))
-	} else {
-		main_utils.JSON(w, http.StatusOK,
-			main_gateways_ws_commons.NewPageResponse(
-				make([]string, 0),
-				page.GetPage(),
-				page.GetSize(),
-				page.GetTotalElements(),
-				page.GetTotalPages()))
-	}
+	main_utils.JSON(w, http.StatusOK,
+		main_gateways_ws_commons.NewPageResponse(
+			respContent,
+			page.GetPage(),
+			page.GetSize(),
+			page.GetTotalElements(),
+			page.GetTotalPages()))
 
 }
