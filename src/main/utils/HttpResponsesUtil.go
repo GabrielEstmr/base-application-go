@@ -9,6 +9,8 @@ import (
 	"strconv"
 )
 
+const _ERROR_UTILS_MSG_ARCH_ISSUE = "Architecture application issue"
+
 type ResponseError struct {
 	Code     string   `json:"code"`
 	Messages []string `json:"message"`
@@ -31,7 +33,7 @@ func newResponseErrorSglMsg(code string, message string) *ResponseError {
 func JSON(w http.ResponseWriter, statusCode int, data interface{}) {
 	w.WriteHeader(statusCode)
 	if err := json.NewEncoder(w).Encode(&data); err != nil {
-		json.NewEncoder(w).Encode(newResponseErrorSglMsg(strconv.Itoa(statusCode), "InternalServerError"))
+		json.NewEncoder(w).Encode(newResponseErrorSglMsg(strconv.Itoa(statusCode), _ERROR_UTILS_MSG_ARCH_ISSUE))
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Fatal(err)
 	}

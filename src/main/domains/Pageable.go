@@ -1,15 +1,15 @@
 package main_domains
 
 type Pageable struct {
-	page int
-	size int
-	sort string
+	page int64
+	size int64
+	sort map[string]int
 }
 
 func NewPageable(
-	page int,
-	size int,
-	sort string) *Pageable {
+	page int64,
+	size int64,
+	sort map[string]int) *Pageable {
 	return &Pageable{
 		page: page,
 		size: size,
@@ -17,14 +17,22 @@ func NewPageable(
 	}
 }
 
-func (p *Pageable) getPage() int {
-	return p.page
+func (this *Pageable) GetPage() int64 {
+	return this.page
 }
 
-func (p *Pageable) getSize() int {
-	return p.size
+func (this *Pageable) GetSize() int64 {
+	return this.size
 }
 
-func (p *Pageable) getSort() string {
-	return p.sort
+func (this *Pageable) GetSort() map[string]int {
+	return this.sort
+}
+
+func (this *Pageable) SetSort(sort map[string]int) {
+	this.sort = sort
+}
+
+func (this *Pageable) HasEmptySort() bool {
+	return len(this.sort) == 0
 }

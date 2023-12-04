@@ -1,24 +1,25 @@
 package main_gateways_ws_commons
 
-import (
-	"encoding/json"
-	"io"
-)
+import main_domains "baseapplicationgo/main/domains"
 
 type PageResponse struct {
-	Content       any
-	Page          int
-	Size          int
-	TotalElements int
-	TotalPages    int
+	Content       any   `json:"Content"`
+	Page          int64 `json:"Page"`
+	Size          int64 `json:"Size"`
+	TotalElements int64 `json:"TotalElements"`
+	TotalPages    int64 `json:"TotalPages"`
 }
 
-func (this *PageResponse) FromJSON(r io.Reader) error {
-	d := json.NewDecoder(r)
-	return d.Decode(this)
+func NewPageResponse(content any, page int64, size int64, totalElements int64, totalPages int64) *PageResponse {
+	return &PageResponse{Content: content, Page: page, Size: size, TotalElements: totalElements, TotalPages: totalPages}
 }
 
-func (this *PageResponse) ToJSON(w io.Writer) error {
-	e := json.NewEncoder(w)
-	return e.Encode(this)
+func NewPageResponseFromPage(page main_domains.Page) *PageResponse {
+	return &PageResponse{
+		Content:       page.GetContent(),
+		Page:          page.GetPage(),
+		Size:          page.GetSize(),
+		TotalElements: page.GetTotalElements(),
+		TotalPages:    page.GetTotalPages(),
+	}
 }

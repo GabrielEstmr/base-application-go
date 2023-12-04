@@ -1,18 +1,51 @@
 package main_domains
 
 type Page struct {
-	content       []any
-	page          int
-	size          int
-	totalElements int
-	totalPages    int
+	content       []Content
+	page          int64
+	size          int64
+	totalElements int64
+	totalPages    int64
+}
+
+func (this *Page) GetContent() []Content {
+	return this.content
+}
+
+func (this *Page) GetPage() int64 {
+	return this.page
+}
+
+func (this *Page) GetSize() int64 {
+	return this.size
+}
+
+func (this *Page) GetTotalElements() int64 {
+	return this.totalElements
+}
+
+func (this *Page) GetTotalPages() int64 {
+	return this.totalPages
+}
+
+type Content struct {
+	obj any
+}
+
+func (c Content) GetObj() any {
+	return c.obj
+}
+
+func NewContent(obj any) *Content {
+	return &Content{obj: obj}
 }
 
 func NewPage(
-	content []any,
-	page int, size int,
-	totalElements int,
-	totalPages int,
+	content []Content,
+	page int64,
+	size int64,
+	totalElements int64,
+	totalPages int64,
 ) *Page {
 	return &Page{
 		content: content,
@@ -20,24 +53,4 @@ func NewPage(
 		totalElements: totalElements,
 		totalPages:    totalPages,
 	}
-}
-
-func (p Page) getContent() []any {
-	return p.content
-}
-
-func (p Page) getPage() int {
-	return p.page
-}
-
-func (p Page) getSize() int {
-	return p.size
-}
-
-func (p Page) getTotalElements() int {
-	return p.totalElements
-}
-
-func (p Page) getTotalPages() int {
-	return p.totalPages
 }

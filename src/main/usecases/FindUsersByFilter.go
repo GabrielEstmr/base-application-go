@@ -26,8 +26,9 @@ func NewFindUsersByFilter(
 }
 
 func (this *FindUsersByFilter) Execute(
-	filter main_domains.FindUserFilter) (main_domains.Page, main_domains_exceptions.ApplicationException) {
-	page, err := this.userDatabaseGateway.FindByFilter(filter)
+	filter main_domains.FindUserFilter,
+	pageable main_domains.Pageable) (main_domains.Page, main_domains_exceptions.ApplicationException) {
+	page, err := this.userDatabaseGateway.FindByFilter(filter, pageable)
 	if err != nil {
 		return main_domains.Page{},
 			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(

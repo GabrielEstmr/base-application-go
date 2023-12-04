@@ -37,7 +37,7 @@ func (this *UserDatabaseGatewayImpl) FindByDocumentNumber(documentNumber string)
 	return userDocument.ToDomain(), err
 }
 
-func (this *UserDatabaseGatewayImpl) FindByFilter(filter main_domains.FindUserFilter) (main_domains.Page, error) {
-	page, err := this.userRepository.FindByFilter(filter)
+func (this *UserDatabaseGatewayImpl) FindByFilter(filter main_domains.FindUserFilter, pageable main_domains.Pageable) (main_domains.Page, error) {
+	page, err := this.userRepository.FindByFilter(filter, pageable)
 	return *page, err
 }

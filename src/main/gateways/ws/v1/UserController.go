@@ -3,6 +3,8 @@ package main_gateways_ws_v1
 import (
 	main_configs_logs "baseapplicationgo/main/configs/log"
 	main_configs_messages "baseapplicationgo/main/configs/messages"
+	main_domains "baseapplicationgo/main/domains"
+	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
 	main_gateways_ws_v1_request "baseapplicationgo/main/gateways/ws/v1/request"
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
 	main_usecases "baseapplicationgo/main/usecases"
@@ -23,15 +25,21 @@ const _USER_CONTROLLER_MSG_MALFORMED_REQUEST_BODY = "controllers.param.missing.o
 const _USER_CONTROLLER_PATH_PREFIX = "/users/"
 
 type UserController struct {
-	createNewUser main_usecases.CreateNewUser
-	findUserById  main_usecases.FindUserById
-	apLog         *slog.Logger
+	createNewUser     *main_usecases.CreateNewUser
+	findUserById      *main_usecases.FindUserById
+	findUsersByFilter *main_usecases.FindUsersByFilter
+	apLog             *slog.Logger
 }
 
-func NewUserController(createNewUser main_usecases.CreateNewUser, findUserById main_usecases.FindUserById) *UserController {
+func NewUserController(
+	createNewUser *main_usecases.CreateNewUser,
+	findUserById *main_usecases.FindUserById,
+	findUsersByFilter *main_usecases.FindUsersByFilter,
+) *UserController {
 	return &UserController{
 		createNewUser,
 		findUserById,
+		findUsersByFilter,
 		main_configs_logs.GetLogConfigBean(),
 	}
 }
@@ -98,20 +106,52 @@ func (this *UserController) FindUserById(w http.ResponseWriter, r *http.Request)
 
 func (this *UserController) FindUser(w http.ResponseWriter, r *http.Request) {
 	this.apLog.Info("Finding User by query")
-	filter, err := new(main_gateways_ws_v1_request.FindUserFilterRequest).FindUserFilterToObject(w, r)
+	filter, err1 := new(main_gateways_ws_v1_request.FindUserFilterRequest).QueryParamsToObject(w, r)
+	if err1 != nil {
+		main_utils.ERROR_APP(w, err1)
+		return
+	}
+
+	pageableReq, err2 := new(main_gateways_ws_commons.PageableRequest).QueryParamsToObject(w, r)
+	if err2 != nil {
+		main_utils.ERROR_APP(w, err2)
+		return
+	}
+	pageable, errT := pageableReq.ToDomain()
+	if errT != nil {
+		main_utils.ERROR(w, http.StatusInternalServerError, errT)
+		return
+	}
+	page, err := this.findUsersByFilter.Execute(filter.ToDomain(), pageable)
 	if err != nil {
-		main_utils.ERROR(w, err)
+		main_utils.ERROR_APP(w, err)
 		return
 	}
 
-	id := strings.TrimPrefix(r.URL.Path, _USER_CONTROLLER_PATH_PREFIX)
-	log.Println(id)
-
-	persistedUser, errApp := this.findUserById.Execute(id)
-	if errApp != nil {
-		main_utils.ERROR_APP(w, errApp)
-		return
+	contentTest := page.GetContent()
+	var contentFinal []main_gateways_ws_v1_response.UserResponse
+	//contentFinal = append(contentFinal, *new(main_gateways_ws_v1_response.UserResponse))
+	for _, value := range contentTest {
+		contentFinal = append(contentFinal, main_gateways_ws_v1_response.NewUserResponse(value.GetObj().(main_domains.User)))
 	}
 
-	main_utils.JSON(w, http.StatusCreated, main_gateways_ws_v1_response.NewUserResponse(persistedUser))
+	if len(contentFinal) != 0 {
+
+		main_utils.JSON(w, http.StatusOK,
+			main_gateways_ws_commons.NewPageResponse(
+				contentFinal,
+				page.GetPage(),
+				page.GetSize(),
+				page.GetTotalElements(),
+				page.GetTotalPages()))
+	} else {
+		main_utils.JSON(w, http.StatusOK,
+			main_gateways_ws_commons.NewPageResponse(
+				make([]string, 0),
+				page.GetPage(),
+				page.GetSize(),
+				page.GetTotalElements(),
+				page.GetTotalPages()))
+	}
+
 }

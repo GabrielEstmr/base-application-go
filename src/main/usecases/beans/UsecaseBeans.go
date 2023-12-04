@@ -11,8 +11,9 @@ var once sync.Once
 var usecaseBeans *UsecaseBeans
 
 type UsecaseBeans struct {
-	CreateNewUser main_usecases.CreateNewUser
-	FindUserById  main_usecases.FindUserById
+	CreateNewUser     *main_usecases.CreateNewUser
+	FindUserById      *main_usecases.FindUserById
+	FindUsersByFilter *main_usecases.FindUsersByFilter
 }
 
 func GetUsecaseBeans() *UsecaseBeans {
@@ -26,7 +27,8 @@ func GetUsecaseBeans() *UsecaseBeans {
 
 func subscriptUsecaseBeans() *UsecaseBeans {
 	return &UsecaseBeans{
-		CreateNewUser: *main_usecases_beans_factories.CreateNewUserBean(),
-		FindUserById:  *main_usecases_beans_factories.FindUserByIdBean(),
+		CreateNewUser:     main_usecases_beans_factories.NewCreateNewUserBean().Get(),
+		FindUserById:      main_usecases_beans_factories.NewFindUserByIdBean().Get(),
+		FindUsersByFilter: main_usecases_beans_factories.NewFindUsersByFilterBean().Get(),
 	}
 }
