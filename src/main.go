@@ -2,10 +2,10 @@ package main
 
 import (
 	main_configs "baseapplicationgo/main/configs"
+	main_error "baseapplicationgo/main/configs/error"
 	mainConfigsRouterHttp "baseapplicationgo/main/configs/router"
 	main_configs_yml "baseapplicationgo/main/configs/yml"
 	mainGatewaysWs "baseapplicationgo/main/gateways/ws"
-	main_utils "baseapplicationgo/main/utils"
 	"log"
 	"net/http"
 )
@@ -27,7 +27,7 @@ func main() {
 
 	err := http.ListenAndServe(":"+applicationPort, router)
 	if err != nil {
-		main_utils.FailOnError(err, MSG_APPLICATION_FAILED)
+		main_error.FailOnError(err, MSG_APPLICATION_FAILED)
 	}
 	log.Printf(MSG_LISTENER, applicationPort)
 }

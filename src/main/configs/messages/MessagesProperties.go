@@ -1,8 +1,8 @@
 package main_configs_messages
 
 import (
+	main_error "baseapplicationgo/main/configs/error"
 	main_configs_messages_resources "baseapplicationgo/main/configs/messages/resources"
-	main_utils "baseapplicationgo/main/utils"
 	"bufio"
 	"fmt"
 	"log/slog"
@@ -39,7 +39,7 @@ func getMessagesConfig() *main_configs_messages_resources.ApplicationMessages {
 		lang := langEnum.GetLanguageProfileDescription()
 		msgFilePath := _MSG_BASE_DIRECTORY_MAIN_REFERENCE + getFileName(lang)
 		file, err := os.Open(msgFilePath)
-		main_utils.FailOnError(err, _MSG_ERROR_READ_MSG)
+		main_error.FailOnError(err, _MSG_ERROR_READ_MSG)
 		scanner := bufio.NewScanner(file)
 		for scanner.Scan() {
 			line := scanner.Text()

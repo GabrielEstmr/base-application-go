@@ -9,7 +9,14 @@ import (
 	main_usecases "baseapplicationgo/main/usecases"
 )
 
-func FindUserByIdBean() *main_usecases.FindUserById {
+type FindUserByIdBean struct {
+}
+
+func NewFindUserByIdBean() *FindUserByIdBean {
+	return &FindUserByIdBean{}
+}
+
+func (this *FindUserByIdBean) Get() *main_usecases.FindUserById {
 
 	userRepository := main_gateways_mongodb_repositories.NewUserRepository()
 	var userDatabaseGateway main_gateways.UserDatabaseGateway = main_gateways_mongodb.NewUserDatabaseGatewayImpl(*userRepository)

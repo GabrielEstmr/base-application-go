@@ -19,6 +19,8 @@
   - https://redis.uptrace.dev/guide/go-redis.html
 - [ ] Review Redis Repository: findByDocumentNumber
 - [ ] Get Locale from proxy
+- [ ] HATEOS golang
+- [ ] Colocar struct nos beans de usecases
 
 ## Notes:
 

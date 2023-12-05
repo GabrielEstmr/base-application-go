@@ -1,4 +1,4 @@
-package main_utils
+package main_error
 
 import "log"
 

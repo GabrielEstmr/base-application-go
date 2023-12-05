@@ -2,7 +2,7 @@ package main_configs_profile
 
 import (
 	configsEnv "baseapplicationgo/main/configs/env"
-	utils "baseapplicationgo/main/utils"
+	main_error "baseapplicationgo/main/configs/error"
 	"log/slog"
 	"sync"
 )
@@ -28,7 +28,7 @@ func getProfile() *ApplicationProfile {
 	slog.Info(_MSG_INITIALIZING_PROFILE_BEANS)
 	profile := configsEnv.GetBeanPropertyByName(configsEnv.MP_INDICATOR_APPLICATION_PROFILE)
 	appProfile, err := FindApplicationProfileByDescription(profile)
-	utils.FailOnError(err, _MSG_ERROR_TO_GET_PROFILE)
+	main_error.FailOnError(err, _MSG_ERROR_TO_GET_PROFILE)
 	slog.Info(_MSG_PROFILE_BEANS_INITIATED)
 	return &appProfile
 }

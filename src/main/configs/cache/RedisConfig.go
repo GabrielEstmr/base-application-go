@@ -9,7 +9,7 @@ import (
 )
 
 const _MSG_ATTEMPT_TO_CONNECT_TO_REDIS_CLIENT = "Attempt to connect to redis client %s"
-const _MSG_SUCECSSFULLY_CONNECTED_TO_REDIS_CLIENT = "Successfully connected to redis client %s"
+const _MSG_SUCESSFULLY_CONNECTED_TO_REDIS_CLIENT = "Successfully connected to redis client %s"
 
 const _REDIS_HOST_NODE1 = "Redis.hosts"
 
@@ -43,6 +43,6 @@ func getRedisCluster() *redis.Client {
 		panic(err)
 	}
 
-	slog.Info(_MSG_SUCECSSFULLY_CONNECTED_TO_REDIS_CLIENT, redisHost)
+	slog.Info(_MSG_SUCESSFULLY_CONNECTED_TO_REDIS_CLIENT, redisHost)
 	return client
 }

@@ -9,7 +9,14 @@ import (
 	main_usecases "baseapplicationgo/main/usecases"
 )
 
-func CreateNewUserBean() *main_usecases.CreateNewUser {
+type CreateNewUserBean struct {
+}
+
+func NewCreateNewUserBean() *CreateNewUserBean {
+	return &CreateNewUserBean{}
+}
+
+func (this *CreateNewUserBean) Get() *main_usecases.CreateNewUser {
 
 	userRepository := main_gateways_mongodb_repositories.NewUserRepository()
 	var userDatabaseGateway main_gateways.UserDatabaseGateway = main_gateways_mongodb.NewUserDatabaseGatewayImpl(*userRepository)

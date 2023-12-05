@@ -1,8 +1,8 @@
 package main_configs_yml
 
 import (
+	main_error "baseapplicationgo/main/configs/error"
 	main_configs_profile "baseapplicationgo/main/configs/profile"
-	utils "baseapplicationgo/main/utils"
 	"fmt"
 	"gopkg.in/yaml.v3"
 	"log/slog"
@@ -42,11 +42,11 @@ func getYmlConfig() *map[string]property {
 		_YML_FILE_DEFAULT_BASE_NAME, profile)
 
 	yFile, err := os.ReadFile(ymlPath)
-	utils.FailOnError(err, _MSG_ERROR_READ_YML)
+	main_error.FailOnError(err, _MSG_ERROR_READ_YML)
 
 	data := make(map[string]property)
 	err2 := yaml.Unmarshal(yFile, &data)
-	utils.FailOnError(err2, _MSG_ERROR_PARSE_YML)
+	main_error.FailOnError(err2, _MSG_ERROR_PARSE_YML)
 
 	for key, _ := range data {
 		for {

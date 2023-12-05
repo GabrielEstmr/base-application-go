@@ -5,8 +5,18 @@ import (
 	main_usecases_beans "baseapplicationgo/main/usecases/beans"
 )
 
-func UserControllerBeanFactory() *main_gateways_ws_v1.UserController {
+type UserControllerBean struct {
+}
+
+func NewUserControllerBean() *UserControllerBean {
+	return &UserControllerBean{}
+}
+
+func (this *UserControllerBean) Get() *main_gateways_ws_v1.UserController {
 	usecaseBeans := main_usecases_beans.GetUsecaseBeans()
-	userController := *main_gateways_ws_v1.NewUserController(usecaseBeans.CreateNewUser, usecaseBeans.FindUserById)
+	userController := *main_gateways_ws_v1.NewUserController(
+		usecaseBeans.CreateNewUser,
+		usecaseBeans.FindUserById,
+		usecaseBeans.FindUsersByFilter)
 	return &userController
 }
