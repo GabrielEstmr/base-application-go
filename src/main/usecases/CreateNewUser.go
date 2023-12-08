@@ -18,6 +18,10 @@ type CreateNewUser struct {
 	apLog               *slog.Logger
 }
 
+func NewCreateNewUserAllArgs(userDatabaseGateway main_gateways.UserDatabaseGateway, apLog *slog.Logger) *CreateNewUser {
+	return &CreateNewUser{userDatabaseGateway: userDatabaseGateway, apLog: apLog}
+}
+
 func NewCreateNewUser(
 	userDatabaseGateway main_gateways.UserDatabaseGateway,
 ) *CreateNewUser {
