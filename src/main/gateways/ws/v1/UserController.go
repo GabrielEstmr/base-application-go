@@ -9,15 +9,23 @@ import (
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
 	main_usecases "baseapplicationgo/main/usecases"
 	main_utils "baseapplicationgo/main/utils"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
 	"io"
 	"log"
 	"log/slog"
+	"math/rand"
 	"net"
 	"net/http"
 	"strings"
+)
+
+var (
+	meter = otel.Meter("rolldice")
 )
 
 const _USER_CONTROLLER_MSG_MALFORMED_REQUEST_BODY = "controllers.param.missing.or.malformed"
@@ -56,6 +64,22 @@ func ReadUserIP(r *http.Request) string {
 }
 
 func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
+
+	tracer := otel.Tracer("test-tracer")
+	ctx := context.Background()
+	// work begins
+	ctx, span := tracer.Start(
+		ctx,
+		"CollectorExporter-Example")
+	defer span.End()
+	roll := 1 + rand.Intn(6)
+	rollCnt, err := meter.Int64Counter("dice.rolls")
+	rollValueAttr := attribute.Int("roll.value", roll)
+	if err != nil {
+		panic(err)
+	}
+	span.SetAttributes(rollValueAttr)
+	rollCnt.Add(ctx, 1)
 
 	// TODO get locale from ip
 	ipAddress, port, err := net.SplitHostPort(ReadUserIP(r))

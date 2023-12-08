@@ -26,6 +26,10 @@ const MSG_APPLICATION_FAILED = "Application has failed to start"
 const MSG_LISTENER = "Listener on port: %s"
 const IDX_APPLICATION_PORT = "Application.Port"
 
+var (
+	meter = otel.Meter("rolldice")
+)
+
 func init() {
 	main_configs.InitConfigBeans()
 }
