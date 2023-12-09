@@ -1,6 +1,5 @@
 version: "3.9"
 services:
-
     app-account-challenger:
       build:
         context: ./
@@ -12,14 +11,7 @@ services:
         DB_MONGO_HOST: mongo
         REDIS_HOST: redis
         OTEL_SERVICE_NAME: your-service-name
-#        OTEL_TRACES_EXPORTER: otlp
-#        OTEL_METRICS_EXPORTER: otlp
-#        OTEL_LOGS_EXPORTER: otlp
-        OTLP_ENDPOINT_MINE: otel-collector:4317
-#        OTEL_EXPORTER_OTLP_ENDPOINT: otel-collector:4317
-#        OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: otel-collector:4317
-#        OTEL_EXPORTER_OTLP_INSECURE: true
-#        OTEL_EXPORTER_OTLP_TRACES_INSECURE: true
+        CLUSTER_OTLP_ENDPOINT_ENV: otel-collector:4317
       ports:
         - "8080:8080"
       depends_on:
@@ -27,7 +19,6 @@ services:
         - redis
       networks:
         - broker-base-go
-
     mongo:
       image: mongo:latest
       environment:
@@ -39,14 +30,12 @@ services:
         - 27017:27017
       networks:
         - broker-base-go
-
     redis:
       image: "redis:alpine"
       ports:
         - 6379:6379
       networks:
         - broker-base-go
-
     otel-collector:
       image: otel/opentelemetry-collector-contrib:0.82.0
       restart: always

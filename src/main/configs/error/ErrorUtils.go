@@ -1,4 +1,4 @@
-package main_error
+package main_configs_error
 
 import "log"
 

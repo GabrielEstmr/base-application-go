@@ -28,10 +28,8 @@ MongoDB.DatabaseName:
 Redis.hosts:
   value: ${REDIS_HOST}:6379
 
-## Tracing Properties
-#Tracing.server.name:
-#  value: mp-indicator-go
-#Tracing.service.name.key:
-#  value: mp-indicator-go
-#Tracing.server.url:
-#  value: ${ZIPKIN_HOST}:${ZIPKIN_PORT}/api/v2/spans
+# APM Properties
+Apm.server.otlp.collector.grpc.host:
+  value: ${CLUSTER_OTLP_ENDPOINT_ENV}
+Apm.server.name:
+  value: app-base-go

@@ -28,10 +28,8 @@ MongoDB.DatabaseName:
 Redis.hosts:
   value: localhost:6379
 
-## Tracing Properties
-#Tracing.server.name:
-#  value: mp-indicator-go
-#Tracing.service.name.key:
-#  value: mp-indicator-go
-#Tracing.server.url:
-#  value: http://localhost:9411/api/v2/spans
+# APM Properties
+Apm.server.otlp.collector.grpc.host:
+  value: http://localhost/4317
+Apm.server.name:
+  value: app-base-go
