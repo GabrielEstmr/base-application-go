@@ -5,21 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docker/grafana/golang-prometheus-dash.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/google-java-format.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/google-java-format.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/prometheus/prometheus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/prometheus/prometheus.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/LogCollectorConfig.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/resources/LogProvider.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/resources/LogProviderConfig.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/LogsGateway.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/request/CreateLogRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/request/LogMessage.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/request/Stream.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/request/Streams.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/request/Test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/apm/ApmConfig.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/apm/ApmConfig.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-es-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-es-bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/log/GetLogConfigBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/log/GetLogConfigBean.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/mongodb/MongoClientConfiguration.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/mongodb/MongoClientConfiguration.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/application-properties-hmg.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/application-properties-hmg.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/application-properties-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/application-properties-local.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/application-properties-prd.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/application-properties-prd.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
@@ -33,6 +54,10 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feat/add-monitoring" />
+                    <option name="lastUsedInstant" value="1702248682" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="feat/prometheus" />
                     <option name="lastUsedInstant" value="1702229627" />
@@ -53,10 +78,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2ZMQhh12gJzBwmxrmhrGURe1iPQ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -64,14 +89,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Go Build.go build baseapplicationgo.executor": "Run",
+    "DefaultGoTemplateProperty": "Go File",
+    "Go Build.go build baseapplicationgo.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "feat/prometheus",
+    "git-widget-placeholder": "feat/add-monitoring",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "last_opened_file_path": "/home/gabriel/Documents/Projects/base-application-go/docker/grafana",
@@ -124,9 +150,29 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main.go</url>
+          <url>file://$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go</url>
           <line>50</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go</url>
+          <line>37</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go</url>
+          <line>47</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go</url>
+          <line>45</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/logs/request/CreateLogRequest.go</url>
+          <line>11</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

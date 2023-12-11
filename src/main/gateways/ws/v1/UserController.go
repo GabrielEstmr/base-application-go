@@ -4,6 +4,7 @@ import (
 	main_configs_logs "baseapplicationgo/main/configs/log"
 	main_configs_messages "baseapplicationgo/main/configs/messages"
 	main_domains "baseapplicationgo/main/domains"
+	main_gateways_logs "baseapplicationgo/main/gateways/logs"
 	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
 	main_gateways_ws_v1_request "baseapplicationgo/main/gateways/ws/v1/request"
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
@@ -72,6 +73,14 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 		ctx,
 		"CollectorExporter-Example")
 	defer span.End()
+
+	go main_gateways_logs.NewLogsGatewayImpl().Error(
+		span.SpanContext().TraceID().String(),
+		span.SpanContext().SpanID().String(),
+		"LOG START APPLICATION",
+		"!",
+	)
+
 	roll := 1 + rand.Intn(6)
 	rollCnt, err := meter.Int64Counter("dice.rolls")
 	rollValueAttr := attribute.Int("roll.value", roll)
@@ -132,6 +141,22 @@ func (this *UserController) FindUserById(w http.ResponseWriter, r *http.Request)
 
 func (this *UserController) FindUser(w http.ResponseWriter, r *http.Request) {
 	this.apLog.Info("Finding User by query")
+
+	tracer := otel.Tracer("test-tracer")
+	ctx := context.Background()
+	// work begins
+	ctx, span := tracer.Start(
+		ctx,
+		"CollectorExporter-Example")
+	defer span.End()
+
+	go main_gateways_logs.NewLogsGatewayImpl().Error(
+		span.SpanContext().TraceID().String(),
+		span.SpanContext().SpanID().String(),
+		"LOG START APPLICATION",
+		"!",
+	)
+
 	filter, err1 := new(main_gateways_ws_v1_request.FindUserFilterRequest).QueryParamsToObject(w, r)
 	if err1 != nil {
 		main_utils.ERROR_APP(w, err1)

@@ -55,7 +55,7 @@ import (
 )
 
 func main() {
-	fmt.Print("Some log message")
+	fmt.Print("Some logs message")
 	auxiliar.Execute("id")
 }
 ```

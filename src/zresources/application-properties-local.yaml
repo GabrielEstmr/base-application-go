@@ -29,7 +29,11 @@ Redis.hosts:
   value: localhost:6379
 
 # APM Properties
-Apm.server.otlp.collector.grpc.host:
-  value: http://localhost/4317
 Apm.server.name:
   value: app-base-go
+Apm.server.otlp.collector.grpc.host:
+  value: http://localhost/4317
+Apm.server.loki.collector.http.host:
+  value: 127.0.0.1/3100
+Apm.server.loki.collector.http.timeout.milliseconds:
+  value: 2000

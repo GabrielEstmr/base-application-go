@@ -6,7 +6,7 @@ import (
 	"sync"
 )
 
-const _MSG_INITIALIZING_LOG_BEANS = "Initializing log configuration beans"
+const _MSG_INITIALIZING_LOG_BEANS = "Initializing logs configuration beans"
 const _MSG_LOG_BEANS_INITIATED = "Log configuration beans successfully initiated"
 
 var once sync.Once

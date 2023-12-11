@@ -29,7 +29,11 @@ Redis.hosts:
   value: ${REDIS_HOST}:6379
 
 # APM Properties
-Apm.server.otlp.collector.grpc.host:
-  value: ${CLUSTER_OTLP_ENDPOINT_ENV}
 Apm.server.name:
   value: app-base-go
+Apm.server.otlp.collector.grpc.host:
+  value: ${CLUSTER_OTLP_ENDPOINT_ENV}
+Apm.server.loki.collector.http.host:
+  value: ${CLUSTER_LOKI_ENDPOINT_ENV}
+Apm.server.loki.collector.http.timeout.milliseconds:
+  value: 2000
