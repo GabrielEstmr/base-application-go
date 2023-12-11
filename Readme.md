@@ -14,10 +14,10 @@
 - [ ] OTEL integration
 - [X] Request Validation
 - [X] Logs
-- [ ] How to unmarshall structs with private props
+- [X] How to unmarshall structs with private props
 - [ ] Review Redis Repository (With Sentinel)
   - https://redis.uptrace.dev/guide/go-redis.html
-- [ ] Review Redis Repository: findByDocumentNumber
+- [X] Review Redis Repository: findByDocumentNumber
 - [ ] Get Locale from proxy
 - [ ] HATEOS golang
 - [ ] Colocar struct nos beans de usecases
@@ -55,7 +55,7 @@ import (
 )
 
 func main() {
-	fmt.Print("Some log message")
+	fmt.Print("Some logs message")
 	auxiliar.Execute("id")
 }
 ```

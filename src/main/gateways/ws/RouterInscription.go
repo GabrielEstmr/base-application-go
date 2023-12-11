@@ -59,6 +59,7 @@ func ConfigRoutes(r *mux.Router, routes []Route) *mux.Router {
 	for _, route := range routes {
 		r.HandleFunc(route.URI, route.Function).Methods(route.Method)
 	}
+
 	sh := http.StripPrefix("/swagger-ui/", http.FileServer(http.Dir("./main/configs/doc/dist/")))
 	r.PathPrefix("/swagger-ui/").Handler(sh)
 	return r

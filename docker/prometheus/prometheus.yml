@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 10s
+  evaluation_interval: 10s
+
+scrape_configs:
+  - job_name: 'otel-collector'
+    static_configs:
+      - targets: ['otel-collector:8889']
+  - job_name: 'app-base-go'
+    static_configs:
+      - targets: [ 'app-account-challenger:8080' ]
