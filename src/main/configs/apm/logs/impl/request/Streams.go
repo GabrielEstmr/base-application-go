@@ -1,4 +1,4 @@
-package main_gateways_logs_request
+package main_configs_apm_logs_impl_request
 
 import (
 	"strconv"

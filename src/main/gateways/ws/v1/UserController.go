@@ -1,24 +1,22 @@
 package main_gateways_ws_v1
 
 import (
-	main_configs_logs "baseapplicationgo/main/configs/log"
+	main_configs_apm_logs_impl "baseapplicationgo/main/configs/apm/logs/impl"
 	main_configs_messages "baseapplicationgo/main/configs/messages"
 	main_domains "baseapplicationgo/main/domains"
-	main_gateways_logs "baseapplicationgo/main/gateways/logs"
 	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
 	main_gateways_ws_v1_request "baseapplicationgo/main/gateways/ws/v1/request"
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
 	main_usecases "baseapplicationgo/main/usecases"
 	main_utils "baseapplicationgo/main/utils"
-	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 	"io"
 	"log"
-	"log/slog"
 	"math/rand"
 	"net"
 	"net/http"
@@ -37,7 +35,7 @@ type UserController struct {
 	createNewUser     *main_usecases.CreateNewUser
 	findUserById      *main_usecases.FindUserById
 	findUsersByFilter *main_usecases.FindUsersByFilter
-	apLog             *slog.Logger
+	logLoki           main_configs_apm_logs_impl.LogsGateway
 }
 
 func NewUserController(
@@ -49,7 +47,7 @@ func NewUserController(
 		createNewUser,
 		findUserById,
 		findUsersByFilter,
-		main_configs_logs.GetLogConfigBean(),
+		main_configs_apm_logs_impl.NewLogsGatewayImpl(),
 	}
 }
 
@@ -66,20 +64,10 @@ func ReadUserIP(r *http.Request) string {
 
 func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 
-	tracer := otel.Tracer("test-tracer")
-	ctx := context.Background()
-	// work begins
-	ctx, span := tracer.Start(
-		ctx,
-		"CollectorExporter-Example")
+	span := trace.SpanFromContext(r.Context())
 	defer span.End()
 
-	go main_gateways_logs.NewLogsGatewayImpl().Error(
-		span.SpanContext().TraceID().String(),
-		span.SpanContext().SpanID().String(),
-		"LOG START APPLICATION",
-		"!",
-	)
+	this.logLoki.INFO(span, "Creating a new user")
 
 	roll := 1 + rand.Intn(6)
 	rollCnt, err := meter.Int64Counter("dice.rolls")
@@ -88,7 +76,7 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	span.SetAttributes(rollValueAttr)
-	rollCnt.Add(ctx, 1)
+	rollCnt.Add(r.Context(), 1)
 
 	// TODO get locale from ip
 	ipAddress, port, err := net.SplitHostPort(ReadUserIP(r))
@@ -118,7 +106,7 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	user := userRequest.ToDomain()
 
-	persistedUser, errApp := this.createNewUser.Execute(user)
+	persistedUser, errApp := this.createNewUser.Execute(r.Context(), user)
 	if errApp != nil {
 		main_utils.ERROR_APP(w, errApp)
 		return
@@ -128,8 +116,14 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (this *UserController) FindUserById(w http.ResponseWriter, r *http.Request) {
+
+	tracer := otel.Tracer("UserController")
+	_, span := tracer.Start(r.Context(), "FindUserById")
+	defer span.End()
+	this.logLoki.INFO(span, "Finding User by id")
+
 	id := strings.TrimPrefix(r.URL.Path, _USER_CONTROLLER_PATH_PREFIX)
-	this.apLog.Info(fmt.Sprintf("Finding User by id: %s", id))
+	this.logLoki.INFO(span, fmt.Sprintf("Finding User by id: %s", id))
 	persistedUser, errApp := this.findUserById.Execute(id)
 	if errApp != nil {
 		main_utils.ERROR_APP(w, errApp)
@@ -140,22 +134,11 @@ func (this *UserController) FindUserById(w http.ResponseWriter, r *http.Request)
 }
 
 func (this *UserController) FindUser(w http.ResponseWriter, r *http.Request) {
-	this.apLog.Info("Finding User by query")
 
-	tracer := otel.Tracer("test-tracer")
-	ctx := context.Background()
-	// work begins
-	ctx, span := tracer.Start(
-		ctx,
-		"CollectorExporter-Example")
+	tracer := otel.Tracer("UserController")
+	_, span := tracer.Start(r.Context(), "FindUser")
 	defer span.End()
-
-	go main_gateways_logs.NewLogsGatewayImpl().Error(
-		span.SpanContext().TraceID().String(),
-		span.SpanContext().SpanID().String(),
-		"LOG START APPLICATION",
-		"!",
-	)
+	this.logLoki.INFO(span, "Finding User by query")
 
 	filter, err1 := new(main_gateways_ws_v1_request.FindUserFilterRequest).QueryParamsToObject(w, r)
 	if err1 != nil {

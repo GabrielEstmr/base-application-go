@@ -5,30 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/LogCollectorConfig.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/resources/LogProvider.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/resources/LogProviderConfig.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/LogsGateway.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/request/CreateLogRequest.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/request/LogMessage.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/request/Stream.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/request/Streams.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/request/Test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/LogMethods.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/LogsGateway.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/LogsGatewayImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/apm/ApmConfig.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/apm/ApmConfig.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-bundle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-es-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-es-bundle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/log/GetLogConfigBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/log/GetLogConfigBean.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/mongodb/MongoClientConfiguration.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/mongodb/MongoClientConfiguration.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/LogsGateway.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/request/CreateLogRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/request/CreateLogRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/request/LogMessage.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/request/LogMessage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/request/Stream.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/request/Stream.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/request/Streams.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/request/Streams.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/request/Test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/request/Test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/application-properties-hmg.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/application-properties-hmg.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/application-properties-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/application-properties-local.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/application-properties-prd.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/application-properties-prd.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +81,8 @@
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
     "Go Build.go build baseapplicationgo.executor": "Debug",
+    "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.go test usecases.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
@@ -110,8 +102,12 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/usecases" />
+      <recent name="$PROJECT_DIR$/src/main/configs/apm/logs/impl" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Test.go test usecases">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
@@ -126,8 +122,32 @@
       <filePath value="$PROJECT_DIR$/src/main.go" />
       <method v="2" />
     </configuration>
+    <configuration name="TestCreateNewUser_Execute in baseapplicationgo/test/usecases" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="base-application-go" />
+      <working_directory value="$PROJECT_DIR$/src/test/usecases" />
+      <root_directory value="$PROJECT_DIR$/src" />
+      <kind value="PACKAGE" />
+      <package value="baseapplicationgo/test/usecases" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestCreateNewUser_Execute\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test usecases" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="base-application-go" />
+      <working_directory value="$PROJECT_DIR$/src/test/usecases" />
+      <root_directory value="$PROJECT_DIR$/src" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$/src/test/usecases" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.go test usecases" />
+        <item itemvalue="Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases" />
         <item itemvalue="Go Build.go build baseapplicationgo" />
       </list>
     </recent_temporary>
@@ -150,31 +170,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go</url>
-          <line>50</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go</url>
-          <line>37</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go</url>
-          <line>47</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/logs/LogsGatewayImpl.go</url>
-          <line>45</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/logs/request/CreateLogRequest.go</url>
+          <url>file://$PROJECT_DIR$/src/main/configs/apm/logs/impl/request/CreateLogRequest.go</url>
           <line>11</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702314304717" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
