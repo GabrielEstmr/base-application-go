@@ -3,6 +3,7 @@ package main_usecases
 import (
 	main_configs_apm_logs_impl "baseapplicationgo/main/configs/apm/logs/impl"
 	main_configs_messages "baseapplicationgo/main/configs/messages"
+	main_configs_messages_resources "baseapplicationgo/main/configs/messages/resources"
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
@@ -17,15 +18,17 @@ const _MSG_CREATE_NEW_DOC_ARCH_ISSUE = "exceptions.architecture.application.issu
 type CreateNewUser struct {
 	userDatabaseGateway main_gateways.UserDatabaseGateway
 	logLoki             main_configs_apm_logs_impl.LogsGateway
+	messageBeans        *main_configs_messages_resources.ApplicationMessages
 }
 
 func NewCreateNewUserAllArgs(
 	userDatabaseGateway main_gateways.UserDatabaseGateway,
-	logLoki main_configs_apm_logs_impl.LogsGateway) *CreateNewUser {
+	logLoki main_configs_apm_logs_impl.LogsGateway,
+	messageBeans *main_configs_messages_resources.ApplicationMessages) *CreateNewUser {
 	return &CreateNewUser{
 		userDatabaseGateway: userDatabaseGateway,
 		logLoki:             logLoki,
-	}
+		messageBeans:        messageBeans}
 }
 
 func NewCreateNewUser(
@@ -34,6 +37,7 @@ func NewCreateNewUser(
 	return &CreateNewUser{
 		userDatabaseGateway,
 		main_configs_apm_logs_impl.NewLogsGatewayImpl(),
+		main_configs_messages.GetMessagesConfigBean(),
 	}
 }
 
@@ -52,10 +56,8 @@ func (this *CreateNewUser) Execute(ctx context.Context, user main_domains.User) 
 	}
 	if !userAlreadyPersisted.IsEmpty() {
 		return main_domains.User{}, main_domains_exceptions.NewConflictExceptionSglMsg(
-			main_configs_messages.GetMessagesConfigBean().
+			this.messageBeans.
 				GetDefaultLocale(_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS))
-		//return main_domains.User{}, main_domains_exceptions.NewConflictExceptionSglMsg(
-		//	_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS)
 	}
 
 	persistedUser, err := this.userDatabaseGateway.Save(user)

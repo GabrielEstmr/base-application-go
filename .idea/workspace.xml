@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/mocks/UserDatabaseGatewayMock.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/mocks/support/ArgsMockSupport.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/mocks/support/MethodArgsMockSupport.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" afterDir="false" />
@@ -213,7 +209,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>42</line>
+          <line>46</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -230,6 +226,31 @@
           <url>file://$PROJECT_DIR$/src/main/configs/messages/MessagesProperties.go</url>
           <line>40</line>
           <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
+          <line>57</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/messages/resources/ApplicationMessages.go</url>
+          <line>19</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/messages/resources/ApplicationMessages.go</url>
+          <line>23</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/messages/resources/ApplicationMessages.go</url>
+          <line>25</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -2,6 +2,7 @@ package test_usecases
 
 import (
 	main_configs_apm_logs_impl "baseapplicationgo/main/configs/apm/logs/impl"
+	main_configs_messages_resources "baseapplicationgo/main/configs/messages/resources"
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
@@ -14,7 +15,8 @@ import (
 	"time"
 )
 
-const _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS = "Document with the given document already exists"
+const _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS = "providers.create.user.user.with.given.document.already.exists-DEFAULT"
+const _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS_VALUE = "Document with the given document already exists"
 const _MSG_CREATE_NEW_DOC_ARCH_ISSUE = "exceptions.architecture.application.issue"
 
 type fields struct {
@@ -120,7 +122,7 @@ func TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists(t *testing.T)
 			user: user,
 		},
 		want:  *new(main_domains.User),
-		want1: main_domains_exceptions.NewConflictExceptionSglMsg("providers.create.user.user.with.given.document.already.exists"),
+		want1: main_domains_exceptions.NewConflictExceptionSglMsg(_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS_VALUE),
 	}
 
 	tests := []testInputs{imput1}
@@ -132,7 +134,9 @@ func runTest(t *testing.T, tests []testInputs) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			this := main_usecases.NewCreateNewUserAllArgs(tt.fields.userDatabaseGateway,
-				tt.fields.logLoki)
+				tt.fields.logLoki, main_configs_messages_resources.NewApplicationMessages(map[string]string{
+					_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS: _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS_VALUE,
+				}))
 
 			got, got1 := this.Execute(tt.args.ctx, tt.args.user)
 			if !reflect.DeepEqual(got, tt.want) {
