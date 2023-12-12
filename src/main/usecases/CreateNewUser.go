@@ -37,24 +37,31 @@ func NewCreateNewUser(
 	}
 }
 
-func (this *CreateNewUser) Execute(ctx context.Context, user main_domains.User) (main_domains.User, main_domains_exceptions.ApplicationException) {
+func (this *CreateNewUser) Execute(ctx context.Context, user main_domains.User) (
+	main_domains.User, main_domains_exceptions.ApplicationException) {
 
 	span := trace.SpanFromContext(ctx)
 	defer span.End()
 
-	this.logLoki.INFO(span, fmt.Sprintf("Creating new User with documentNumber: %s", user.DocumentNumber))
+	this.logLoki.INFO(span,
+		fmt.Sprintf("Creating new User with documentNumber: %s", user.DocumentNumber))
 	userAlreadyPersisted, err := this.userDatabaseGateway.FindByDocumentNumber(user.DocumentNumber)
 	if err != nil {
-		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(_MSG_CREATE_NEW_DOC_ARCH_ISSUE)
+		return main_domains.User{}, main_domains_exceptions.
+			NewInternalServerErrorExceptionSglMsg(_MSG_CREATE_NEW_DOC_ARCH_ISSUE)
 	}
 	if !userAlreadyPersisted.IsEmpty() {
 		return main_domains.User{}, main_domains_exceptions.NewConflictExceptionSglMsg(
-			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS))
+			main_configs_messages.GetMessagesConfigBean().
+				GetDefaultLocale(_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS))
+		//return main_domains.User{}, main_domains_exceptions.NewConflictExceptionSglMsg(
+		//	_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS)
 	}
 
 	persistedUser, err := this.userDatabaseGateway.Save(user)
 	if err != nil {
-		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(_MSG_CREATE_NEW_DOC_ARCH_ISSUE)
+		return main_domains.User{}, main_domains_exceptions.
+			NewInternalServerErrorExceptionSglMsg(_MSG_CREATE_NEW_DOC_ARCH_ISSUE)
 	}
 	return persistedUser, nil
 }

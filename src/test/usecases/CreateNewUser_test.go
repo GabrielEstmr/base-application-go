@@ -1,114 +1,134 @@
-package usecases
+package test_usecases
 
 import (
 	main_configs_apm_logs_impl "baseapplicationgo/main/configs/apm/logs/impl"
-	main_configs_apm_logs_resources "baseapplicationgo/main/configs/apm/logs/resources"
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
 	"baseapplicationgo/main/usecases"
+	test_mocks "baseapplicationgo/test/mocks"
+	test_mocks_support "baseapplicationgo/test/mocks/support"
 	"context"
-	"go.opentelemetry.io/otel/trace"
 	"reflect"
 	"testing"
+	"time"
 )
 
-type UserDatabaseGatewayMock struct {
+const _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS = "Document with the given document already exists"
+const _MSG_CREATE_NEW_DOC_ARCH_ISSUE = "exceptions.architecture.application.issue"
+
+type fields struct {
+	userDatabaseGateway main_gateways.UserDatabaseGateway
+	logLoki             main_configs_apm_logs_impl.LogsGateway
 }
-
-func NewUserDatabaseGatewayMock() *UserDatabaseGatewayMock {
-	return &UserDatabaseGatewayMock{}
+type args struct {
+	ctx  context.Context
+	user main_domains.User
 }
-
-func (this *UserDatabaseGatewayMock) Save(user main_domains.User) (main_domains.User, error) {
-	user.Id = "123"
-	return user, nil
-}
-
-func (this *UserDatabaseGatewayMock) FindById(id string) (main_domains.User, error) {
-	return main_domains.User{}, nil
-}
-
-func (this *UserDatabaseGatewayMock) FindByDocumentNumber(documentNumber string) (main_domains.User, error) {
-	return main_domains.User{}, nil
-}
-
-func (this *UserDatabaseGatewayMock) FindByFilter(filter main_domains.FindUserFilter, pageable main_domains.Pageable) (main_domains.Page, error) {
-	return main_domains.Page{}, nil
-}
-
-type LogsGatewayImplMock struct {
-	logConfig main_configs_apm_logs_resources.LogProviderConfig
-}
-
-func (this LogsGatewayImplMock) DEBUG(
-	span trace.Span,
-	msg string,
-	args ...any,
-) {
-
-}
-
-func (this LogsGatewayImplMock) WARN(
-	span trace.Span,
-	msg string,
-	args ...any,
-) {
-
-}
-
-func (this LogsGatewayImplMock) INFO(
-	span trace.Span,
-	msg string,
-	args ...any,
-) {
-
-}
-
-func (this LogsGatewayImplMock) ERROR(
-	span trace.Span,
-	msg string,
-	args ...any,
-) {
-
+type testInputs struct {
+	name   string
+	fields fields
+	args   args
+	want   main_domains.User
+	want1  main_domains_exceptions.ApplicationException
 }
 
 func TestCreateNewUser_Execute(t *testing.T) {
-	type fields struct {
-		userDatabaseGateway main_gateways.UserDatabaseGateway
-		logLoki             main_configs_apm_logs_impl.LogsGateway
-	}
-	type args struct {
-		ctx  context.Context
-		user main_domains.User
+
+	user := main_domains.User{
+		Name:           "Name",
+		DocumentNumber: "DocumentNumber",
+		Birthday:       time.Now(),
 	}
 
-	type TestInputs struct {
-		name   string
-		fields fields
-		args   args
-		want   main_domains.User
-		want1  main_domains_exceptions.ApplicationException
+	userResponse := main_domains.User{
+		Id:               "",
+		Name:             "Name",
+		DocumentNumber:   "DocumentNumber",
+		Birthday:         time.Now(),
+		CreatedDate:      time.Now(),
+		LastModifiedDate: time.Now(),
 	}
 
-	userDatabaseGatewayMock := NewUserDatabaseGatewayMock()
-	userResponse, _ := userDatabaseGatewayMock.Save(main_domains.User{})
-	imput1 := TestInputs{
-		name: "Test1",
+	methodName := make(map[string]test_mocks_support.ArgsMockSupport)
+	methodName["FindByDocumentNumber"] =
+		*test_mocks_support.NewArgsMockSupport().
+			AddInput(1, "DocumentNumber").
+			AddOutput(1, main_domains.User{}).
+			AddOutput(2, nil)
+	methodName["Save"] =
+		*test_mocks_support.NewArgsMockSupport().
+			AddInput(1, user).
+			AddOutput(1, userResponse).
+			AddOutput(2, nil)
+
+	mock := test_mocks.NewUserDatabaseGatewayMock(*test_mocks_support.NewMethodArgsMockSupport(methodName))
+
+	imput1 := testInputs{
+		name: "Test Save Successfully",
 		fields: fields{
-			userDatabaseGateway: userDatabaseGatewayMock,
-			logLoki:             LogsGatewayImplMock{},
+			userDatabaseGateway: mock,
+			logLoki:             new(test_mocks.LogsGatewayImplMock),
 		},
 		args: args{
 			ctx:  context.Background(),
-			user: main_domains.User{},
+			user: user,
 		},
 		want:  userResponse,
 		want1: nil,
 	}
 
-	tests := []TestInputs{imput1}
+	tests := []testInputs{imput1}
 
+	runTest(t, tests)
+}
+
+func TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists(t *testing.T) {
+
+	user := main_domains.User{
+		Name:           "Name",
+		DocumentNumber: "DocumentNumber",
+		Birthday:       time.Now(),
+	}
+
+	userResponse := main_domains.User{
+		Id:               "",
+		Name:             "Name",
+		DocumentNumber:   "DocumentNumber",
+		Birthday:         time.Now(),
+		CreatedDate:      time.Now(),
+		LastModifiedDate: time.Now(),
+	}
+
+	methodName := make(map[string]test_mocks_support.ArgsMockSupport)
+	methodName["FindByDocumentNumber"] =
+		*test_mocks_support.NewArgsMockSupport().
+			AddInput(1, "DocumentNumber").
+			AddOutput(1, userResponse).
+			AddOutput(2, nil)
+
+	mock := test_mocks.NewUserDatabaseGatewayMock(*test_mocks_support.NewMethodArgsMockSupport(methodName))
+
+	imput1 := testInputs{
+		name: "Test Save Successfully",
+		fields: fields{
+			userDatabaseGateway: mock,
+			logLoki:             new(test_mocks.LogsGatewayImplMock),
+		},
+		args: args{
+			ctx:  context.Background(),
+			user: user,
+		},
+		want:  *new(main_domains.User),
+		want1: main_domains_exceptions.NewConflictExceptionSglMsg("providers.create.user.user.with.given.document.already.exists"),
+	}
+
+	tests := []testInputs{imput1}
+
+	runTest(t, tests)
+}
+
+func runTest(t *testing.T, tests []testInputs) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			this := main_usecases.NewCreateNewUserAllArgs(tt.fields.userDatabaseGateway,
