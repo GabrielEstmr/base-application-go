@@ -2,13 +2,13 @@ package main_gateways_ws_v1
 
 import (
 	main_configs_apm_logs_impl "baseapplicationgo/main/configs/apm/logs/impl"
-	main_configs_messages "baseapplicationgo/main/configs/messages"
 	main_domains "baseapplicationgo/main/domains"
 	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
 	main_gateways_ws_v1_request "baseapplicationgo/main/gateways/ws/v1/request"
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
 	main_usecases "baseapplicationgo/main/usecases"
 	main_utils "baseapplicationgo/main/utils"
+	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -35,7 +35,8 @@ type UserController struct {
 	createNewUser     *main_usecases.CreateNewUser
 	findUserById      *main_usecases.FindUserById
 	findUsersByFilter *main_usecases.FindUsersByFilter
-	logLoki           main_configs_apm_logs_impl.LogsGateway
+	logLoki           main_configs_apm_logs_impl.LogsMethods
+	messageUtils      main_utils_messages.ApplicationMessages
 }
 
 func NewUserController(
@@ -48,6 +49,7 @@ func NewUserController(
 		findUserById,
 		findUsersByFilter,
 		main_configs_apm_logs_impl.NewLogsGatewayImpl(),
+		*main_utils_messages.NewApplicationMessages(),
 	}
 }
 
@@ -87,7 +89,7 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 	requestBody, err := io.ReadAll(r.Body)
 	if err != nil || len(requestBody) == 0 {
 		errLog := errors.New(
-			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(
+			this.messageUtils.GetDefaultLocale(
 				_USER_CONTROLLER_MSG_MALFORMED_REQUEST_BODY))
 		main_utils.ERROR(w, http.StatusBadRequest, errLog)
 		return

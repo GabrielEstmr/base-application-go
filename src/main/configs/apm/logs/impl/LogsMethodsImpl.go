@@ -13,17 +13,17 @@ import (
 	"time"
 )
 
-type LogsGatewayImpl struct {
+type LogsMethodsImpl struct {
 	logConfig main_configs_apm_logs_resources.LogProviderConfig
 }
 
-func NewLogsGatewayImpl() *LogsGatewayImpl {
-	return &LogsGatewayImpl{
+func NewLogsGatewayImpl() *LogsMethodsImpl {
+	return &LogsMethodsImpl{
 		logConfig: *main_configs_apm_logs.GetLogProviderBean(),
 	}
 }
 
-func (this *LogsGatewayImpl) DEBUG(
+func (this *LogsMethodsImpl) DEBUG(
 	span trace.Span,
 	msg string,
 	args ...any,
@@ -31,7 +31,7 @@ func (this *LogsGatewayImpl) DEBUG(
 	go this.postLog(METHOD_DEBUG, span, msg, args)
 }
 
-func (this *LogsGatewayImpl) WARN(
+func (this *LogsMethodsImpl) WARN(
 	span trace.Span,
 	msg string,
 	args ...any,
@@ -39,7 +39,7 @@ func (this *LogsGatewayImpl) WARN(
 	go this.postLog(METHOD_WARN, span, msg, args)
 }
 
-func (this *LogsGatewayImpl) INFO(
+func (this *LogsMethodsImpl) INFO(
 	span trace.Span,
 	msg string,
 	args ...any,
@@ -47,7 +47,7 @@ func (this *LogsGatewayImpl) INFO(
 	go this.postLog(METHOD_INFO, span, msg, args)
 }
 
-func (this *LogsGatewayImpl) ERROR(
+func (this *LogsMethodsImpl) ERROR(
 	span trace.Span,
 	msg string,
 	args ...any,
@@ -55,7 +55,7 @@ func (this *LogsGatewayImpl) ERROR(
 	go this.postLog(METHOD_ERROR, span, msg, args)
 }
 
-func (this *LogsGatewayImpl) postLog(
+func (this *LogsMethodsImpl) postLog(
 	methodLog string,
 	span trace.Span,
 	msg string,
@@ -78,13 +78,10 @@ func (this *LogsGatewayImpl) postLog(
 	request := main_gateways_logs_request2.NewCreateLogRequest(methodLog, this.logConfig.GetAppName(), stringJson)
 	body, _ := json.Marshal(request)
 	payload := bytes.NewBuffer(body)
-	resp, errPost := client.Post(baseUrl, "application/json", payload)
+	_, errPost := client.Post(baseUrl, "application/json", payload)
 	if errPost != nil {
 		fmt.Println("ERROR ==============", errPost.Error())
 	}
-
-	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
 
 }
 

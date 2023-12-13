@@ -4,9 +4,24 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="">
+    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="test(mocking): add struct mocking">
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/LogsMonitoringGateway.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/resources/SpanLogInfo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/usecases/Test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/LogMethods.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/Methods.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/LogsGateway.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/LogsMethods.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/LogsGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/apm/logs/impl/LogsMethodsImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/messages/MessagesProperties.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/messages/MessagesProperties.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/messages/resources/ApplicationMessages.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/utils/messages/ApplicationMessages.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUsersByFilter.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUsersByFilter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateNewUserBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateNewUserBeanFactory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/utils/QueryParamsBuilder.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/utils/QueryParamsBuilder.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +88,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build baseapplicationgo.executor": "Debug",
+    "Go Build.go build baseapplicationgo.executor": "Run",
     "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
     "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
     "Go Test.go test usecases.executor": "Run",
@@ -97,13 +112,14 @@
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/utils/messages" />
+      <recent name="$PROJECT_DIR$/src/main/utils" />
       <recent name="$PROJECT_DIR$/src/test/usecases" />
       <recent name="$PROJECT_DIR$/src/test/mocks" />
       <recent name="$PROJECT_DIR$/src/test/mocks/support" />
-      <recent name="$PROJECT_DIR$/src/main/configs/apm/logs/impl" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases">
+  <component name="RunManager" selected="Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
@@ -155,17 +171,17 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases" />
         <item itemvalue="Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases" />
         <item itemvalue="Go Build.go build baseapplicationgo" />
         <item itemvalue="Go Test.go test usecases" />
+        <item itemvalue="Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-gosdk-467a64f6063b-ee0e143f3e2b-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-233.11799.228" />
+        <option value="bundled-gosdk-467a64f6063b-ee0e143f3e2b-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-233.11799.286" />
       </set>
     </attachedChunks>
   </component>
@@ -209,47 +225,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>46</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/messages/MessagesProperties.go</url>
-          <line>37</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/messages/MessagesProperties.go</url>
-          <line>41</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/messages/MessagesProperties.go</url>
-          <line>40</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>57</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/messages/resources/ApplicationMessages.go</url>
-          <line>19</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/messages/resources/ApplicationMessages.go</url>
-          <line>23</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/messages/resources/ApplicationMessages.go</url>
           <line>25</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>27</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>

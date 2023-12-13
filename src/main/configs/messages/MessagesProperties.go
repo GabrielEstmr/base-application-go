@@ -21,9 +21,9 @@ const _MSG_FILE_DEFAULT_BASE_NAME = "/messages-%s.properties"
 const _DEFAULT_KEY_SEPARATOR = "="
 
 var once sync.Once
-var msgConfigsBean *main_configs_messages_resources.ApplicationMessages
+var msgConfigsBean *map[string]string
 
-func GetMessagesConfigBean() *main_configs_messages_resources.ApplicationMessages {
+func GetMessagesConfigBean() *map[string]string {
 	once.Do(func() {
 		if msgConfigsBean == nil {
 			msgConfigsBean = getMessagesConfig()
@@ -32,7 +32,7 @@ func GetMessagesConfigBean() *main_configs_messages_resources.ApplicationMessage
 	return msgConfigsBean
 }
 
-func getMessagesConfig() *main_configs_messages_resources.ApplicationMessages {
+func getMessagesConfig() *map[string]string {
 	slog.Info(_MSG_INITIALIZING_MSG_BEANS)
 	var config = make(map[string]string)
 	for _, langEnum := range main_configs_messages_resources.GetLanguageProfileValues() {
@@ -51,7 +51,7 @@ func getMessagesConfig() *main_configs_messages_resources.ApplicationMessages {
 		}
 	}
 	slog.Info(_MSG_MSG_BEANS_INITIATED)
-	return main_configs_messages_resources.NewApplicationMessages(config)
+	return &config
 }
 
 func getSeparatorIndex(line string) int {

@@ -1,8 +1,8 @@
 package main_utils
 
 import (
-	main_configs_messages "baseapplicationgo/main/configs/messages"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
+	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"encoding/json"
 	"net/http"
 )
@@ -28,18 +28,17 @@ func QueryParamsToObject(
 	r *http.Request) (*QueryParams, main_domains_exceptions.ApplicationException) {
 	if err := r.ParseForm(); err != nil {
 		return any, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(
-			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(
-				_QUERY_BUILDER_MSG_ARCH_ISSUE))
+			main_utils_messages.NewApplicationMessages().GetDefaultLocale(_QUERY_BUILDER_MSG_ARCH_ISSUE))
 	}
 	data, err := json.Marshal(r.Form)
 	if err != nil {
 		return any, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(
-			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(
+			main_utils_messages.NewApplicationMessages().GetDefaultLocale(
 				_QUERY_BUILDER_MSG_ARCH_ISSUE))
 	}
 	if err2 := json.Unmarshal(data, any.GetObj()); err2 != nil {
 		errLog := main_domains_exceptions.NewBadRequestExceptionSglMsg(
-			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(
+			main_utils_messages.NewApplicationMessages().GetDefaultLocale(
 				_QUERY_BUILDER_MSG_MALFORMED_REQUEST_BODY))
 		ERROR_APP(w, errLog)
 	}

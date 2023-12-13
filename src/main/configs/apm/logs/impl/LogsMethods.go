@@ -2,7 +2,7 @@ package main_configs_apm_logs_impl
 
 import "go.opentelemetry.io/otel/trace"
 
-type LogsGateway interface {
+type LogsMethods interface {
 	DEBUG(
 		span trace.Span,
 		msg string,

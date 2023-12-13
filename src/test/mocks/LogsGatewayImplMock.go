@@ -1,40 +1,38 @@
 package test_mocks
 
 import (
-	main_configs_apm_logs_resources "baseapplicationgo/main/configs/apm/logs/resources"
-	"go.opentelemetry.io/otel/trace"
+	main_gateways_logs_resources "baseapplicationgo/main/gateways/logs/resources"
 )
 
-type LogsGatewayImplMock struct {
-	logConfig main_configs_apm_logs_resources.LogProviderConfig
+type LogsMonitoringGateway struct {
 }
 
-func (this LogsGatewayImplMock) DEBUG(
-	span trace.Span,
+func (this *LogsMonitoringGateway) DEBUG(
+	span main_gateways_logs_resources.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {
 
 }
 
-func (this LogsGatewayImplMock) WARN(
-	span trace.Span,
+func (this *LogsMonitoringGateway) WARN(
+	span main_gateways_logs_resources.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {
 
 }
 
-func (this LogsGatewayImplMock) INFO(
-	span trace.Span,
+func (this *LogsMonitoringGateway) INFO(
+	span main_gateways_logs_resources.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {
 
 }
 
-func (this LogsGatewayImplMock) ERROR(
-	span trace.Span,
+func (this *LogsMonitoringGateway) ERROR(
+	span main_gateways_logs_resources.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {
