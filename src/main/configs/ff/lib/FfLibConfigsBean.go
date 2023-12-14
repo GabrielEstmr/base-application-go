@@ -8,10 +8,6 @@ import (
 var once sync.Once
 var ffLibConfigsBean *FfConfigData
 
-func GetFfConfigDataBean() *FfConfigData {
-	return ffLibConfigsBean
-}
-
 func NewFfConfigDataBean(client *mongo.Database,
 	clientType string,
 	featuresDbName string) *FfConfigData {

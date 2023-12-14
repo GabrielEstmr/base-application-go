@@ -2,11 +2,11 @@ package main_gateways_features
 
 import (
 	main_configs_ff "baseapplicationgo/main/configs/ff"
-	main_configs_ff_lib_configresources "baseapplicationgo/main/configs/ff/lib"
+	main_configs_ff_lib "baseapplicationgo/main/configs/ff/lib"
 )
 
 type FeaturesGatewayImpl struct {
-	ffConfig *main_configs_ff_lib_configresources.FfConfigData
+	ffConfig *main_configs_ff_lib.FfConfig
 }
 
 func NewFeaturesGatewayImpl() *FeaturesGatewayImpl {

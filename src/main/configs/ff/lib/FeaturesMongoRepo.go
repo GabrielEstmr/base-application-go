@@ -1,7 +1,6 @@
-package main_configs_ff_lib_mongorepo
+package main_configs_ff_lib
 
 import (
-	main_configs_ff_lib "baseapplicationgo/main/configs/ff/lib"
 	main_configs_ff_lib_mongorepo_documents "baseapplicationgo/main/configs/ff/lib/mongorepo/documents"
 	"context"
 	"errors"
@@ -10,14 +9,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-const _KEY = "key"
+const _KEY = "_id"
 
 type FeaturesMongoRepo struct {
-	ffConfigData *main_configs_ff_lib.FfConfigData
+	ffConfigData *FfConfigData
 }
 
-func NewFeaturesMongoRepo() *FeaturesMongoRepo {
-	return &FeaturesMongoRepo{ffConfigData: main_configs_ff_lib.GetFfConfigDataBean()}
+func NewFeaturesMongoRepo(ffConfigData *FfConfigData) *FeaturesMongoRepo {
+	return &FeaturesMongoRepo{ffConfigData: ffConfigData}
 }
 
 func (this *FeaturesMongoRepo) Save(
@@ -31,7 +30,7 @@ func (this *FeaturesMongoRepo) Save(
 		return *new(main_configs_ff_lib_mongorepo_documents.FeaturesDataDocument), err
 	}
 
-	key, _ := result.InsertedID.(primitive.ObjectID)
+	key, _ := result.InsertedID.(string)
 	feature.Key = key
 	return feature, nil
 }

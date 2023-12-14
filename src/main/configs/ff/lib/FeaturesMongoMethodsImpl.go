@@ -1,17 +1,16 @@
 package main_configs_ff_lib
 
 import (
-	main_configs_ff_lib_mongorepo "baseapplicationgo/main/configs/ff/lib/mongorepo"
 	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
 	"errors"
 )
 
 type FeaturesMongoMethodsImpl struct {
-	repo *main_configs_ff_lib_mongorepo.FeaturesMongoRepo
+	repo *FeaturesMongoRepo
 }
 
-func NewFeaturesMongoMethodsImpl() *FeaturesMongoMethodsImpl {
-	return &FeaturesMongoMethodsImpl{repo: main_configs_ff_lib_mongorepo.NewFeaturesMongoRepo()}
+func NewFeaturesMongoMethodsImpl(ffConfigData *FfConfigData) *FeaturesMongoMethodsImpl {
+	return &FeaturesMongoMethodsImpl{repo: NewFeaturesMongoRepo(ffConfigData)}
 }
 
 func (this *FeaturesMongoMethodsImpl) getFeature(key string) (main_configs_ff_lib_resources.FeaturesData, error) {
