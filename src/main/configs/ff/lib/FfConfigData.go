@@ -1,34 +1,62 @@
 package main_configs_ff_lib
 
 import (
+	"github.com/redis/go-redis/v9"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type FfConfigData struct {
 	db              *mongo.Database
 	clientType      string
-	featuresColName string
+	hasCaching      bool
+	cacheClient     *redis.Client
+	cachingPrefix   string
+	cacheClientType string
+	featuresDbName  string
 }
 
-func NewMongoFfConfigData(
-	client *mongo.Database,
+func NewFfConfigData(
+	db *mongo.Database,
 	clientType string,
-	featuresColName string) *FfConfigData {
+	hasCaching bool,
+	cacheClient *redis.Client,
+	cachingPrefix string,
+	cacheClientType string,
+	featuresDbName string) *FfConfigData {
 	return &FfConfigData{
-		db:              client,
+		db:              db,
 		clientType:      clientType,
-		featuresColName: featuresColName,
-	}
+		hasCaching:      hasCaching,
+		cacheClient:     cacheClient,
+		cachingPrefix:   cachingPrefix,
+		cacheClientType: cacheClientType,
+		featuresDbName:  featuresDbName}
 }
 
-func (this *FfConfigData) GetDb() *mongo.Database {
+func (this FfConfigData) GetDb() *mongo.Database {
 	return this.db
 }
 
-func (this *FfConfigData) GetClientType() string {
+func (this FfConfigData) GetClientType() string {
 	return this.clientType
 }
 
-func (this *FfConfigData) GetFeaturesColName() string {
-	return this.featuresColName
+func (this FfConfigData) GetCacheClient() *redis.Client {
+	return this.cacheClient
+}
+
+func (this FfConfigData) GetHasCaching() bool {
+	return this.hasCaching
+}
+
+func (this FfConfigData) GetCachingPrefix() string {
+	return this.cachingPrefix
+}
+
+func (this FfConfigData) GetCacheClientType() string {
+	return this.cacheClientType
+}
+
+func (this FfConfigData) GetFeaturesDbName() string {
+	return this.featuresDbName
 }

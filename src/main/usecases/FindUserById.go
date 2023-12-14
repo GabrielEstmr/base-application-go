@@ -6,6 +6,7 @@ import (
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
+	"log"
 	"log/slog"
 )
 
@@ -16,15 +17,18 @@ type FindUserById struct {
 	userDatabaseGateway main_gateways.UserDatabaseGateway
 	apLog               *slog.Logger
 	messageUtils        main_utils_messages.ApplicationMessages
+	featuresGateway     main_gateways.FeaturesGateway
 }
 
 func NewFindUserById(
 	userDatabaseGateway main_gateways.UserDatabaseGateway,
+	featuresGateway main_gateways.FeaturesGateway,
 ) *FindUserById {
 	return &FindUserById{
 		userDatabaseGateway,
 		main_configs_logs.GetLogConfigBean(),
 		*main_utils_messages.NewApplicationMessages(),
+		featuresGateway,
 	}
 }
 
@@ -38,5 +42,12 @@ func (this *FindUserById) Execute(id string) (main_domains.User, main_domains_ex
 		return main_domains.User{}, main_domains_exceptions.NewResourceNotFoundExceptionSglMsg(
 			this.messageUtils.GetDefaultLocale(_MSG_FIND_USER_BY_ID_DOC_NOT_FOUND))
 	}
+
+	disabled, err := this.featuresGateway.IsDisabled("key1")
+
+	if disabled == true && err == nil {
+		log.Println("====================> FEATURE")
+	}
+
 	return user, nil
 }

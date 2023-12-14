@@ -2,6 +2,7 @@ package main_usecases_beans_factories
 
 import (
 	main_gateways "baseapplicationgo/main/gateways"
+	main_gateways_features "baseapplicationgo/main/gateways/features"
 	main_gateways_mongodb "baseapplicationgo/main/gateways/mongodb"
 	main_gateways_mongodb_repositories "baseapplicationgo/main/gateways/mongodb/repositories"
 	main_gateways_redis "baseapplicationgo/main/gateways/redis"
@@ -26,5 +27,7 @@ func (this *FindUserByIdBean) Get() *main_usecases.FindUserById {
 
 	var cachedUserDatabaseGateway main_gateways.UserDatabaseGateway = main_gateways_mongodb.NewCachedUserDatabaseGatewayImpl(userDatabaseGateway, userDatabaseCacheGateway)
 
-	return main_usecases.NewFindUserById(cachedUserDatabaseGateway)
+	var featuresGateway main_gateways.FeaturesGateway = main_gateways_features.NewFeaturesGatewayImpl()
+
+	return main_usecases.NewFindUserById(cachedUserDatabaseGateway, featuresGateway)
 }

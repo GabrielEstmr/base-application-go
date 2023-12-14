@@ -1,6 +1,7 @@
 package main_configs_ff_lib
 
 import (
+	"github.com/redis/go-redis/v9"
 	"go.mongodb.org/mongo-driver/mongo"
 	"sync"
 )
@@ -8,19 +9,43 @@ import (
 var once sync.Once
 var ffLibConfigsBean *FfConfigData
 
-func NewFfConfigDataBean(client *mongo.Database,
+func NewFfConfigDataBean(
+	db *mongo.Database,
 	clientType string,
-	featuresDbName string) *FfConfigData {
+	hasCaching bool,
+	cacheClient *redis.Client,
+	cachingPrefix string,
+	cacheClientType string,
+	featuresDbName string,
+) *FfConfigData {
 	once.Do(func() {
 		if ffLibConfigsBean == nil {
-			ffLibConfigsBean = getFfConfigData(client, clientType, featuresDbName)
+			ffLibConfigsBean = getFfConfigData(
+				db,
+				clientType,
+				hasCaching,
+				cacheClient,
+				cachingPrefix,
+				cacheClientType,
+				featuresDbName)
 		}
 	})
 	return ffLibConfigsBean
 }
 
-func getFfConfigData(client *mongo.Database,
+func getFfConfigData(
+	db *mongo.Database,
 	clientType string,
+	hasCaching bool,
+	cacheClient *redis.Client,
+	cachingPrefix string,
+	cacheClientType string,
 	featuresDbName string) *FfConfigData {
-	return NewMongoFfConfigData(client, clientType, featuresDbName)
+	return NewFfConfigData(db,
+		clientType,
+		hasCaching,
+		cacheClient,
+		cachingPrefix,
+		cacheClientType,
+		featuresDbName)
 }

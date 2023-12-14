@@ -1,6 +1,7 @@
 package main_configs_ff
 
 import (
+	main_configs_cache "baseapplicationgo/main/configs/cache"
 	main_configs_error "baseapplicationgo/main/configs/error"
 	main_configs_ff_lib "baseapplicationgo/main/configs/ff/lib"
 	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
@@ -26,6 +27,10 @@ func getFfConfigData() *main_configs_ff_lib.FfConfig {
 	configData := main_configs_ff_lib.NewFfConfigDataBean(
 		main_configs_mongo.GetMongoDBClient(),
 		main_configs_ff_lib.MONGO,
+		true,
+		main_configs_cache.GetRedisClusterBean(),
+		"PREFIX",
+		main_configs_ff_lib.REDIS,
 		_FF_FEATURES_NAME,
 	)
 

@@ -1,7 +1,7 @@
 package main_configs_ff_lib
 
 import (
-	main_configs_ff_lib_mongorepo_documents "baseapplicationgo/main/configs/ff/lib/mongorepo/documents"
+	main_configs_ff_lib_mongorepo_documents "baseapplicationgo/main/configs/ff/lib/mongo/documents"
 	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
 )
 

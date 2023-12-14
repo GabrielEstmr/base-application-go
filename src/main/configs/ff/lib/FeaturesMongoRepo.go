@@ -1,11 +1,10 @@
 package main_configs_ff_lib
 
 import (
-	main_configs_ff_lib_mongorepo_documents "baseapplicationgo/main/configs/ff/lib/mongorepo/documents"
+	main_configs_ff_lib_mongo_documents "baseapplicationgo/main/configs/ff/lib/mongo/documents"
 	"context"
 	"errors"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -20,14 +19,14 @@ func NewFeaturesMongoRepo(ffConfigData *FfConfigData) *FeaturesMongoRepo {
 }
 
 func (this *FeaturesMongoRepo) Save(
-	feature main_configs_ff_lib_mongorepo_documents.FeaturesDataDocument,
-) (main_configs_ff_lib_mongorepo_documents.FeaturesDataDocument, error) {
+	feature main_configs_ff_lib_mongo_documents.FeaturesDataDocument,
+) (main_configs_ff_lib_mongo_documents.FeaturesDataDocument, error) {
 
-	collection := this.ffConfigData.GetDb().Collection(this.ffConfigData.GetFeaturesColName())
+	collection := this.ffConfigData.GetDb().Collection(this.ffConfigData.GetFeaturesDbName())
 
 	result, err := collection.InsertOne(context.TODO(), feature)
 	if err != nil {
-		return *new(main_configs_ff_lib_mongorepo_documents.FeaturesDataDocument), err
+		return *new(main_configs_ff_lib_mongo_documents.FeaturesDataDocument), err
 	}
 
 	key, _ := result.InsertedID.(string)
@@ -35,14 +34,10 @@ func (this *FeaturesMongoRepo) Save(
 	return feature, nil
 }
 
-func (this *FeaturesMongoRepo) FindById(id string) (*main_configs_ff_lib_mongorepo_documents.FeaturesDataDocument, error) {
-	collection := this.ffConfigData.GetDb().Collection(this.ffConfigData.GetFeaturesColName())
-	var result main_configs_ff_lib_mongorepo_documents.FeaturesDataDocument
-	objectId, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		return &result, nil
-	}
-	filter := bson.D{{_KEY, objectId}}
+func (this *FeaturesMongoRepo) FindById(id string) (*main_configs_ff_lib_mongo_documents.FeaturesDataDocument, error) {
+	collection := this.ffConfigData.GetDb().Collection(this.ffConfigData.GetFeaturesDbName())
+	var result main_configs_ff_lib_mongo_documents.FeaturesDataDocument
+	filter := bson.D{{_KEY, id}}
 	err2 := collection.FindOne(context.TODO(), filter).Decode(&result)
 	if err2 != nil {
 		if errors.Is(err2, mongo.ErrNoDocuments) {

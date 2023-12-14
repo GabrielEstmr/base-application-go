@@ -5,19 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="test(mocking): add struct mocking">
-      <change afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethodsFactory.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FfConfig.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/RegisterMethodsFactory.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/CacheTypes.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesCachedMongoMethodsImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisMethodsImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisRepo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/redis/documents/FeaturesDataRedisDocument.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/configs/ff/FfConfigsBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/FfConfigsBean.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoMethodsImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoRepo.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FfConfigData.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FfConfigData.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FfLibConfigsBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FfLibConfigsBean.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/RegisterMethodsMongoImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/RegisterMethodsMongoImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/mongorepo/FeaturesMongoRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoRepo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/mongorepo/documents/FeaturesDataDocument.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/mongorepo/documents/FeaturesDataDocument.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/features/FeaturesGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/features/FeaturesGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/mongorepo/documents/FeaturesDataDocument.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/documents/FeaturesDataDocument.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/Factories/FindUserByIdBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/FindUserByIdBeanFactory.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +89,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build baseapplicationgo.executor": "Run",
+    "Go Build.go build baseapplicationgo.executor": "Debug",
     "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
     "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
     "Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor": "Coverage",
@@ -253,11 +254,6 @@
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>35</line>
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoRepo.go</url>
           <line>25</line>
           <option name="timeStamp" value="62" />
@@ -266,6 +262,16 @@
           <url>file://$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoRepo.go</url>
           <line>34</line>
           <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoMethodsImpl.go</url>
+          <line>11</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/ff/lib/RegisterMethodsMongoImpl.go</url>
+          <line>22</line>
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

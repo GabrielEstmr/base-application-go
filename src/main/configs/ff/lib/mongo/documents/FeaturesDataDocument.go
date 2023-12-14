@@ -1,4 +1,4 @@
-package main_configs_ff_lib_mongorepo_documents
+package main_configs_ff_lib_mongo_documents
 
 import (
 	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
