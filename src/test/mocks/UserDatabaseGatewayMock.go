@@ -10,8 +10,8 @@ type UserDatabaseGatewayMock struct {
 	cases test_mocks_support.MethodArgsMockSupport
 }
 
-func NewUserDatabaseGatewayMock(cases test_mocks_support.MethodArgsMockSupport) *UserDatabaseGatewayMock {
-	return &UserDatabaseGatewayMock{cases: cases}
+func NewUserDatabaseGatewayMock(methodsMock map[string]test_mocks_support.ArgsMockSupport) *UserDatabaseGatewayMock {
+	return &UserDatabaseGatewayMock{cases: *test_mocks_support.NewMethodArgsMockSupport(methodsMock)}
 }
 
 func (this *UserDatabaseGatewayMock) Save(user main_domains.User) (main_domains.User, error) {

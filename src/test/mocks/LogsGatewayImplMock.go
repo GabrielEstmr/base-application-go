@@ -4,10 +4,10 @@ import (
 	main_gateways_logs_resources "baseapplicationgo/main/gateways/logs/resources"
 )
 
-type LogsMonitoringGateway struct {
+type LogsMonitoringGatewayMock struct {
 }
 
-func (this *LogsMonitoringGateway) DEBUG(
+func (this *LogsMonitoringGatewayMock) DEBUG(
 	span main_gateways_logs_resources.SpanLogInfo,
 	msg string,
 	args ...any,
@@ -15,7 +15,7 @@ func (this *LogsMonitoringGateway) DEBUG(
 
 }
 
-func (this *LogsMonitoringGateway) WARN(
+func (this *LogsMonitoringGatewayMock) WARN(
 	span main_gateways_logs_resources.SpanLogInfo,
 	msg string,
 	args ...any,
@@ -23,7 +23,7 @@ func (this *LogsMonitoringGateway) WARN(
 
 }
 
-func (this *LogsMonitoringGateway) INFO(
+func (this *LogsMonitoringGatewayMock) INFO(
 	span main_gateways_logs_resources.SpanLogInfo,
 	msg string,
 	args ...any,
@@ -31,7 +31,7 @@ func (this *LogsMonitoringGateway) INFO(
 
 }
 
-func (this *LogsMonitoringGateway) ERROR(
+func (this *LogsMonitoringGatewayMock) ERROR(
 	span main_gateways_logs_resources.SpanLogInfo,
 	msg string,
 	args ...any,

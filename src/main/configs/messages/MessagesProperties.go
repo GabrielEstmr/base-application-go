@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"path/filepath"
+	"runtime"
 	"strings"
 	"sync"
 )
@@ -15,7 +17,7 @@ const _MSG_INITIALIZING_MSG_BEANS = "Initializing Message configuration beans"
 const _MSG_MSG_BEANS_INITIATED = "Message configuration beans successfully initiated"
 const _MSG_ERROR_READ_MSG = "Error to read message file."
 
-const _MSG_BASE_DIRECTORY_MAIN_REFERENCE = "./zresources/messages"
+const _MSG_BASE_DIRECTORY_MAIN_REFERENCE = "zresources/messages"
 const _MSG_FILE_DEFAULT_BASE_NAME = "/messages-%s.properties"
 
 const _DEFAULT_KEY_SEPARATOR = "="
@@ -37,7 +39,12 @@ func getMessagesConfig() *map[string]string {
 	var config = make(map[string]string)
 	for _, langEnum := range main_configs_messages_resources.GetLanguageProfileValues() {
 		lang := langEnum.GetLanguageProfileDescription()
-		msgFilePath := _MSG_BASE_DIRECTORY_MAIN_REFERENCE + getFileName(lang)
+
+		_, b, _, _ := runtime.Caller(0)
+		basePath := strings.Replace(
+			filepath.Dir(b), "main/configs/messages", "", 1) + _MSG_BASE_DIRECTORY_MAIN_REFERENCE
+
+		msgFilePath := basePath + getFileName(lang)
 		file, err := os.Open(msgFilePath)
 		main_error.FailOnError(err, _MSG_ERROR_READ_MSG)
 		scanner := bufio.NewScanner(file)

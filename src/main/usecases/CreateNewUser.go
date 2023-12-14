@@ -21,21 +21,21 @@ type CreateNewUser struct {
 
 func NewCreateNewUserAllArgs(
 	userDatabaseGateway main_gateways.UserDatabaseGateway,
-	logLoki main_gateways.LogsMonitoringGateway,
+	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
 	messageBeans main_utils_messages.ApplicationMessages) *CreateNewUser {
 	return &CreateNewUser{
 		userDatabaseGateway:   userDatabaseGateway,
-		logsMonitoringGateway: logLoki,
+		logsMonitoringGateway: logsMonitoringGateway,
 		messageUtils:          messageBeans}
 }
 
 func NewCreateNewUser(
 	userDatabaseGateway main_gateways.UserDatabaseGateway,
-	logLoki main_gateways.LogsMonitoringGateway,
+	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
 ) *CreateNewUser {
 	return &CreateNewUser{
 		userDatabaseGateway,
-		logLoki,
+		logsMonitoringGateway,
 		*main_utils_messages.NewApplicationMessages(),
 	}
 }
@@ -63,7 +63,8 @@ func (this *CreateNewUser) Execute(ctx context.Context, user main_domains.User) 
 	persistedUser, err := this.userDatabaseGateway.Save(user)
 	if err != nil {
 		return main_domains.User{}, main_domains_exceptions.
-			NewInternalServerErrorExceptionSglMsg(_MSG_CREATE_NEW_DOC_ARCH_ISSUE)
+			NewInternalServerErrorExceptionSglMsg(this.messageUtils.
+				GetDefaultLocale(_MSG_CREATE_NEW_DOC_ARCH_ISSUE))
 	}
 	return persistedUser, nil
 }
