@@ -2,10 +2,10 @@ package main_usecases
 
 import (
 	main_configs_logs "baseapplicationgo/main/configs/log"
-	main_configs_messages "baseapplicationgo/main/configs/messages"
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
+	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"log/slog"
 )
 
@@ -15,6 +15,7 @@ const _MSG_FIND_USER_BY_ID_ARCH_ISSUE = "exceptions.architecture.application.iss
 type FindUserById struct {
 	userDatabaseGateway main_gateways.UserDatabaseGateway
 	apLog               *slog.Logger
+	messageUtils        main_utils_messages.ApplicationMessages
 }
 
 func NewFindUserById(
@@ -23,6 +24,7 @@ func NewFindUserById(
 	return &FindUserById{
 		userDatabaseGateway,
 		main_configs_logs.GetLogConfigBean(),
+		*main_utils_messages.NewApplicationMessages(),
 	}
 }
 
@@ -34,7 +36,7 @@ func (this *FindUserById) Execute(id string) (main_domains.User, main_domains_ex
 	}
 	if user.IsEmpty() {
 		return main_domains.User{}, main_domains_exceptions.NewResourceNotFoundExceptionSglMsg(
-			main_configs_messages.GetMessagesConfigBean().GetDefaultLocale(_MSG_FIND_USER_BY_ID_DOC_NOT_FOUND))
+			this.messageUtils.GetDefaultLocale(_MSG_FIND_USER_BY_ID_DOC_NOT_FOUND))
 	}
 	return user, nil
 }

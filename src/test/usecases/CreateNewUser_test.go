@@ -1,119 +1,233 @@
-package usecases
+package test_usecases
 
 import (
-	main_configs_apm_logs_impl "baseapplicationgo/main/configs/apm/logs/impl"
-	main_configs_apm_logs_resources "baseapplicationgo/main/configs/apm/logs/resources"
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
 	"baseapplicationgo/main/usecases"
+	main_utils_messages "baseapplicationgo/main/utils/messages"
+	test_mocks "baseapplicationgo/test/mocks"
+	test_mocks_support "baseapplicationgo/test/mocks/support"
 	"context"
-	"go.opentelemetry.io/otel/trace"
+	"errors"
 	"reflect"
 	"testing"
+	"time"
 )
 
-type UserDatabaseGatewayMock struct {
+const _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS = "providers.create.user.user.with.given.document.already.exists-DEFAULT"
+const _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS_VALUE = "Document with the given document already exists"
+const _MSG_CREATE_NEW_DOC_ARCH_ISSUE = "exceptions.architecture.application.issue-DEFAULT"
+const _MSG_CREATE_NEW_DOC_ARCH_ISSUE_VALUE = "Architecture application issue"
+
+type testCreateNewUserInputs struct {
+	name   string
+	fields testCreateNewUserFields
+	args   testCreateNewUserArgs
+	want   main_domains.User
+	want1  main_domains_exceptions.ApplicationException
 }
 
-func NewUserDatabaseGatewayMock() *UserDatabaseGatewayMock {
-	return &UserDatabaseGatewayMock{}
+type testCreateNewUserFields struct {
+	userDatabaseGateway main_gateways.UserDatabaseGateway
+	logLoki             main_gateways.LogsMonitoringGateway
+	messageUtils        main_utils_messages.ApplicationMessages
 }
 
-func (this *UserDatabaseGatewayMock) Save(user main_domains.User) (main_domains.User, error) {
-	user.Id = "123"
-	return user, nil
+type testCreateNewUserArgs struct {
+	ctx  context.Context
+	user main_domains.User
 }
 
-func (this *UserDatabaseGatewayMock) FindById(id string) (main_domains.User, error) {
-	return main_domains.User{}, nil
-}
+func TestCreateNewUser_Execute_ShouldSaveNewUser(t *testing.T) {
 
-func (this *UserDatabaseGatewayMock) FindByDocumentNumber(documentNumber string) (main_domains.User, error) {
-	return main_domains.User{}, nil
-}
-
-func (this *UserDatabaseGatewayMock) FindByFilter(filter main_domains.FindUserFilter, pageable main_domains.Pageable) (main_domains.Page, error) {
-	return main_domains.Page{}, nil
-}
-
-type LogsGatewayImplMock struct {
-	logConfig main_configs_apm_logs_resources.LogProviderConfig
-}
-
-func (this LogsGatewayImplMock) DEBUG(
-	span trace.Span,
-	msg string,
-	args ...any,
-) {
-
-}
-
-func (this LogsGatewayImplMock) WARN(
-	span trace.Span,
-	msg string,
-	args ...any,
-) {
-
-}
-
-func (this LogsGatewayImplMock) INFO(
-	span trace.Span,
-	msg string,
-	args ...any,
-) {
-
-}
-
-func (this LogsGatewayImplMock) ERROR(
-	span trace.Span,
-	msg string,
-	args ...any,
-) {
-
-}
-
-func TestCreateNewUser_Execute(t *testing.T) {
-	type fields struct {
-		userDatabaseGateway main_gateways.UserDatabaseGateway
-		logLoki             main_configs_apm_logs_impl.LogsGateway
-	}
-	type args struct {
-		ctx  context.Context
-		user main_domains.User
+	user := main_domains.User{
+		Name:           "Name",
+		DocumentNumber: "DocumentNumber",
+		Birthday:       time.Now(),
 	}
 
-	type TestInputs struct {
-		name   string
-		fields fields
-		args   args
-		want   main_domains.User
-		want1  main_domains_exceptions.ApplicationException
+	userResponse := main_domains.User{
+		Id:               "",
+		Name:             "Name",
+		DocumentNumber:   "DocumentNumber",
+		Birthday:         time.Now(),
+		CreatedDate:      time.Now(),
+		LastModifiedDate: time.Now(),
 	}
 
-	userDatabaseGatewayMock := NewUserDatabaseGatewayMock()
-	userResponse, _ := userDatabaseGatewayMock.Save(main_domains.User{})
-	imput1 := TestInputs{
-		name: "Test1",
-		fields: fields{
-			userDatabaseGateway: userDatabaseGatewayMock,
-			logLoki:             LogsGatewayImplMock{},
-		},
-		args: args{
-			ctx:  context.Background(),
-			user: main_domains.User{},
-		},
-		want:  userResponse,
-		want1: nil,
+	methodName := make(map[string]test_mocks_support.ArgsMockSupport)
+	methodName["FindByDocumentNumber"] =
+		*test_mocks_support.NewArgsMockSupport().
+			AddInput(1, user.DocumentNumber).
+			AddOutput(1, main_domains.User{}).
+			AddOutput(2, nil)
+	methodName["Save"] =
+		*test_mocks_support.NewArgsMockSupport().
+			AddInput(1, user).
+			AddOutput(1, userResponse).
+			AddOutput(2, nil)
+
+	mock := test_mocks.NewUserDatabaseGatewayMock(methodName)
+
+	messageUtilsMock := *main_utils_messages.NewApplicationMessagesAllArgs(map[string]string{
+		_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS: _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS_VALUE,
+	})
+
+	testCreateNewUserFields := testCreateNewUserFields{
+		mock, new(test_mocks.LogsMonitoringGatewayMock), messageUtilsMock,
 	}
 
-	tests := []TestInputs{imput1}
+	args := testCreateNewUserArgs{
+		context.Background(), user,
+	}
 
-	for _, tt := range tests {
+	parameters := []testCreateNewUserInputs{testCreateNewUserInputs{
+		name:   "testCreateNewUser_Execute_ShouldSaveNewUser",
+		fields: testCreateNewUserFields,
+		args:   args,
+		want:   userResponse,
+		want1:  nil,
+	}}
+	runTestCreateNewUser_Execute(t, parameters)
+}
+
+func TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError(t *testing.T) {
+
+	user := main_domains.User{
+		Name:           "Name",
+		DocumentNumber: "DocumentNumber",
+		Birthday:       time.Now(),
+	}
+
+	methodName := make(map[string]test_mocks_support.ArgsMockSupport)
+	methodName["FindByDocumentNumber"] =
+		*test_mocks_support.NewArgsMockSupport().
+			AddInput(1, user.DocumentNumber).
+			AddOutput(1, *new(main_domains.User)).
+			AddOutput(2, errors.New("generic Error"))
+
+	mock := test_mocks.NewUserDatabaseGatewayMock(methodName)
+
+	messageUtilsMock := *main_utils_messages.NewApplicationMessagesAllArgs(map[string]string{
+		_MSG_CREATE_NEW_DOC_ARCH_ISSUE: _MSG_CREATE_NEW_DOC_ARCH_ISSUE_VALUE,
+	})
+
+	testCreateNewUserFields := testCreateNewUserFields{
+		mock, new(test_mocks.LogsMonitoringGatewayMock), messageUtilsMock,
+	}
+
+	args := testCreateNewUserArgs{
+		context.Background(), user,
+	}
+
+	parameters := []testCreateNewUserInputs{testCreateNewUserInputs{
+		name:   "testCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError",
+		fields: testCreateNewUserFields,
+		args:   args,
+		want:   *new(main_domains.User),
+		want1:  main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(_MSG_CREATE_NEW_DOC_ARCH_ISSUE_VALUE),
+	}}
+	runTestCreateNewUser_Execute(t, parameters)
+}
+
+func TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber(t *testing.T) {
+
+	user := main_domains.User{
+		Name:           "Name",
+		DocumentNumber: "DocumentNumber",
+		Birthday:       time.Now(),
+	}
+
+	userResponse := main_domains.User{
+		Id:               "",
+		Name:             "Name",
+		DocumentNumber:   "DocumentNumber",
+		Birthday:         time.Now(),
+		CreatedDate:      time.Now(),
+		LastModifiedDate: time.Now(),
+	}
+
+	methodName := make(map[string]test_mocks_support.ArgsMockSupport)
+	methodName["FindByDocumentNumber"] =
+		*test_mocks_support.NewArgsMockSupport().
+			AddInput(1, user.DocumentNumber).
+			AddOutput(1, userResponse).
+			AddOutput(2, nil)
+
+	mock := test_mocks.NewUserDatabaseGatewayMock(methodName)
+
+	messageUtils := *main_utils_messages.NewApplicationMessagesAllArgs(map[string]string{
+		_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS: _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS_VALUE,
+	})
+
+	testCreateNewUserFields := testCreateNewUserFields{
+		mock, new(test_mocks.LogsMonitoringGatewayMock), messageUtils,
+	}
+
+	args := testCreateNewUserArgs{
+		context.Background(), user,
+	}
+
+	parameters := []testCreateNewUserInputs{testCreateNewUserInputs{
+		name:   "TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber",
+		fields: testCreateNewUserFields,
+		args:   args,
+		want:   *new(main_domains.User),
+		want1:  main_domains_exceptions.NewConflictExceptionSglMsg(_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS_VALUE),
+	}}
+	runTestCreateNewUser_Execute(t, parameters)
+}
+
+func TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError(t *testing.T) {
+
+	user := main_domains.User{
+		Name:           "Name",
+		DocumentNumber: "DocumentNumber",
+		Birthday:       time.Now(),
+	}
+
+	methodName := make(map[string]test_mocks_support.ArgsMockSupport)
+	methodName["FindByDocumentNumber"] =
+		*test_mocks_support.NewArgsMockSupport().
+			AddInput(1, user.DocumentNumber).
+			AddOutput(1, *new(main_domains.User)).
+			AddOutput(2, nil)
+	methodName["Save"] =
+		*test_mocks_support.NewArgsMockSupport().
+			AddInput(1, user).
+			AddOutput(1, *new(main_domains.User)).
+			AddOutput(2, errors.New("save error"))
+
+	mock := test_mocks.NewUserDatabaseGatewayMock(methodName)
+
+	messageUtilsMock := *main_utils_messages.NewApplicationMessagesAllArgs(map[string]string{
+		_MSG_CREATE_NEW_DOC_ARCH_ISSUE: _MSG_CREATE_NEW_DOC_ARCH_ISSUE_VALUE,
+	})
+
+	testCreateNewUserFields := testCreateNewUserFields{
+		mock, new(test_mocks.LogsMonitoringGatewayMock), messageUtilsMock,
+	}
+
+	args := testCreateNewUserArgs{
+		context.Background(), user,
+	}
+
+	parameters := []testCreateNewUserInputs{testCreateNewUserInputs{
+		name:   "testCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError",
+		fields: testCreateNewUserFields,
+		args:   args,
+		want:   *new(main_domains.User),
+		want1:  main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(_MSG_CREATE_NEW_DOC_ARCH_ISSUE_VALUE),
+	}}
+	runTestCreateNewUser_Execute(t, parameters)
+}
+
+func runTestCreateNewUser_Execute(t *testing.T, parameters []testCreateNewUserInputs) {
+	for _, tt := range parameters {
 		t.Run(tt.name, func(t *testing.T) {
 			this := main_usecases.NewCreateNewUserAllArgs(tt.fields.userDatabaseGateway,
-				tt.fields.logLoki)
-
+				tt.fields.logLoki, tt.fields.messageUtils)
 			got, got1 := this.Execute(tt.args.ctx, tt.args.user)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Execute() got = %v, want %v", got, tt.want)
@@ -125,43 +239,32 @@ func TestCreateNewUser_Execute(t *testing.T) {
 	}
 }
 
-//func TestNewCreateNewUser(t *testing.T) {
-//	type args struct {
-//		userDatabaseGateway main_gateways.UserDatabaseGateway
-//	}
-//	tests := []struct {
-//		name string
-//		args args
-//		want *main_usecases.CreateNewUser
-//	}{
-//		// TODO: Add test cases.
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			if got := main_usecases.NewCreateNewUser(tt.args.userDatabaseGateway); !reflect.DeepEqual(got, tt.want) {
-//				t.Errorf("NewCreateNewUser() = %v, want %v", got, tt.want)
-//			}
-//		})
-//	}
-//}
-//
-//func TestNewCreateNewUserAllArgs(t *testing.T) {
-//	type args struct {
-//		userDatabaseGateway main_gateways.UserDatabaseGateway
-//		logLoki             main_configs_apm_logs_impl.LogsGateway
-//	}
-//	tests := []struct {
-//		name string
-//		args args
-//		want *main_usecases.CreateNewUser
-//	}{
-//		// TODO: Add test cases.
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			if got := main_usecases.NewCreateNewUserAllArgs(tt.args.userDatabaseGateway, tt.args.logLoki); !reflect.DeepEqual(got, tt.want) {
-//				t.Errorf("NewCreateNewUserAllArgs() = %v, want %v", got, tt.want)
-//			}
-//		})
-//	}
-//}
+func TestNewCreateNewUser(t *testing.T) {
+	type testsArgs struct {
+		name                  string
+		userDatabaseGateway   main_gateways.UserDatabaseGateway
+		logsMonitoringGateway main_gateways.LogsMonitoringGateway
+		want                  *main_usecases.CreateNewUser
+	}
+
+	tests := []testsArgs{
+		testsArgs{
+			"TestNewCreateNewUser",
+			new(test_mocks.UserDatabaseGatewayMock),
+			new(test_mocks.LogsMonitoringGatewayMock),
+			main_usecases.NewCreateNewUserAllArgs(
+				new(test_mocks.UserDatabaseGatewayMock),
+				new(test_mocks.LogsMonitoringGatewayMock),
+				*main_utils_messages.NewApplicationMessages()),
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := main_usecases.NewCreateNewUser(
+				tt.userDatabaseGateway, tt.logsMonitoringGateway); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewCreateNewUser() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
