@@ -12,7 +12,7 @@ const (
 	GROUP_ID_RABBITMQ_LISTENER_RETRY = "rabbitmq-listener-retry"
 )
 
-var FEATURES = map[string]main_configs_ff_lib_resources.FeaturesData{
+var FEATURES = main_configs_ff_lib_resources.Features{
 	ENABLE_FIND_BY_ID_ENDPOINT: *main_configs_ff_lib_resources.NewFeaturesData(
 		ENABLE_FIND_BY_ID_ENDPOINT,
 		GROUP_ID_ENDPOINTS_MANAGEMENT,

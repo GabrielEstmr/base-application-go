@@ -6,9 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="test(mocking): add struct mocking">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesCachedMongoMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesCachedMongoMethodsImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisMethodsImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/Features.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/Features.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/FfConfigsBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/FfConfigsBean.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesCachedMongoMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/FeaturesCachedMongoMethodsImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethodsFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/factories/FeaturesMethodsFactory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/FeaturesMongoMethodsImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/repo/FeaturesMongoRepo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/redis/FeaturesRedisMethodsImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/redis/repo/FeaturesRedisRepo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/RegisterMethods.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/RegisterMethods.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/RegisterMethodsFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/factories/RegisterMethodsFactory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/RegisterMethodsMongoImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/RegisterMethodsMongoImpl.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +86,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build baseapplicationgo.executor": "Debug",
+    "Go Build.go build baseapplicationgo.executor": "Run",
     "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
     "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
     "Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor": "Coverage",
@@ -108,11 +116,11 @@
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/redis/repo" />
+      <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/repo" />
+      <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/factories" />
+      <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/mongo" />
       <recent name="$PROJECT_DIR$/src/main/configs/ff/lib" />
-      <recent name="$PROJECT_DIR$/src/main/utils/messages" />
-      <recent name="$PROJECT_DIR$/src/main/utils" />
-      <recent name="$PROJECT_DIR$/src/test/usecases" />
-      <recent name="$PROJECT_DIR$/src/test/mocks" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build baseapplicationgo">
@@ -236,11 +244,6 @@
           <url>file://$PROJECT_DIR$/src/main/utils/messages/ApplicationMessages.go</url>
           <line>30</line>
           <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethodsFactory.go</url>
-          <line>15</line>
-          <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/usecases/FindUserById.go</url>

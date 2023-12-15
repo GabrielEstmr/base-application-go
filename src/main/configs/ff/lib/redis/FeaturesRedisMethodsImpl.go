@@ -1,16 +1,18 @@
-package main_configs_ff_lib
+package main_configs_ff_lib_redis
 
 import (
+	"baseapplicationgo/main/configs/ff/lib"
+	"baseapplicationgo/main/configs/ff/lib/redis/repo"
 	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
 	"errors"
 )
 
 type FeaturesRedisMethodsImpl struct {
-	repo *FeaturesRedisRepo
+	repo *main_configs_ff_lib_redis_repo.FeaturesRedisRepo
 }
 
-func NewFeaturesRedisMethodsImpl(ffConfigData *FfConfigData) *FeaturesRedisMethodsImpl {
-	return &FeaturesRedisMethodsImpl{repo: NewFeaturesRedisRepo(ffConfigData)}
+func NewFeaturesRedisMethodsImpl(ffConfigData *main_configs_ff_lib.FfConfigData) *FeaturesRedisMethodsImpl {
+	return &FeaturesRedisMethodsImpl{repo: main_configs_ff_lib_redis_repo.NewFeaturesRedisRepo(ffConfigData)}
 }
 
 func (this *FeaturesRedisMethodsImpl) getFeature(key string) (main_configs_ff_lib_resources.FeaturesData, error) {

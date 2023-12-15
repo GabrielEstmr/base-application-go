@@ -1,6 +1,7 @@
-package main_configs_ff_lib
+package main_configs_ff_lib_mongo_repo
 
 import (
+	"baseapplicationgo/main/configs/ff/lib"
 	main_configs_ff_lib_mongo_documents "baseapplicationgo/main/configs/ff/lib/mongo/documents"
 	"context"
 	"errors"
@@ -11,10 +12,10 @@ import (
 const _KEY = "_id"
 
 type FeaturesMongoRepo struct {
-	ffConfigData *FfConfigData
+	ffConfigData *main_configs_ff_lib.FfConfigData
 }
 
-func NewFeaturesMongoRepo(ffConfigData *FfConfigData) *FeaturesMongoRepo {
+func NewFeaturesMongoRepo(ffConfigData *main_configs_ff_lib.FfConfigData) *FeaturesMongoRepo {
 	return &FeaturesMongoRepo{ffConfigData: ffConfigData}
 }
 

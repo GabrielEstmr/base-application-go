@@ -1,16 +1,18 @@
-package main_configs_ff_lib
+package main_configs_ff_lib_mongo
 
 import (
+	"baseapplicationgo/main/configs/ff/lib"
 	main_configs_ff_lib_mongorepo_documents "baseapplicationgo/main/configs/ff/lib/mongo/documents"
+	main_configs_ff_lib_mongo_repo "baseapplicationgo/main/configs/ff/lib/mongo/repo"
 	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
 )
 
 type RegisterMethodsMongoImpl struct {
-	repo *FeaturesMongoRepo
+	repo *main_configs_ff_lib_mongo_repo.FeaturesMongoRepo
 }
 
-func NewRegisterMethodsMongoImpl(ffConfigData *FfConfigData) *RegisterMethodsMongoImpl {
-	return &RegisterMethodsMongoImpl{repo: NewFeaturesMongoRepo(ffConfigData)}
+func NewRegisterMethodsMongoImpl(ffConfigData *main_configs_ff_lib.FfConfigData) *RegisterMethodsMongoImpl {
+	return &RegisterMethodsMongoImpl{repo: main_configs_ff_lib_mongo_repo.NewFeaturesMongoRepo(ffConfigData)}
 }
 
 func (this *RegisterMethodsMongoImpl) getFeature(key string) (main_configs_ff_lib_resources.FeaturesData, error) {
@@ -27,7 +29,7 @@ func (this *RegisterMethodsMongoImpl) getFeature(key string) (main_configs_ff_li
 	return byId.ToDomain(), nil
 }
 
-func (this *RegisterMethodsMongoImpl) RegisterFeatures(features map[string]main_configs_ff_lib_resources.FeaturesData) error {
+func (this *RegisterMethodsMongoImpl) RegisterFeatures(features main_configs_ff_lib_resources.Features) error {
 	for k, v := range features {
 		feature, err := this.getFeature(k)
 		if err != nil {

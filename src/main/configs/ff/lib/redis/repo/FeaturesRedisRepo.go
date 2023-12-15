@@ -1,6 +1,7 @@
-package main_configs_ff_lib
+package main_configs_ff_lib_redis_repo
 
 import (
+	"baseapplicationgo/main/configs/ff/lib"
 	main_configs_ff_lib_redis_documents "baseapplicationgo/main/configs/ff/lib/redis/documents"
 	"context"
 	"encoding/json"
@@ -10,10 +11,10 @@ import (
 )
 
 type FeaturesRedisRepo struct {
-	ffConfigData *FfConfigData
+	ffConfigData *main_configs_ff_lib.FfConfigData
 }
 
-func NewFeaturesRedisRepo(ffConfigData *FfConfigData) *FeaturesRedisRepo {
+func NewFeaturesRedisRepo(ffConfigData *main_configs_ff_lib.FfConfigData) *FeaturesRedisRepo {
 	return &FeaturesRedisRepo{ffConfigData}
 }
 

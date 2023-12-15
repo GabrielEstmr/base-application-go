@@ -1,20 +1,23 @@
-package main_configs_ff_lib
+package main_configs_ff_lib_mongo
 
 import (
+	"baseapplicationgo/main/configs/ff/lib"
+	main_configs_ff_lib_mongo_repo "baseapplicationgo/main/configs/ff/lib/mongo/repo"
 	main_configs_ff_lib_redis_documents "baseapplicationgo/main/configs/ff/lib/redis/documents"
+	main_configs_ff_lib_redis_repo "baseapplicationgo/main/configs/ff/lib/redis/repo"
 	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
 	"errors"
 )
 
 type FeaturesCachedMongoMethodsImpl struct {
-	repo      *FeaturesMongoRepo
-	repoCache *FeaturesRedisRepo
+	repo      *main_configs_ff_lib_mongo_repo.FeaturesMongoRepo
+	repoCache *main_configs_ff_lib_redis_repo.FeaturesRedisRepo
 }
 
-func NewFeaturesCachedMongoMethodsImpl(ffConfigData *FfConfigData) *FeaturesCachedMongoMethodsImpl {
+func NewFeaturesCachedMongoMethodsImpl(ffConfigData *main_configs_ff_lib.FfConfigData) *FeaturesCachedMongoMethodsImpl {
 	return &FeaturesCachedMongoMethodsImpl{
-		repo:      NewFeaturesMongoRepo(ffConfigData),
-		repoCache: NewFeaturesRedisRepo(ffConfigData),
+		repo:      main_configs_ff_lib_mongo_repo.NewFeaturesMongoRepo(ffConfigData),
+		repoCache: main_configs_ff_lib_redis_repo.NewFeaturesRedisRepo(ffConfigData),
 	}
 }
 
