@@ -80,6 +80,7 @@ func (this *CachedUserDatabaseGatewayImpl) FindByDocumentNumber(documentNumber s
 	return user, err
 }
 
-func (this *CachedUserDatabaseGatewayImpl) FindByFilter(filter main_domains.FindUserFilter, pageable main_domains.Pageable) (main_domains.Page, error) {
+func (this *CachedUserDatabaseGatewayImpl) FindByFilter(
+	filter main_domains.FindUserFilter, pageable main_domains.Pageable) (main_domains.Page, error) {
 	return this.userDatabaseGateway.FindByFilter(filter, pageable)
 }

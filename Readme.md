@@ -6,16 +6,16 @@
 - [ ] PostgresDB integration;
 - [ ] Kafka Integration;
 - [ ] RabbitMQ Integration;
-- [ ] FF4J integration;
+- [X] FF4J integration;
 - [X] YML Properties Integration;
 - [X] Swagger
 - [X] Msg Bundle
-- [ ] Redis Locking
-- [ ] OTEL integration
+- [X] Redis Locking
+- [X] OTEL integration
 - [X] Request Validation
 - [X] Logs
 - [X] How to unmarshall structs with private props
-- [ ] Review Redis Repository (With Sentinel)
+- [X] Review Redis Repository (With Sentinel)
   - https://redis.uptrace.dev/guide/go-redis.html
 - [X] Review Redis Repository: findByDocumentNumber
 - [ ] Get Locale from proxy
