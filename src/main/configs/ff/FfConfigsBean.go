@@ -4,7 +4,6 @@ import (
 	main_configs_cache "baseapplicationgo/main/configs/cache"
 	main_configs_error "baseapplicationgo/main/configs/error"
 	main_configs_ff_lib "baseapplicationgo/main/configs/ff/lib"
-	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
 	main_configs_mongo "baseapplicationgo/main/configs/mongodb"
 	"sync"
 )
@@ -34,17 +33,10 @@ func getFfConfigData() *main_configs_ff_lib.FfConfig {
 		_FF_FEATURES_NAME,
 	)
 
-	features := map[string]main_configs_ff_lib_resources.FeaturesData{
-		"key1": *main_configs_ff_lib_resources.NewFeaturesData("key1",
-			"key1",
-			"key1",
-			false),
-	}
-
 	registerImpl, err := main_configs_ff_lib.NewRegisterMethodsFactory(configData).Get()
 	main_configs_error.FailOnError(err, "_MSG_ERROR_TRACER_RESOURCE")
 
-	errRegister := registerImpl.RegisterFeatures(features)
+	errRegister := registerImpl.RegisterFeatures(FEATURES)
 	main_configs_error.FailOnError(errRegister, "_MSG_ERROR_TRACER_RESOURCE")
 
 	featureMethodsImpl, errFm := main_configs_ff_lib.NewFeaturesMethodsFactory(configData).Get()
