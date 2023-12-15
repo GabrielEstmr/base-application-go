@@ -1,10 +1,10 @@
 package main_usecases
 
 import (
-	main_configs_ff "baseapplicationgo/main/configs/ff"
 	main_configs_logs "baseapplicationgo/main/configs/log"
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
+	main_domains_features "baseapplicationgo/main/domains/features"
 	main_gateways "baseapplicationgo/main/gateways"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"log"
@@ -44,43 +44,43 @@ func (this *FindUserById) Execute(id string) (main_domains.User, main_domains_ex
 			this.messageUtils.GetDefaultLocale(_MSG_FIND_USER_BY_ID_DOC_NOT_FOUND))
 	}
 
-	disabled, err := this.featuresGateway.IsDisabled(main_configs_ff.ENABLE_FIND_BY_ID_ENDPOINT)
+	disabled, err := this.featuresGateway.IsDisabled(main_domains_features.ENABLE_FIND_BY_ID_ENDPOINT)
 
 	if disabled == true && err == nil {
 		log.Println("====================> FEATURE")
 	}
 
-	_, errF := this.featuresGateway.Enable(main_configs_ff.ENABLE_FIND_BY_ID_ENDPOINT)
+	_, errF := this.featuresGateway.Enable(main_domains_features.ENABLE_FIND_BY_ID_ENDPOINT)
 	if errF != nil {
 		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(errF.Error())
 	}
 
-	_, errD := this.featuresGateway.Disable(main_configs_ff.ENABLE_FIND_BY_ID_ENDPOINT)
+	_, errD := this.featuresGateway.Disable(main_domains_features.ENABLE_FIND_BY_ID_ENDPOINT)
 	if errD != nil {
 		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(errD.Error())
 	}
 
-	_, errF2 := this.featuresGateway.Enable(main_configs_ff.ENABLE_FIND_BY_ID_ENDPOINT)
+	_, errF2 := this.featuresGateway.Enable(main_domains_features.ENABLE_FIND_BY_ID_ENDPOINT)
 	if errF2 != nil {
 		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(errF2.Error())
 	}
 
-	_, errD2 := this.featuresGateway.Disable(main_configs_ff.ENABLE_FIND_BY_ID_ENDPOINT)
+	_, errD2 := this.featuresGateway.Disable(main_domains_features.ENABLE_FIND_BY_ID_ENDPOINT)
 	if errD2 != nil {
 		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(errD2.Error())
 	}
 
-	_, errF3 := this.featuresGateway.Enable(main_configs_ff.ENABLE_FIND_BY_ID_ENDPOINT)
+	_, errF3 := this.featuresGateway.Enable(main_domains_features.ENABLE_FIND_BY_ID_ENDPOINT)
 	if errF3 != nil {
 		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(errF3.Error())
 	}
 
-	_, errD3 := this.featuresGateway.Disable(main_configs_ff.ENABLE_FIND_BY_ID_ENDPOINT)
+	_, errD3 := this.featuresGateway.Disable(main_domains_features.ENABLE_FIND_BY_ID_ENDPOINT)
 	if errD3 != nil {
 		return main_domains.User{}, main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(errD3.Error())
 	}
 
-	enabled, errEEE := this.featuresGateway.IsEnabled(main_configs_ff.ENABLE_FIND_BY_ID_ENDPOINT)
+	enabled, errEEE := this.featuresGateway.IsEnabled(main_domains_features.ENABLE_FIND_BY_ID_ENDPOINT)
 
 	if enabled == true && errEEE == nil {
 		log.Println("====================> FEATURE")

@@ -3,7 +3,7 @@ package main_gateways_features
 import (
 	main_configs_ff "baseapplicationgo/main/configs/ff"
 	main_configs_ff_lib "baseapplicationgo/main/configs/ff/lib"
-	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
+	main_domains_features "baseapplicationgo/main/domains/features"
 )
 
 type FeaturesGatewayImpl struct {
@@ -24,10 +24,12 @@ func (this *FeaturesGatewayImpl) IsDisabled(key string) (bool, error) {
 	return this.ffConfig.GetFeaturesMethods().IsDisabled(key)
 }
 
-func (this *FeaturesGatewayImpl) Enable(key string) (main_configs_ff_lib_resources.FeaturesData, error) {
-	return this.ffConfig.GetFeaturesMethods().Enable(key)
+func (this *FeaturesGatewayImpl) Enable(key string) (main_domains_features.FeaturesData, error) {
+	feature, err := this.ffConfig.GetFeaturesMethods().Enable(key)
+	return *main_domains_features.NewFeaturesData(feature), err
 }
 
-func (this *FeaturesGatewayImpl) Disable(key string) (main_configs_ff_lib_resources.FeaturesData, error) {
-	return this.ffConfig.GetFeaturesMethods().Disable(key)
+func (this *FeaturesGatewayImpl) Disable(key string) (main_domains_features.FeaturesData, error) {
+	feature, err := this.ffConfig.GetFeaturesMethods().Disable(key)
+	return *main_domains_features.NewFeaturesData(feature), err
 }

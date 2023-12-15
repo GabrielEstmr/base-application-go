@@ -5,8 +5,10 @@ import (
 	main_configs_error "baseapplicationgo/main/configs/error"
 	main_configs_ff_lib "baseapplicationgo/main/configs/ff/lib"
 	"baseapplicationgo/main/configs/ff/lib/factories"
+	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
 	main_configs_mongo "baseapplicationgo/main/configs/mongodb"
 	main_configs_yml "baseapplicationgo/main/configs/yml"
+	main_domains_features "baseapplicationgo/main/domains/features"
 	"log"
 	"sync"
 )
@@ -49,7 +51,12 @@ func getFfConfigData() *main_configs_ff_lib.FfConfig {
 	registerImpl, err := main_configs_ff_lib_factories.NewRegisterMethodsFactory(configData).Get()
 	main_configs_error.FailOnError(err, _MSG_ERROR_INSTANTIATE_FEATURES_REGISTER_FACTORY)
 
-	errRegister := registerImpl.RegisterFeatures(FEATURES)
+	featuresLib := make(main_configs_ff_lib_resources.Features)
+	for k, v := range main_domains_features.FEATURES {
+		featuresLib[k] = *v.ToGatewayResource()
+	}
+
+	errRegister := registerImpl.RegisterFeatures(featuresLib)
 	main_configs_error.FailOnError(errRegister, _MSG_ERROR_REGISTER_FEATURES)
 
 	featureMethodsImpl, errFm := main_configs_ff_lib_factories.NewFeaturesMethodsFactory(configData).Get()

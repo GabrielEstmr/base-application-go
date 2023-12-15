@@ -1,6 +1,6 @@
-package main_configs_ff
+package main_domains_features
 
-import main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
+type Features map[string]FeaturesData
 
 const (
 	ENABLE_FIND_BY_ID_ENDPOINT  = "ENABLE_FIND_BY_ID_ENDPOINT"
@@ -12,13 +12,13 @@ const (
 	GROUP_ID_RABBITMQ_LISTENER_RETRY = "rabbitmq-listener-retry"
 )
 
-var FEATURES = main_configs_ff_lib_resources.Features{
-	ENABLE_FIND_BY_ID_ENDPOINT: *main_configs_ff_lib_resources.NewFeaturesData(
+var FEATURES = Features{
+	ENABLE_FIND_BY_ID_ENDPOINT: *NewFeaturesDataAllArgs(
 		ENABLE_FIND_BY_ID_ENDPOINT,
 		GROUP_ID_ENDPOINTS_MANAGEMENT,
 		"feature to testing ff lib",
 		false),
-	RABBITMQ_TES_LISTENER_RETRY: *main_configs_ff_lib_resources.NewFeaturesData(
+	RABBITMQ_TES_LISTENER_RETRY: *NewFeaturesDataAllArgs(
 		RABBITMQ_TES_LISTENER_RETRY,
 		GROUP_ID_RABBITMQ_LISTENER_RETRY,
 		"feature to test rabbitmq behaviour",
