@@ -26,7 +26,7 @@ func (this *FeaturesRedisRepo) Save(
 		return *new(main_configs_ff_lib_redis_documents.FeaturesDataRedisDocument), err
 	}
 
-	this.ffConfigData.GetCacheClient().Set(context.TODO(), feature.Key, featureBytes, time.Hour).Result()
+	this.ffConfigData.GetCacheClient().Set(context.TODO(), this.buildKeyPrefix(feature.Key), featureBytes, time.Hour).Result()
 	return feature, nil
 }
 
@@ -34,7 +34,7 @@ func (this *FeaturesRedisRepo) FindById(key string) (
 	main_configs_ff_lib_redis_documents.FeaturesDataRedisDocument, error) {
 
 	result, err := this.ffConfigData.GetCacheClient().
-		Get(context.TODO(), this.ffConfigData.GetCachingPrefix()+"_"+key).Result()
+		Get(context.TODO(), this.buildKeyPrefix(key)).Result()
 
 	if errors.Is(err, redis.Nil) {
 		return *new(main_configs_ff_lib_redis_documents.FeaturesDataRedisDocument), nil
@@ -50,4 +50,8 @@ func (this *FeaturesRedisRepo) FindById(key string) (
 	}
 
 	return feature, nil
+}
+
+func (this *FeaturesRedisRepo) buildKeyPrefix(key string) string {
+	return this.ffConfigData.GetCachingPrefix() + "_" + key
 }

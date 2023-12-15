@@ -5,10 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="test(mocking): add struct mocking">
-      <change afterPath="$PROJECT_DIR$/src/main/configs/ff/Features.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/FfConfigsBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/FfConfigsBean.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesCachedMongoMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesCachedMongoMethodsImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethods.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethods.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethodsFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethodsFactory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoMethodsImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoRepo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisRepo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/documents/FeaturesDataDocument.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/documents/FeaturesDataDocument.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/resources/FeaturesData.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/resources/FeaturesData.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/FeaturesGateway.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/FeaturesGateway.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/features/FeaturesGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/features/FeaturesGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,34 +83,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;Go Build.go build baseapplicationgo.executor&quot;: &quot;Debug&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
-    &quot;Go Test.go test baseapplicationgo/test/usecases.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.go test usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/add-ff-client&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/gabriel/Documents/Projects/base-application-go/docker/grafana&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "Go Build.go build baseapplicationgo.executor": "Debug",
+    "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
+    "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
+    "Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor": "Debug",
+    "Go Test.go test baseapplicationgo/test/usecases.executor": "Run",
+    "Go Test.go test usecases.executor": "Coverage",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "feat/add-ff-client",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/home/gabriel/Documents/Projects/base-application-go/docker/grafana",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/docker/grafana" />
@@ -208,11 +216,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/apm/logs/impl/request/CreateLogRequest.go</url>
-          <line>11</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/test/mocks/Test2.go</url>
           <line>34</line>
           <option name="timeStamp" value="12" />
@@ -243,14 +246,24 @@
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoMethodsImpl.go</url>
-          <line>11</line>
-          <option name="timeStamp" value="65" />
+          <url>file://$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethodsFactory.go</url>
+          <line>15</line>
+          <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/ff/lib/RegisterMethodsMongoImpl.go</url>
-          <line>22</line>
-          <option name="timeStamp" value="66" />
+          <url>file://$PROJECT_DIR$/src/main/usecases/FindUserById.go</url>
+          <line>37</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/usecases/FindUserById.go</url>
+          <line>57</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesCachedMongoMethodsImpl.go</url>
+          <line>44</line>
+          <option name="timeStamp" value="76" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

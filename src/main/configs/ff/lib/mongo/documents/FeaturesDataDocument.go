@@ -35,3 +35,11 @@ func (this *FeaturesDataDocument) ToDomain() main_configs_ff_lib_resources.Featu
 		this.DefaultValue,
 	)
 }
+
+func (this *FeaturesDataDocument) IsEnabled() bool {
+	return this.DefaultValue == true
+}
+
+func (this *FeaturesDataDocument) IsDisabled() bool {
+	return this.DefaultValue == false
+}

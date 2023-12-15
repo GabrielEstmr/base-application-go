@@ -34,6 +34,21 @@ func (this *FeaturesMongoRepo) Save(
 	return feature, nil
 }
 
+func (this *FeaturesMongoRepo) Update(
+	feature main_configs_ff_lib_mongo_documents.FeaturesDataDocument,
+) (main_configs_ff_lib_mongo_documents.FeaturesDataDocument, error) {
+
+	collection := this.ffConfigData.GetDb().Collection(this.ffConfigData.GetFeaturesDbName())
+	filter := bson.D{{_KEY, feature.Key}}
+	update := bson.D{{"$set", bson.D{{"defaultValue", feature.DefaultValue}}}}
+
+	_, err := collection.UpdateOne(context.TODO(), filter, update)
+	if err != nil {
+		return *new(main_configs_ff_lib_mongo_documents.FeaturesDataDocument), err
+	}
+	return feature, nil
+}
+
 func (this *FeaturesMongoRepo) FindById(id string) (*main_configs_ff_lib_mongo_documents.FeaturesDataDocument, error) {
 	collection := this.ffConfigData.GetDb().Collection(this.ffConfigData.GetFeaturesDbName())
 	var result main_configs_ff_lib_mongo_documents.FeaturesDataDocument

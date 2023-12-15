@@ -32,7 +32,7 @@ func (this *FeaturesMongoMethodsImpl) IsEnabled(key string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return feature.GetDefaultValue() == true, nil
+	return feature.IsEnabled(), nil
 }
 
 func (this *FeaturesMongoMethodsImpl) IsDisabled(key string) (bool, error) {
@@ -40,5 +40,39 @@ func (this *FeaturesMongoMethodsImpl) IsDisabled(key string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return feature.GetDefaultValue() == false, nil
+	return feature.IsDisabled(), nil
+}
+
+func (this *FeaturesMongoMethodsImpl) Enable(key string) (main_configs_ff_lib_resources.FeaturesData, error) {
+	featureDoc, err := this.repo.FindById(key)
+	if err != nil {
+		return *new(main_configs_ff_lib_resources.FeaturesData), err
+	}
+
+	if featureDoc.IsDisabled() {
+		featureDoc.DefaultValue = true
+		savedFeatureDoc, err := this.repo.Update(*featureDoc)
+		if err != nil {
+			return *new(main_configs_ff_lib_resources.FeaturesData), err
+		}
+		return savedFeatureDoc.ToDomain(), nil
+	}
+	return featureDoc.ToDomain(), nil
+}
+
+func (this *FeaturesMongoMethodsImpl) Disable(key string) (main_configs_ff_lib_resources.FeaturesData, error) {
+	featureDoc, err := this.repo.FindById(key)
+	if err != nil {
+		return *new(main_configs_ff_lib_resources.FeaturesData), err
+	}
+
+	if featureDoc.IsEnabled() {
+		featureDoc.DefaultValue = false
+		savedFeatureDoc, err := this.repo.Update(*featureDoc)
+		if err != nil {
+			return *new(main_configs_ff_lib_resources.FeaturesData), err
+		}
+		return savedFeatureDoc.ToDomain(), nil
+	}
+	return featureDoc.ToDomain(), nil
 }

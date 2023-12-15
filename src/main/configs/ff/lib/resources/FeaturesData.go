@@ -38,3 +38,15 @@ func (this *FeaturesData) GetDescription() string {
 func (this *FeaturesData) GetDefaultValue() bool {
 	return this.defaultValue
 }
+
+func (this *FeaturesData) SetDefaultValue(defaultValue bool) {
+	this.defaultValue = defaultValue
+}
+
+func (this *FeaturesData) IsEnabled() bool {
+	return this.defaultValue == true
+}
+
+func (this *FeaturesData) IsDisabled() bool {
+	return this.defaultValue == false
+}
