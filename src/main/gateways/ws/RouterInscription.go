@@ -7,6 +7,8 @@ import (
 	"sync"
 )
 
+const API_V1_PREFIX = "/api/v1"
+
 type Route struct {
 	URI          string
 	Method       string
@@ -33,21 +35,33 @@ func getFunctionBeans() []Route {
 	beans := mainGatewaysWsBeans.GetControllerBeans()
 	var RoutesConfig = []Route{
 		{
-			URI:          "/users",
+			URI:          API_V1_PREFIX + "/users",
 			Method:       http.MethodPost,
 			Function:     beans.UserControllerV1Bean.CreateUser,
 			AuthRequired: false,
 		},
 		{
-			URI:          "/users/{id}",
+			URI:          API_V1_PREFIX + "/users/{id}",
 			Method:       http.MethodGet,
 			Function:     beans.UserControllerV1Bean.FindUserById,
 			AuthRequired: false,
 		},
 		{
-			URI:          "/users",
+			URI:          API_V1_PREFIX + "/users",
 			Method:       http.MethodGet,
 			Function:     beans.UserControllerV1Bean.FindUser,
+			AuthRequired: false,
+		},
+		{
+			URI:          API_V1_PREFIX + "/features/{key}/enable",
+			Method:       http.MethodPost,
+			Function:     beans.FeatureControllerV1Bean.EnableFeatureByKey,
+			AuthRequired: false,
+		},
+		{
+			URI:          API_V1_PREFIX + "/features/{key}/disable",
+			Method:       http.MethodPost,
+			Function:     beans.FeatureControllerV1Bean.DisableFeatureByKey,
 			AuthRequired: false,
 		},
 	}

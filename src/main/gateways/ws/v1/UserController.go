@@ -13,7 +13,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"go.opentelemetry.io/otel"
 	"io"
 	"log"
 	"net"
@@ -21,13 +20,9 @@ import (
 	"strings"
 )
 
-var (
-	meter = otel.Meter("rolldice")
-)
-
 const _USER_CONTROLLER_MSG_MALFORMED_REQUEST_BODY = "controllers.param.missing.or.malformed"
 
-const _USER_CONTROLLER_PATH_PREFIX = "/users/"
+const _USER_CONTROLLER_PATH_PREFIX = "/api/v1/users/"
 
 type UserController struct {
 	createNewUser         *main_usecases.CreateNewUser

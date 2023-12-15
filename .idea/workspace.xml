@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="test(mocking): add struct mocking">
-      <change afterPath="$PROJECT_DIR$/src/main/domains/features/Features.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/domains/features/FeaturesData.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/Features.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/FfConfigsBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/FfConfigsBean.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/FeaturesGateway.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/FeaturesGateway.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/features/FeaturesGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/features/FeaturesGatewayImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/FeaturesControllerBeanFactory.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/FeaturesController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/FeaturesCachedMongoMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/FeaturesCachedMongoMethodsImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/FeaturesMongoMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/FeaturesMongoMethodsImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/ControllersBeans.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/ControllersBeans.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +40,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="project/base-app-go" />
+                    <option name="lastUsedInstant" value="1702660648" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="feat/add-ff-client" />
                     <option name="lastUsedInstant" value="1702550827" />
                   </RecentBranch>
@@ -51,10 +58,6 @@
                   <RecentBranch>
                     <option name="branchName" value="feat/prometheus" />
                     <option name="lastUsedInstant" value="1702229627" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="main" />
-                    <option name="lastUsedInstant" value="1702229626" />
                   </RecentBranch>
                 </list>
               </option>
@@ -96,7 +99,7 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "feat/add-ff-client",
+    "git-widget-placeholder": "project/base-app-go",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "last_opened_file_path": "/home/gabriel/Documents/Projects/base-application-go/docker/grafana",
@@ -230,24 +233,9 @@
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/utils/messages/ApplicationMessages.go</url>
-          <line>25</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/utils/messages/ApplicationMessages.go</url>
-          <line>30</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/usecases/FindUserById.go</url>
-          <line>37</line>
-          <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/usecases/FindUserById.go</url>
-          <line>57</line>
-          <option name="timeStamp" value="74" />
+          <url>file://$PROJECT_DIR$/src/main/gateways/features/FeaturesGatewayImpl.go</url>
+          <line>28</line>
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
