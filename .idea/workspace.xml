@@ -6,17 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="test(mocking): add struct mocking">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesCachedMongoMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesCachedMongoMethodsImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethods.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethods.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethodsFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMethodsFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoMethodsImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesMongoRepo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisRepo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/documents/FeaturesDataDocument.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/documents/FeaturesDataDocument.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/resources/FeaturesData.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/resources/FeaturesData.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/FeaturesGateway.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/FeaturesGateway.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/features/FeaturesGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/features/FeaturesGatewayImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisMethodsImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesRedisMethodsImpl.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,11 +251,6 @@
           <url>file://$PROJECT_DIR$/src/main/usecases/FindUserById.go</url>
           <line>57</line>
           <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/ff/lib/FeaturesCachedMongoMethodsImpl.go</url>
-          <line>44</line>
-          <option name="timeStamp" value="76" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -6,7 +6,7 @@
 - [ ] PostgresDB integration;
 - [ ] Kafka Integration;
 - [ ] RabbitMQ Integration;
-- [ ] FF4J integration;
+- [X] FF4J integration;
 - [X] YML Properties Integration;
 - [X] Swagger
 - [X] Msg Bundle

@@ -46,7 +46,7 @@ func (this *FeaturesCachedMongoMethodsImpl) IsEnabled(key string) (bool, error) 
 	if err != nil {
 		return false, err
 	}
-	return feature.GetDefaultValue() == true, nil
+	return feature.IsEnabled(), nil
 }
 
 func (this *FeaturesCachedMongoMethodsImpl) IsDisabled(key string) (bool, error) {
@@ -54,7 +54,7 @@ func (this *FeaturesCachedMongoMethodsImpl) IsDisabled(key string) (bool, error)
 	if err != nil {
 		return false, err
 	}
-	return feature.GetDefaultValue() == false, nil
+	return feature.IsDisabled(), nil
 }
 
 func (this *FeaturesCachedMongoMethodsImpl) Enable(key string) (main_configs_ff_lib_resources.FeaturesData, error) {

@@ -32,7 +32,7 @@ func (this *FeaturesRedisMethodsImpl) IsEnabled(key string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return feature.GetDefaultValue() == true, nil
+	return feature.IsEnabled(), nil
 }
 
 func (this *FeaturesRedisMethodsImpl) IsDisabled(key string) (bool, error) {
@@ -40,5 +40,5 @@ func (this *FeaturesRedisMethodsImpl) IsDisabled(key string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return feature.GetDefaultValue() == false, nil
+	return feature.IsDisabled(), nil
 }
