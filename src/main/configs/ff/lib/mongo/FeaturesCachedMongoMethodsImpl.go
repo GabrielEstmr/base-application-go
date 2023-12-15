@@ -65,6 +65,9 @@ func (this *FeaturesCachedMongoMethodsImpl) Enable(key string) (main_configs_ff_
 	if errFind != nil {
 		return *new(main_configs_ff_lib_resources.FeaturesData), errFind
 	}
+	if featureDoc.IsEmpty() {
+		return *new(main_configs_ff_lib_resources.FeaturesData), errors.New("feature not found")
+	}
 
 	featureDoc.DefaultValue = true
 	_, errCache := this.repoCache.Save(main_configs_ff_lib_redis_documents.NewFeaturesDataRedisDocument(featureDoc.ToDomain()))
@@ -83,6 +86,9 @@ func (this *FeaturesCachedMongoMethodsImpl) Disable(key string) (main_configs_ff
 	featureDoc, errFind := this.repo.FindById(key)
 	if errFind != nil {
 		return *new(main_configs_ff_lib_resources.FeaturesData), errFind
+	}
+	if featureDoc.IsEmpty() {
+		return *new(main_configs_ff_lib_resources.FeaturesData), errors.New("feature not found")
 	}
 
 	featureDoc.DefaultValue = false

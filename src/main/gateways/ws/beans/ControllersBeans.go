@@ -11,7 +11,8 @@ var once sync.Once
 var controllerBeans *ControllerBeans
 
 type ControllerBeans struct {
-	UserControllerV1Bean *main_gateways_ws_v1.UserController
+	UserControllerV1Bean    *main_gateways_ws_v1.UserController
+	FeatureControllerV1Bean *main_gateways_ws_v1.FeaturesController
 }
 
 func GetControllerBeans() *ControllerBeans {
@@ -25,6 +26,7 @@ func GetControllerBeans() *ControllerBeans {
 
 func subscriptControllerBeans() *ControllerBeans {
 	return &ControllerBeans{
-		UserControllerV1Bean: main_gateways_ws_beans_factories.NewUserControllerBean().Get(),
+		UserControllerV1Bean:    main_gateways_ws_beans_factories.NewUserControllerBean().Get(),
+		FeatureControllerV1Bean: main_gateways_ws_beans_factories.NewFeatureControllerBean().Get(),
 	}
 }

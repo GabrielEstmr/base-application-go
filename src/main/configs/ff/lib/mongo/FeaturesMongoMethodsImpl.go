@@ -50,6 +50,9 @@ func (this *FeaturesMongoMethodsImpl) Enable(key string) (main_configs_ff_lib_re
 	if err != nil {
 		return *new(main_configs_ff_lib_resources.FeaturesData), err
 	}
+	if featureDoc.IsEmpty() {
+		return *new(main_configs_ff_lib_resources.FeaturesData), errors.New("feature not found")
+	}
 
 	if featureDoc.IsDisabled() {
 		featureDoc.DefaultValue = true
@@ -66,6 +69,9 @@ func (this *FeaturesMongoMethodsImpl) Disable(key string) (main_configs_ff_lib_r
 	featureDoc, err := this.repo.FindById(key)
 	if err != nil {
 		return *new(main_configs_ff_lib_resources.FeaturesData), err
+	}
+	if featureDoc.IsEmpty() {
+		return *new(main_configs_ff_lib_resources.FeaturesData), errors.New("feature not found")
 	}
 
 	if featureDoc.IsEnabled() {
