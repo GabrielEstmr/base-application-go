@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(features): add features controller">
-      <change afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpQueueParameters.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/rabbitmq/RabbitMqConfig.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/RabbitMqConfig.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpBindingQueue.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpBindingQueue.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpExchanges.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpExchanges.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpQueues.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpQueues.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpRoutingKeys.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpRoutingKeys.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpBindingParameters.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpExchangeParameters.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpBindingQueueProperties.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpBindingQueueProperties.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpExchangeParameters.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpExchangeProperties.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpQueueParameters.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpQueueProperties.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/SubcribeRabbitListeners.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/SubcribeRabbitListeners.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

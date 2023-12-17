@@ -6,7 +6,7 @@ import (
 	main_configs_error "baseapplicationgo/main/configs/error"
 	mainConfigsRouterHttp "baseapplicationgo/main/configs/router"
 	main_configs_yml "baseapplicationgo/main/configs/yml"
-	main_gateways_rabbitmq_listeners "baseapplicationgo/main/gateways/rabbitmq/listeners"
+	main_gateways_rabbitmq "baseapplicationgo/main/gateways/rabbitmq"
 	mainGatewaysWs "baseapplicationgo/main/gateways/ws"
 	"context"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -23,7 +23,7 @@ const IDX_TRACER_APM_SERVER_NAME_YML = "Apm.server.name"
 
 func init() {
 	main_configs.InitConfigBeans()
-	go main_gateways_rabbitmq_listeners.SubscribeListeners()
+	go main_gateways_rabbitmq.SubscribeListeners()
 }
 
 func main() {
