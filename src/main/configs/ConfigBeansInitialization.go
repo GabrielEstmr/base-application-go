@@ -5,6 +5,7 @@ import (
 	main_configs_ff "baseapplicationgo/main/configs/ff"
 	main_configs_messages "baseapplicationgo/main/configs/messages"
 	main_configs_mongo "baseapplicationgo/main/configs/mongodb"
+	main_configs_rabbitmq "baseapplicationgo/main/configs/rabbitmq"
 	main_configs_yml "baseapplicationgo/main/configs/yml"
 	"log/slog"
 )
@@ -19,5 +20,6 @@ func InitConfigBeans() {
 	main_configs_mongo.InitMongoConfigBeans()
 	main_configs_cache.GetRedisClusterBean()
 	main_configs_ff.GetFfConfigDataBean()
+	main_configs_rabbitmq.SetAmqpConfig()
 	slog.Info(_MSG_APPLICATION_BEANS_INITIATED)
 }
