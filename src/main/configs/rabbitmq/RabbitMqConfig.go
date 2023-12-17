@@ -29,45 +29,34 @@ func CloseRabbitMqChannel(ch *amqp091.Channel) {
 	main_configs_error.FailOnError(err, _MSG_RABBITMQ_CLOSE_CHANNEL_FAILURE)
 }
 
-func SetAmqpConfig() {
-
+func GetConnection() *amqp091.Connection {
 	rabbitMqURI := main_configs_yml.GetYmlValueByName(_RABBITMQ_URI_YML_IDX)
 	log.Println(fmt.Sprintf(_MSG_TRYING_TO_CONNECT_TO_RABBITMQ, rabbitMqURI))
 
 	conn, err := amqp091.Dial(rabbitMqURI)
 	main_configs_error.FailOnError(err, _MSG_RABBITMQ_CONNECT_FAILURE)
-	defer CloseRabbitMqConnection(conn)
+	return conn
+}
 
+func GetChannel(conn *amqp091.Connection) *amqp091.Channel {
 	ch, err := conn.Channel()
 	main_configs_error.FailOnError(err, _MSG_RABBITMQ_OPEN_CHANNEL_FAILURE)
+	return ch
+}
+
+func SetAmqpConfig() {
+	rabbitMqURI := main_configs_yml.GetYmlValueByName(_RABBITMQ_URI_YML_IDX)
+	log.Println(fmt.Sprintf(_MSG_TRYING_TO_CONNECT_TO_RABBITMQ, rabbitMqURI))
+
+	conn := GetConnection()
+	defer CloseRabbitMqConnection(conn)
+
+	ch := GetChannel(conn)
 	defer CloseRabbitMqChannel(ch)
 
 	declareQueues(ch)
-
-	exchanges := main_configs_rabbitmq_paramaters.AMQP_EXCHANGES
-	for _, value := range exchanges {
-		err := ch.ExchangeDeclare(
-			value,   // name
-			"topic", // type
-			true,    // durable
-			false,   // auto-deleted
-			false,   // internal
-			false,   // no-wait
-			nil,     // arguments
-		)
-		main_configs_error.FailOnError(err, _MSG_RABBITMQ_DECLARE_EXCHANGE_FAILURE)
-	}
-
-	bindingParameters := main_configs_rabbitmq_paramaters.AmqpBindingQueue
-	for _, value := range bindingParameters {
-		err := ch.QueueBind(
-			value.GetQueueName(),  // queue name
-			value.GetRoutingKey(), // routing key
-			value.GetExchange(),   // exchange
-			value.GetNowait(),
-			nil)
-		main_configs_error.FailOnError(err, _MSG_RABBITMQ_DECLARE_EXCHANGE_FAILURE)
-	}
+	declareExchanges(ch)
+	declareBindingQueues(ch)
 }
 
 func declareQueues(ch *amqp091.Channel) {
@@ -82,5 +71,34 @@ func declareQueues(ch *amqp091.Channel) {
 			nil,                         // arguments
 		)
 		main_configs_error.FailOnError(err, _MSG_RABBITMQ_DECLARE_QUEUE_FAILURE)
+	}
+}
+
+func declareExchanges(ch *amqp091.Channel) {
+	exchanges := main_configs_rabbitmq_paramaters.AMQP_EXCHANGES
+	for _, value := range exchanges {
+		err := ch.ExchangeDeclare(
+			value,   // name
+			"topic", // type
+			true,    // durable
+			false,   // auto-deleted
+			false,   // internal
+			false,   // no-wait
+			nil,     // arguments
+		)
+		main_configs_error.FailOnError(err, _MSG_RABBITMQ_DECLARE_EXCHANGE_FAILURE)
+	}
+}
+
+func declareBindingQueues(ch *amqp091.Channel) {
+	bindingParameters := main_configs_rabbitmq_paramaters.AmqpBindingQueue
+	for _, value := range bindingParameters {
+		err := ch.QueueBind(
+			value.GetQueueName(),  // queue name
+			value.GetRoutingKey(), // routing key
+			value.GetExchange(),   // exchange
+			value.GetNowait(),
+			nil)
+		main_configs_error.FailOnError(err, _MSG_RABBITMQ_DECLARE_EXCHANGE_FAILURE)
 	}
 }
