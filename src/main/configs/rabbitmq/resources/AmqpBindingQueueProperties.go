@@ -1,33 +1,30 @@
 package main_configs_rabbitmq_resources
 
+import "github.com/rabbitmq/amqp091-go"
+
 type AmqpBindingQueueProperties struct {
-	bindingId        string
-	queueName        string
-	routingKey       string
-	exchange         string
-	durable          bool
-	deleteWhenUnused bool
-	exclusive        bool
-	nowait           bool
+	bindingId  string
+	queueName  string
+	routingKey string
+	exchange   string
+	nowait     bool
+	args       amqp091.Table
 }
 
 func NewAmqpBindingQueueProperties(
 	queueName string,
 	routingKey string,
 	exchange string,
-	durable bool,
-	deleteWhenUnused bool,
-	exclusive bool,
-	nowait bool) *AmqpBindingQueueProperties {
+	nowait bool,
+	args amqp091.Table,
+) *AmqpBindingQueueProperties {
 	return &AmqpBindingQueueProperties{
-		bindingId:        exchange + "_" + routingKey + "_" + queueName,
-		queueName:        queueName,
-		routingKey:       routingKey,
-		exchange:         exchange,
-		durable:          durable,
-		deleteWhenUnused: deleteWhenUnused,
-		exclusive:        exclusive,
-		nowait:           nowait,
+		bindingId:  exchange + "_" + routingKey + "_" + queueName,
+		queueName:  queueName,
+		routingKey: routingKey,
+		exchange:   exchange,
+		nowait:     nowait,
+		args:       args,
 	}
 }
 
@@ -47,18 +44,10 @@ func (this *AmqpBindingQueueProperties) GetExchange() string {
 	return this.exchange
 }
 
-func (this *AmqpBindingQueueProperties) GetDurable() bool {
-	return this.durable
-}
-
-func (this *AmqpBindingQueueProperties) GetDeleteWhenUnused() bool {
-	return this.deleteWhenUnused
-}
-
-func (this *AmqpBindingQueueProperties) GetExclusive() bool {
-	return this.exclusive
-}
-
 func (this *AmqpBindingQueueProperties) GetNowait() bool {
 	return this.nowait
+}
+
+func (this *AmqpBindingQueueProperties) GetArgs() amqp091.Table {
+	return this.args
 }

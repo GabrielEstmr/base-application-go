@@ -8,8 +8,6 @@ var AmqpBindingQueue = []main_configs_rabbitmq_paramaters.AmqpBindingQueueProper
 		ROUTING_KEY_BASE_APP_GO_AMQP_TEST,
 		EXCHANGE_BASE_APP_GO_AMQP_TEST,
 		false,
-		false,
-		false,
-		false,
+		nil,
 	),
 }

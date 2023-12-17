@@ -60,7 +60,7 @@ func SetAmqpConfig() {
 }
 
 func declareQueues(ch *amqp091.Channel) {
-	rabbitMQQueuesParameters := main_configs_rabbitmq_paramaters.AmqpBindingQueue
+	rabbitMQQueuesParameters := main_configs_rabbitmq_paramaters.AmqpQueueParameters
 	for _, value := range rabbitMQQueuesParameters {
 		_, err := ch.QueueDeclare(
 			value.GetQueueName(),        // name
@@ -75,16 +75,16 @@ func declareQueues(ch *amqp091.Channel) {
 }
 
 func declareExchanges(ch *amqp091.Channel) {
-	exchanges := main_configs_rabbitmq_paramaters.AMQP_EXCHANGES
+	exchanges := main_configs_rabbitmq_paramaters.AmqpExchangeParameters
 	for _, value := range exchanges {
 		err := ch.ExchangeDeclare(
-			value,   // name
-			"topic", // type
-			true,    // durable
-			false,   // auto-deleted
-			false,   // internal
-			false,   // no-wait
-			nil,     // arguments
+			value.GetExchangeName(), // name
+			value.GetKind(),         // type
+			value.GetDurable(),      // durable
+			value.GetAutoDelete(),   // auto-deleted
+			value.GetInternal(),     // internal
+			value.GetNowait(),       // no-wait
+			value.GetArgs(),         // arguments
 		)
 		main_configs_error.FailOnError(err, _MSG_RABBITMQ_DECLARE_EXCHANGE_FAILURE)
 	}

@@ -1,1 +1,0 @@
-package main_configs_rabbitmq_resources
