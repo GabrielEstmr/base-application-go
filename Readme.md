@@ -21,6 +21,8 @@
 - [ ] Get Locale from proxy
 - [ ] HATEOS golang
 - [ ] Colocar struct nos beans de usecases
+- [ ] Review page props (they are starting with uppercase)
+- [ ] Build Metrics: requests per seconds, error rating, etc
 
 ## Notes:
 
