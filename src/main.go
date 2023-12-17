@@ -6,14 +6,13 @@ import (
 	main_configs_error "baseapplicationgo/main/configs/error"
 	mainConfigsRouterHttp "baseapplicationgo/main/configs/router"
 	main_configs_yml "baseapplicationgo/main/configs/yml"
+	main_gateways_rabbitmq_listeners "baseapplicationgo/main/gateways/rabbitmq/listeners"
 	mainGatewaysWs "baseapplicationgo/main/gateways/ws"
 	"context"
-	"fmt"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux"
 	"log"
 	"net/http"
-	"time"
 )
 
 const MSG_APPLICATION_FAILED = "Application has failed to start"
@@ -23,10 +22,8 @@ const IDX_APPLICATION_PORT = "Application.Port"
 const IDX_TRACER_APM_SERVER_NAME_YML = "Apm.server.name"
 
 func init() {
-
-	fmt.Println(time.Now().UnixNano())
-
 	main_configs.InitConfigBeans()
+	go main_gateways_rabbitmq_listeners.SubscribeListeners()
 }
 
 func main() {

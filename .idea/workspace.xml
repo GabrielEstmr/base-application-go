@@ -5,25 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(features): add features controller">
-      <change afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/RabbitMqConfig.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpBindingQueue.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpExchanges.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpQueues.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpRoutingKeys.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpBindingParameters.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpBindingQueueProperties.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/SubcribeRabbitListeners.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/ProducerTest.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ConfigBeansInitialization.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ConfigBeansInitialization.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/application-properties-hmg.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/application-properties-hmg.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/application-properties-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/application-properties-local.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/application-properties-prd.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/application-properties-prd.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/SubcribeRabbitListeners.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/SubcribeRabbitListeners.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/ProducerTest.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/ProducerTest.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -17,7 +17,7 @@ const _MSG_RABBITMQ_PUBLISH_MESSAGE_FAILURE = "Failed to publish a message"
 
 const _RABBITMQ_URI_YML_IDX = "RabbitMQ.URI"
 
-func Produce(ctxP *context.Context) {
+func Produce(ctx *context.Context) {
 
 	rabbitMqURI := main_configs_yml.GetYmlValueByName(_RABBITMQ_URI_YML_IDX)
 
@@ -29,11 +29,8 @@ func Produce(ctxP *context.Context) {
 	main_configs_error.FailOnError(err, _MSG_RABBITMQ_OPEN_CHANNEL_FAILURE)
 	defer main_configs_rabbitmq.CloseRabbitMqChannel(ch)
 
-	//ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	//defer cancel()
-
 	body := bodyFrom(os.Args)
-	err = ch.PublishWithContext(*ctxP,
+	err = ch.PublishWithContext(*ctx,
 		"logs_topic",     // exchange
 		"AmqpRoutingKey", // routing key
 		false,            // mandatory
