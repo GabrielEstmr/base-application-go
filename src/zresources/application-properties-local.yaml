@@ -10,7 +10,7 @@ MongoDB.DatabaseName:
 
 # RabbitMQ Properties
 RabbitMQ.URI:
-  value: amqp://dev_mktplace:riS9udae@localhost:5672/dev01_mktplace
+  value: amqp://admin:admin@localhost:5672/dev01_mktplace
 
 ## Rest Integration Properties
 #Integration.mp-order-search.url:
