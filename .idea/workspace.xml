@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(features): add features controller">
-      <change afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/paramaters/AmqpConsumerParameters.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/configs/rabbitmq/resources/AmqpConsumerProperties.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" afterDir="false" />
-    </list>
+    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(rabbitmq): add rabbitmq connection" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,12 +30,12 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="feat/add-rabbitmq" />
-                    <option name="lastUsedInstant" value="1702840899" />
+                    <option name="branchName" value="project/base-app-go" />
+                    <option name="lastUsedInstant" value="1702850556" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="project/base-app-go" />
-                    <option name="lastUsedInstant" value="1702675178" />
+                    <option name="branchName" value="feat/add-rabbitmq" />
+                    <option name="lastUsedInstant" value="1702840899" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="feat/add-features-controller" />
@@ -94,7 +89,7 @@
     &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/add-rabbitmq&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;project/base-app-go&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/gabriel/Documents/Projects/base-application-go/src/main/gateways/rabbitmq&quot;,

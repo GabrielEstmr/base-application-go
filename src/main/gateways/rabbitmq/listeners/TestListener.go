@@ -4,16 +4,13 @@ import (
 	main_configs_error "baseapplicationgo/main/configs/error"
 	main_configs_rabbitmq "baseapplicationgo/main/configs/rabbitmq"
 	main_configs_rabbitmq_paramaters "baseapplicationgo/main/configs/rabbitmq/paramaters"
-	main_configs_yml "baseapplicationgo/main/configs/yml"
+	"fmt"
 	"log"
 )
 
-const _RABBITMQ_URI_YML_IDX = "RabbitMQ.URI"
+const _MSG_RABBITMQ_TEST_LISTENER_INSTANTIATION = "Rabbitmq test listener instantiation. Queue: %s"
 
 func ListenTest() {
-
-	rabbitMqURI := main_configs_yml.GetYmlValueByName(_RABBITMQ_URI_YML_IDX)
-	log.Println("========> rabbitMqURI LISTENER", rabbitMqURI)
 
 	conn := main_configs_rabbitmq.GetConnection()
 	defer main_configs_rabbitmq.CloseRabbitMqConnection(conn)
@@ -21,7 +18,11 @@ func ListenTest() {
 	ch := main_configs_rabbitmq.GetChannel(conn)
 	defer main_configs_rabbitmq.CloseRabbitMqChannel(ch)
 
-	consumerParams := main_configs_rabbitmq_paramaters.AmqpConsumerParameters[main_configs_rabbitmq_paramaters.QUEUE_BASE_APP_GO_AMQP_TEST]
+	consumerParams := main_configs_rabbitmq_paramaters.
+		AmqpConsumerParameters[main_configs_rabbitmq_paramaters.QUEUE_BASE_APP_GO_AMQP_TEST]
+	log.Println(
+		fmt.Sprintf(_MSG_RABBITMQ_TEST_LISTENER_INSTANTIATION, consumerParams.GetQueueName()))
+
 	msgs, err := ch.Consume(
 		consumerParams.GetQueueName(),
 		consumerParams.GetConsumerTag(),
