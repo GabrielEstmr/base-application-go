@@ -4,7 +4,28 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(rabbitmq): add rabbitmq connection" />
+    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(rabbitmq): add rabbitmq connection">
+      <change afterPath="$PROJECT_DIR$/src/main/domains/Transaction.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/TransactionEventProducerGateway.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/TransactionEventProducerGatewayImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/TransactionEventProducer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/resources/Event.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/resources/TransactionResource.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/RabbitMqControllerBeanFactory.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/RabbitMqController.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/request/CreateTransactionRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/response/TransactionResponse.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/usecases/CreateTransactionAmqpEvent.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateTransactionAmqpEventBeanFactory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/ProducerTest.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/ControllersBeans.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/ControllersBeans.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/UsecaseBeans.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/UsecaseBeans.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/application-properties-local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/application-properties-local.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +51,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="feat/add-rabbitmq-controller" />
+                    <option name="lastUsedInstant" value="1702893968" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="project/base-app-go" />
                     <option name="lastUsedInstant" value="1702850556" />
                   </RecentBranch>
@@ -44,10 +69,6 @@
                   <RecentBranch>
                     <option name="branchName" value="feat/add-ff-client" />
                     <option name="lastUsedInstant" value="1702550827" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="test/adding-struct-mocking" />
-                    <option name="lastUsedInstant" value="1702404210" />
                   </RecentBranch>
                 </list>
               </option>
@@ -70,45 +91,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;Go Build.go build baseapplicationgo.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
-    &quot;Go Test.go test baseapplicationgo/test/usecases.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.go test usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;project/base-app-go&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/gabriel/Documents/Projects/base-application-go/src/main/gateways/rabbitmq&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "Go Build.go build baseapplicationgo.executor": "Run",
+    "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
+    "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
+    "Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor": "Debug",
+    "Go Test.go test baseapplicationgo/test/usecases.executor": "Run",
+    "Go Test.go test usecases.executor": "Coverage",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "feat/add-rabbitmq-controller",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/home/gabriel/Documents/Projects/base-application-go/src/main/gateways/rabbitmq",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq" />
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq/resources" />
       <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq" />
       <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/redis/repo" />
       <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/repo" />
       <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/factories" />
-      <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/mongo" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build baseapplicationgo">
@@ -193,6 +214,9 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat(mocking): add struct mocking" />

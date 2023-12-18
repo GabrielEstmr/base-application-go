@@ -4,8 +4,7 @@
 
 - [X] MongoDB Integration;
 - [ ] PostgresDB integration;
-- [ ] Kafka Integration;
-- [ ] RabbitMQ Integration;
+- [X] RabbitMQ Integration;
 - [X] FF4J integration;
 - [X] YML Properties Integration;
 - [X] Swagger
@@ -21,7 +20,7 @@
 - [ ] Get Locale from proxy
 - [ ] HATEOS golang
 - [ ] Colocar struct nos beans de usecases
-- [ ] Review page props (they are starting with uppercase)
+- [ ] Review page props (they are starting with uppercase) and process (page not working)
 - [ ] Build Metrics: requests per seconds, error rating, etc
 
 ## Notes:

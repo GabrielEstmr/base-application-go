@@ -64,6 +64,12 @@ func getFunctionBeans() []Route {
 			Function:     beans.FeatureControllerV1Bean.DisableFeatureByKey,
 			AuthRequired: false,
 		},
+		{
+			URI:          API_V1_PREFIX + "/rabbitmq/send-event",
+			Method:       http.MethodPost,
+			Function:     beans.RabbitMqControllerV1Bean.CreateRabbitMqTransactionEvent,
+			AuthRequired: false,
+		},
 	}
 	return RoutesConfig
 }
