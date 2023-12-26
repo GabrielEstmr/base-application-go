@@ -46,7 +46,7 @@ func (this *UserRedisRepository) Save(ctx context.Context,
 
 func (this *UserRedisRepository) FindById(ctx context.Context, indicatorId string) (
 	main_gateways_redis_documents.UserRedisDocument, error) {
-	span := this.spanGateway.Get(ctx, "UserRedisRepository-Save")
+	span := this.spanGateway.Get(ctx, "UserRedisRepository-FindById")
 	defer span.End()
 
 	result, err := this.redisClient.Get(span.GetCtx(), main_gateways_redis_documents.USER_DOC__ID_NAME_PREFIX+indicatorId).Result()
@@ -69,7 +69,7 @@ func (this *UserRedisRepository) FindById(ctx context.Context, indicatorId strin
 
 func (this *UserRedisRepository) FindByDocumentNumber(ctx context.Context, documentNumber string) (
 	main_gateways_redis_documents.UserRedisDocument, error) {
-	span := this.spanGateway.Get(ctx, "UserRedisRepository-Save")
+	span := this.spanGateway.Get(ctx, "UserRedisRepository-FindByDocumentNumber")
 	defer span.End()
 
 	result, err := this.redisClient.Get(span.GetCtx(), main_gateways_redis_documents.USER_DOC__IDX_DOCUMENT_NUMBER_NAME_PREFIX+documentNumber).Result()
