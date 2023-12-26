@@ -9,9 +9,10 @@ import (
 	"fmt"
 	"go.opentelemetry.io/otel/trace"
 	"net/http"
-	"net/http/httptest"
 	"time"
 )
+
+const _MSG_LOKI_IMPL_ERROR_POST_LOKI_LOGS = "Error to send message to loki integration"
 
 type LogsMethodsImpl struct {
 	logConfig main_configs_apm_logs_resources.LogProviderConfig
@@ -80,13 +81,7 @@ func (this *LogsMethodsImpl) postLog(
 	payload := bytes.NewBuffer(body)
 	_, errPost := client.Post(baseUrl, "application/json", payload)
 	if errPost != nil {
-		fmt.Println("ERROR ==============", errPost.Error())
+		fmt.Println(_MSG_LOKI_IMPL_ERROR_POST_LOKI_LOGS, errPost.Error())
 	}
 
-}
-
-func executeRequest(req *http.Request) *httptest.ResponseRecorder {
-	rr := httptest.NewRecorder()
-
-	return rr
 }

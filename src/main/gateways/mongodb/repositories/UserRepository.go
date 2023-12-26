@@ -39,11 +39,10 @@ func (this *UserRepository) Save(user main_gateways_mongodb_documents.UserDocume
 	indexModel := mongo.IndexModel{
 		Keys: bson.D{{_USER_REPO_DOCUMENT_NUMBER, 1}},
 	}
-	name, err := this.database.Collection(_USERS_COLLECTION_NAME).Indexes().CreateOne(context.TODO(), indexModel)
+	_, err := this.database.Collection(_USERS_COLLECTION_NAME).Indexes().CreateOne(context.TODO(), indexModel)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Name of Index Created: " + name)
 
 	result, err := collection.InsertOne(context.TODO(), user)
 	if err != nil {
@@ -100,80 +99,39 @@ func (this *UserRepository) FindByFilter(filter main_domains.FindUserFilter,
 
 	opt := main_gateways_mongodb_utils.NewPageableUtils().GetOptsFromPageable(pageable)
 
-	//var filterCriterias bson.D
-	//if len(filter.GetName()) > 0 {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_NAME, Value: bson.M{"$in": filter.GetName()}})
-	//}
-	//if len(filter.GetDocumentNumber()) > 0 {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_DOCUMENT_NUMBER, Value: bson.M{"$in": filter.GetDocumentNumber()}})
-	//}
-	//if len(filter.GetBirthday()) > 0 {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_BIRTHDAY, Value: bson.M{"$in": filter.GetBirthday()}})
-	//}
-	//if filter.GetStartCreatedDate().IsZero() {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_CREATED_DATE, Value: bson.M{"$gte": filter.GetStartCreatedDate()}})
-	//}
-	//if filter.GetEndCreatedDate().IsZero() {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_CREATED_DATE, Value: bson.M{"$lt": filter.GetEndCreatedDate()}})
-	//}
-	//if filter.GetStartLastModifiedDate().IsZero() {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_LAST_MODIFIED_DATE, Value: bson.M{"$gte": filter.GetStartLastModifiedDate()}})
-	//}
-	//if filter.GetEndLastModifiedDate().IsZero() {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_LAST_MODIFIED_DATE, Value: bson.M{"$lt": filter.GetEndLastModifiedDate()}})
-	//}
+	filterCriterias := bson.D{}
 
-	filterCriteria := bson.M{}
 	if len(filter.GetName()) > 0 {
-		filterCriteria[_USER_REPO_NAME] = bson.M{"$in": filter.GetName()}
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: _USER_REPO_NAME, Value: bson.M{"$in": filter.GetName()}})
 	}
 	if len(filter.GetDocumentNumber()) > 0 {
-		filterCriteria[_USER_REPO_DOCUMENT_NUMBER] = bson.M{"$in": filter.GetDocumentNumber()}
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: _USER_REPO_DOCUMENT_NUMBER, Value: bson.M{"$in": filter.GetDocumentNumber()}})
+	}
+	if len(filter.GetBirthday()) > 0 {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: _USER_REPO_BIRTHDAY, Value: bson.M{"$in": filter.GetBirthday()}})
+	}
+	if !filter.GetStartCreatedDate().IsZero() {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: _USER_REPO_CREATED_DATE, Value: bson.M{"$gte": filter.GetStartCreatedDate()}})
+	}
+	if !filter.GetEndCreatedDate().IsZero() {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: _USER_REPO_CREATED_DATE, Value: bson.M{"$lt": filter.GetEndCreatedDate()}})
+	}
+	if !filter.GetStartLastModifiedDate().IsZero() {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: _USER_REPO_LAST_MODIFIED_DATE, Value: bson.M{"$gte": filter.GetStartLastModifiedDate()}})
+	}
+	if !filter.GetEndLastModifiedDate().IsZero() {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: _USER_REPO_LAST_MODIFIED_DATE, Value: bson.M{"$lt": filter.GetEndLastModifiedDate()}})
 	}
 
-	//
-	//filterCriteria := bson.M{
-	//	_USER_REPO_NAME:               bson.M{"$in": filter.GetName()},
-	//	_USER_REPO_DOCUMENT_NUMBER:    bson.M{"$in": filter.GetDocumentNumber()},
-	//	_USER_REPO_BIRTHDAY:           bson.M{"$in": filter.GetBirthday()},
-	//	_USER_REPO_CREATED_DATE:       bson.M{"eventDateTime": bson.M{"$gte": filter.GetStartCreatedDate(), "$lt": filter.GetEndCreatedDate()}},
-	//	_USER_REPO_LAST_MODIFIED_DATE: bson.M{"eventDateTime": bson.M{"$gte": filter.GetStartLastModifiedDate(), "$lt": filter.GetEndLastModifiedDate()}},
-	//}
-
-	//if len(filter.GetDocumentNumber()) > 0 {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_DOCUMENT_NUMBER, Value: bson.M{"$in": filter.GetDocumentNumber()}})
-	//}
-	//if len(filter.GetBirthday()) > 0 {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_BIRTHDAY, Value: bson.M{"$in": filter.GetBirthday()}})
-	//}
-	//if filter.GetStartCreatedDate().IsZero() {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_CREATED_DATE, Value: bson.M{"$gte": filter.GetStartCreatedDate()}})
-	//}
-	//if filter.GetEndCreatedDate().IsZero() {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_CREATED_DATE, Value: bson.M{"$lt": filter.GetEndCreatedDate()}})
-	//}
-	//if filter.GetStartLastModifiedDate().IsZero() {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_LAST_MODIFIED_DATE, Value: bson.M{"$gte": filter.GetStartLastModifiedDate()}})
-	//}
-	//if filter.GetEndLastModifiedDate().IsZero() {
-	//	filterCriterias = append(filterCriterias,
-	//		bson.E{Key: _USER_REPO_LAST_MODIFIED_DATE, Value: bson.M{"$lt": filter.GetEndLastModifiedDate()}})
-	//}
-
 	var results []main_gateways_mongodb_documents.UserDocument
-	cursor, err := collection.Find(context.TODO(), filterCriteria, opt)
+	cursor, err := collection.Find(context.TODO(), filterCriterias, opt)
 	if err = cursor.All(context.TODO(), &results); err != nil {
 		panic(err)
 	}
@@ -182,7 +140,7 @@ func (this *UserRepository) FindByFilter(filter main_domains.FindUserFilter,
 		fmt.Println(string(res))
 	}
 
-	numberDocs, err := collection.CountDocuments(context.TODO(), filterCriteria)
+	numberDocs, err := collection.CountDocuments(context.TODO(), filterCriterias)
 	if err != nil {
 		return nil, err
 	}

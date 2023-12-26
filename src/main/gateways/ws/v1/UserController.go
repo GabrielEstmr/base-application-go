@@ -14,8 +14,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
-	"net"
 	"net/http"
 	"strings"
 )
@@ -74,11 +72,11 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 	//span.SetAttributes(rollValueAttr)
 	//rollCnt.Add(r.Context(), 1)
 
-	// TODO get locale from ip
-	ipAddress, port, err := net.SplitHostPort(ReadUserIP(r))
-	ip := net.ParseIP(ipAddress)
-	log.Println(ip)
-	log.Println(port)
+	//// TODO get locale from ip
+	//ipAddress, port, err := net.SplitHostPort(ReadUserIP(r))
+	//ip := net.ParseIP(ipAddress)
+	//log.Println(ip)
+	//log.Println(port)
 
 	requestBody, err := io.ReadAll(r.Body)
 	if err != nil || len(requestBody) == 0 {

@@ -51,9 +51,8 @@ func getDatabaseConnection() *mongo.Database {
 		log.Fatalf(_MSG_ERROR_TO_CONNECT_TO_DATABASE, databaseUri)
 	}
 	// Ping the primary
-	if err := client.Ping(context.TODO(), readpref.Primary()); err != nil {
+	if errP := client.Ping(context.TODO(), readpref.Primary()); errP != nil {
 		log.Fatalf(_MSG_ERROR_TO_PING_DATABASE, databaseUri)
-		panic(err)
 	}
 	slog.Info(_MSG_MONGO_BEAN_PINGED)
 	return client.Database(main_configs_yml.GetYmlValueByName(MONGO_DATABASE_NAME))

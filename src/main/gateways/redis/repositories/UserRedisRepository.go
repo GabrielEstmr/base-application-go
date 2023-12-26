@@ -5,8 +5,8 @@ import (
 	main_gateways_redis_documents "baseapplicationgo/main/gateways/redis/documents"
 	"context"
 	"encoding/json"
+	"errors"
 	"github.com/redis/go-redis/v9"
-	"log"
 	"time"
 )
 
@@ -27,10 +27,8 @@ func (this *UserRedisRepository) Save(
 		return main_gateways_redis_documents.UserRedisDocument{}, err
 	}
 
-	// Improvement: use go routine
 	for _, value := range userRedisDocument.GetKeys() {
-		val, err := this.redisClient.Set(context.TODO(), value, userBytes, time.Hour).Result()
-		log.Println(val)
+		_, err := this.redisClient.Set(context.TODO(), value, userBytes, time.Hour).Result()
 		if err != nil {
 			return main_gateways_redis_documents.UserRedisDocument{}, err
 		}
@@ -43,7 +41,7 @@ func (this *UserRedisRepository) FindById(indicatorId string) (
 
 	result, err := this.redisClient.Get(context.TODO(), main_gateways_redis_documents.USER_DOC__ID_NAME_PREFIX+indicatorId).Result()
 
-	if err == redis.Nil {
+	if errors.Is(err, redis.Nil) {
 		return main_gateways_redis_documents.UserRedisDocument{}, nil
 	}
 
