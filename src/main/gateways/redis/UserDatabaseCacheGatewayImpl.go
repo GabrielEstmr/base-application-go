@@ -15,9 +15,6 @@ func NewUserDatabaseCacheGatewayImpl(
 	return &UserDatabaseCacheGatewayImpl{redisUserRepo}
 }
 
-//Save(user main_domains.User) (string, error)
-//FindById(id string) (main_domains.User, error)
-
 func (this *UserDatabaseCacheGatewayImpl) Save(user main_domains.User) (main_domains.User, error) {
 	userDocument := main_gateways_redis_documents.NewUserRedisDocument(user)
 	userDocument, err := this.userRedisRepository.Save(userDocument)

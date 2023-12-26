@@ -3,7 +3,6 @@ package main_gateways_ws_v1
 import (
 	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_features "baseapplicationgo/main/gateways/features"
-	main_gateways_logs_resources "baseapplicationgo/main/gateways/logs/resources"
 	main_gateways_ws_v1_request "baseapplicationgo/main/gateways/ws/v1/request"
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
 	main_usecases "baseapplicationgo/main/usecases"
@@ -22,24 +21,27 @@ type RabbitMqController struct {
 	featuresGateway            main_gateways.FeaturesGateway
 	messageUtils               main_utils_messages.ApplicationMessages
 	logsMonitoringGateway      main_gateways.LogsMonitoringGateway
+	spanGateway                main_gateways.SpanGateway
 }
 
 func NewRabbitMqController(
 	createTransactionAmqpEvent *main_usecases.CreateTransactionAmqpEvent,
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
+	spanGateway main_gateways.SpanGateway,
 ) *RabbitMqController {
 	return &RabbitMqController{
 		createTransactionAmqpEvent,
 		main_gateways_features.NewFeaturesGatewayImpl(),
 		*main_utils_messages.NewApplicationMessages(),
 		logsMonitoringGateway,
+		spanGateway,
 	}
 }
 
 func (this *RabbitMqController) CreateRabbitMqTransactionEvent(w http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
-	span := *main_gateways_logs_resources.NewSpanLogInfo(ctx)
+	span := this.spanGateway.Get(ctx, "RabbitMqController-CreateRabbitMqTransactionEvent")
 	defer span.End()
 	this.logsMonitoringGateway.INFO(span, "Creating a new transaction event")
 

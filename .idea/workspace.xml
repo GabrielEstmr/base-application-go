@@ -5,12 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(rabbitmq): add rabbitmq connection">
+      <change afterPath="$PROJECT_DIR$/src/main/domains/SpanLogInfo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/SpanGateway.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/resources/SpanLogInfoResource.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/spans/SpanGatewayImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/mocks/SpanGatewayMockImpl.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/redis/repositories/UserRedisRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/redis/repositories/UserRedisRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/LogsMonitoringGateway.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/LogsMonitoringGateway.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/resources/SpanLogInfo.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/TransactionEventProducerGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/TransactionEventProducerGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/TransactionEventProducer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/TransactionEventProducer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/redis/UserDatabaseCacheGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/redis/UserDatabaseCacheGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/FeaturesControllerBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/FeaturesControllerBeanFactory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/RabbitMqControllerBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/RabbitMqControllerBeanFactory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/UserControllerBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/UserControllerBeanFactory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/FeaturesController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/FeaturesController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/RabbitMqController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/RabbitMqController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/CreateTransactionAmqpEvent.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/CreateTransactionAmqpEvent.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateNewUserBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateNewUserBeanFactory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateTransactionAmqpEventBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateTransactionAmqpEventBeanFactory.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,16 +56,16 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="project/base-app-go" />
+                    <option name="lastUsedInstant" value="1703596570" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="feat/update-pagination" />
                     <option name="lastUsedInstant" value="1703594581" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="feat/add-rabbitmq-controller" />
                     <option name="lastUsedInstant" value="1702893968" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="project/base-app-go" />
-                    <option name="lastUsedInstant" value="1702850556" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="feat/add-rabbitmq" />
@@ -80,15 +99,15 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build baseapplicationgo.executor": "Debug",
+    "Go Build.go build baseapplicationgo.executor": "Run",
     "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
     "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
     "Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor": "Coverage",
     "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
     "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
-    "Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor": "Debug",
     "Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor": "Debug",
-    "Go Test.go test baseapplicationgo/test/usecases.executor": "Run",
+    "Go Test.go test baseapplicationgo/test/usecases.executor": "Coverage",
     "Go Test.go test usecases.executor": "Coverage",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -96,10 +115,10 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "feat/update-pagination",
+    "git-widget-placeholder": "project/base-app-go",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/home/gabriel/Documents/Projects/base-application-go/src/main/gateways/rabbitmq",
+    "last_opened_file_path": "/home/gabriel/Documents/Projects/base-application-go/src/test/usecases",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm"
@@ -107,6 +126,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/usecases" />
       <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq" />
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
@@ -184,8 +204,8 @@
       <list>
         <item itemvalue="Go Build.go build baseapplicationgo" />
         <item itemvalue="Go Test.go test baseapplicationgo/test/usecases" />
-        <item itemvalue="Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases" />
         <item itemvalue="Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases" />
+        <item itemvalue="Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases" />
         <item itemvalue="Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases" />
       </list>
     </recent_temporary>
@@ -240,66 +260,6 @@
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go</url>
-          <line>116</line>
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go</url>
-          <line>120</line>
-          <option name="timeStamp" value="106" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go</url>
-          <line>124</line>
-          <option name="timeStamp" value="107" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go</url>
-          <line>128</line>
-          <option name="timeStamp" value="108" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go</url>
-          <line>112</line>
-          <option name="timeStamp" value="110" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go</url>
-          <line>104</line>
-          <option name="timeStamp" value="111" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go</url>
-          <line>108</line>
-          <option name="timeStamp" value="112" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go</url>
-          <line>158</line>
-          <option name="timeStamp" value="117" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/ws/v1/request/FindUserFilterRequest.go</url>
-          <line>21</line>
-          <option name="timeStamp" value="118" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go</url>
-          <line>138</line>
-          <option name="timeStamp" value="124" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/utils/QueryParamsBuilder.go</url>
-          <line>43</line>
-          <option name="timeStamp" value="125" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/utils/QueryParamsBuilder.go</url>
-          <line>42</line>
-          <option name="timeStamp" value="126" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/gateways/mongodb/CachedUserDatabaseGatewayImpl.go</url>
           <line>27</line>
           <option name="timeStamp" value="132" />
@@ -311,38 +271,53 @@
         </line-breakpoint>
         <line-breakpoint type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>68</line>
+          <line>72</line>
           <option name="timeStamp" value="136" />
         </line-breakpoint>
         <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go</url>
-          <line>80</line>
-          <option name="timeStamp" value="144" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>48</line>
-          <option name="timeStamp" value="145" />
-        </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>51</line>
+          <line>55</line>
           <option name="timeStamp" value="146" />
         </line-breakpoint>
         <line-breakpoint type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>52</line>
+          <line>56</line>
           <option name="timeStamp" value="147" />
         </line-breakpoint>
         <line-breakpoint type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>57</line>
+          <line>61</line>
           <option name="timeStamp" value="148" />
         </line-breakpoint>
-        <line-breakpoint type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go</url>
-          <line>105</line>
-          <option name="timeStamp" value="151" />
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/apm/tracer/TracerCollectorConfig.go</url>
+          <line>37</line>
+          <option name="timeStamp" value="158" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/yml/YmlProperties.go</url>
+          <line>43</line>
+          <option name="timeStamp" value="160" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/yml/GetYmlValueByName.go</url>
+          <line>3</line>
+          <option name="timeStamp" value="161" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/yml/YmlProperties.go</url>
+          <line>28</line>
+          <option name="timeStamp" value="162" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/configs/yml/YmlProperties.go</url>
+          <line>38</line>
+          <option name="timeStamp" value="163" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
+          <line>26</line>
+          <option name="timeStamp" value="169" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -351,7 +326,7 @@
     <SUITE FILE_PATH="coverage/base_application_go$go_test_usecases.out" NAME="go test usecases Coverage Results" MODIFIED="1702464344336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702464362111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_ShouldSaveNewUser_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702465267427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/base_application_go$go_test_baseapplicationgo_test_usecases.out" NAME="go test baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702467376946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/base_application_go$go_test_baseapplicationgo_test_usecases.out" NAME="go test baseapplicationgo/test/usecases Coverage Results" MODIFIED="1703606112931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702314304717" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702465236779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702464688500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

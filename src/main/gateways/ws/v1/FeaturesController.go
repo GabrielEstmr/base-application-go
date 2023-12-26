@@ -3,7 +3,6 @@ package main_gateways_ws_v1
 import (
 	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_features "baseapplicationgo/main/gateways/features"
-	main_gateways_logs_resources "baseapplicationgo/main/gateways/logs/resources"
 	main_utils "baseapplicationgo/main/utils"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"fmt"
@@ -19,21 +18,24 @@ type FeaturesController struct {
 	featuresGateway       main_gateways.FeaturesGateway
 	messageUtils          main_utils_messages.ApplicationMessages
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway
+	spanGateway           main_gateways.SpanGateway
 }
 
 func NewFeaturesController(
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
+	spanGateway main_gateways.SpanGateway,
 ) *FeaturesController {
 	return &FeaturesController{
 		main_gateways_features.NewFeaturesGatewayImpl(),
 		*main_utils_messages.NewApplicationMessages(),
 		logsMonitoringGateway,
+		spanGateway,
 	}
 }
 
 func (this *FeaturesController) EnableFeatureByKey(w http.ResponseWriter, r *http.Request) {
 
-	span := *main_gateways_logs_resources.NewSpanLogInfo(r.Context())
+	span := this.spanGateway.Get(r.Context(), "FeaturesController-EnableFeatureByKey")
 	defer span.End()
 	this.logsMonitoringGateway.INFO(span, "Enable feature by key")
 
@@ -56,7 +58,7 @@ func (this *FeaturesController) EnableFeatureByKey(w http.ResponseWriter, r *htt
 
 func (this *FeaturesController) DisableFeatureByKey(w http.ResponseWriter, r *http.Request) {
 
-	span := *main_gateways_logs_resources.NewSpanLogInfo(r.Context())
+	span := this.spanGateway.Get(r.Context(), "FeaturesController-DisableFeatureByKey")
 	defer span.End()
 	this.logsMonitoringGateway.INFO(span, "Disable feature by key")
 

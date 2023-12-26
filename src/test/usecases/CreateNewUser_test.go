@@ -31,6 +31,7 @@ type testCreateNewUserInputs struct {
 type testCreateNewUserFields struct {
 	userDatabaseGateway main_gateways.UserDatabaseGateway
 	logLoki             main_gateways.LogsMonitoringGateway
+	spanGateway         main_gateways.SpanGateway
 	messageUtils        main_utils_messages.ApplicationMessages
 }
 
@@ -75,7 +76,7 @@ func TestCreateNewUser_Execute_ShouldSaveNewUser(t *testing.T) {
 	})
 
 	testCreateNewUserFields := testCreateNewUserFields{
-		mock, new(test_mocks.LogsMonitoringGatewayMock), messageUtilsMock,
+		mock, new(test_mocks.LogsMonitoringGatewayMock), new(test_mocks.SpanGatewayMockImpl), messageUtilsMock,
 	}
 
 	args := testCreateNewUserArgs{
@@ -114,7 +115,7 @@ func TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumbe
 	})
 
 	testCreateNewUserFields := testCreateNewUserFields{
-		mock, new(test_mocks.LogsMonitoringGatewayMock), messageUtilsMock,
+		mock, new(test_mocks.LogsMonitoringGatewayMock), new(test_mocks.SpanGatewayMockImpl), messageUtilsMock,
 	}
 
 	args := testCreateNewUserArgs{
@@ -162,7 +163,7 @@ func TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSam
 	})
 
 	testCreateNewUserFields := testCreateNewUserFields{
-		mock, new(test_mocks.LogsMonitoringGatewayMock), messageUtils,
+		mock, new(test_mocks.LogsMonitoringGatewayMock), new(test_mocks.SpanGatewayMockImpl), messageUtils,
 	}
 
 	args := testCreateNewUserArgs{
@@ -206,7 +207,7 @@ func TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsErr
 	})
 
 	testCreateNewUserFields := testCreateNewUserFields{
-		mock, new(test_mocks.LogsMonitoringGatewayMock), messageUtilsMock,
+		mock, new(test_mocks.LogsMonitoringGatewayMock), new(test_mocks.SpanGatewayMockImpl), messageUtilsMock,
 	}
 
 	args := testCreateNewUserArgs{
@@ -227,7 +228,7 @@ func runTestCreateNewUser_Execute(t *testing.T, parameters []testCreateNewUserIn
 	for _, tt := range parameters {
 		t.Run(tt.name, func(t *testing.T) {
 			this := main_usecases.NewCreateNewUserAllArgs(tt.fields.userDatabaseGateway,
-				tt.fields.logLoki, tt.fields.messageUtils)
+				tt.fields.logLoki, tt.fields.spanGateway, tt.fields.messageUtils)
 			got, got1 := this.Execute(tt.args.ctx, tt.args.user)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Execute() got = %v, want %v", got, tt.want)
@@ -244,6 +245,7 @@ func TestNewCreateNewUser(t *testing.T) {
 		name                  string
 		userDatabaseGateway   main_gateways.UserDatabaseGateway
 		logsMonitoringGateway main_gateways.LogsMonitoringGateway
+		spanGateway           main_gateways.SpanGateway
 		want                  *main_usecases.CreateNewUser
 	}
 
@@ -252,9 +254,11 @@ func TestNewCreateNewUser(t *testing.T) {
 			"TestNewCreateNewUser",
 			new(test_mocks.UserDatabaseGatewayMock),
 			new(test_mocks.LogsMonitoringGatewayMock),
+			new(test_mocks.SpanGatewayMockImpl),
 			main_usecases.NewCreateNewUserAllArgs(
 				new(test_mocks.UserDatabaseGatewayMock),
 				new(test_mocks.LogsMonitoringGatewayMock),
+				new(test_mocks.SpanGatewayMockImpl),
 				*main_utils_messages.NewApplicationMessages()),
 		},
 	}
@@ -262,7 +266,7 @@ func TestNewCreateNewUser(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := main_usecases.NewCreateNewUser(
-				tt.userDatabaseGateway, tt.logsMonitoringGateway); !reflect.DeepEqual(got, tt.want) {
+				tt.userDatabaseGateway, tt.logsMonitoringGateway, tt.spanGateway); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewCreateNewUser() = %v, want %v", got, tt.want)
 			}
 		})

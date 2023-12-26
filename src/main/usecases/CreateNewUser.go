@@ -4,7 +4,6 @@ import (
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
-	main_gateways_logs_resources "baseapplicationgo/main/gateways/logs/resources"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"context"
 	"fmt"
@@ -16,26 +15,31 @@ const _MSG_CREATE_NEW_DOC_ARCH_ISSUE = "exceptions.architecture.application.issu
 type CreateNewUser struct {
 	userDatabaseGateway   main_gateways.UserDatabaseGateway
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway
+	spanGateway           main_gateways.SpanGateway
 	messageUtils          main_utils_messages.ApplicationMessages
 }
 
 func NewCreateNewUserAllArgs(
 	userDatabaseGateway main_gateways.UserDatabaseGateway,
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
+	spanGateway main_gateways.SpanGateway,
 	messageBeans main_utils_messages.ApplicationMessages) *CreateNewUser {
 	return &CreateNewUser{
 		userDatabaseGateway:   userDatabaseGateway,
 		logsMonitoringGateway: logsMonitoringGateway,
+		spanGateway:           spanGateway,
 		messageUtils:          messageBeans}
 }
 
 func NewCreateNewUser(
 	userDatabaseGateway main_gateways.UserDatabaseGateway,
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
+	spanGateway main_gateways.SpanGateway,
 ) *CreateNewUser {
 	return &CreateNewUser{
 		userDatabaseGateway,
 		logsMonitoringGateway,
+		spanGateway,
 		*main_utils_messages.NewApplicationMessages(),
 	}
 }
@@ -43,7 +47,7 @@ func NewCreateNewUser(
 func (this *CreateNewUser) Execute(ctx context.Context, user main_domains.User) (
 	main_domains.User, main_domains_exceptions.ApplicationException) {
 
-	span := *main_gateways_logs_resources.NewSpanLogInfo(ctx)
+	span := this.spanGateway.Get(ctx, "CreateNewUser-Execute")
 	defer span.End()
 
 	this.logsMonitoringGateway.INFO(span,

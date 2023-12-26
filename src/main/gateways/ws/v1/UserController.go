@@ -3,7 +3,6 @@ package main_gateways_ws_v1
 import (
 	main_domains "baseapplicationgo/main/domains"
 	main_gateways "baseapplicationgo/main/gateways"
-	main_gateways_logs_resources "baseapplicationgo/main/gateways/logs/resources"
 	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
 	main_gateways_ws_v1_request "baseapplicationgo/main/gateways/ws/v1/request"
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
@@ -28,6 +27,7 @@ type UserController struct {
 	findUsersByFilter     *main_usecases.FindUsersByFilter
 	messageUtils          main_utils_messages.ApplicationMessages
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway
+	spanGateway           main_gateways.SpanGateway
 }
 
 func NewUserController(
@@ -35,6 +35,7 @@ func NewUserController(
 	findUserById *main_usecases.FindUserById,
 	findUsersByFilter *main_usecases.FindUsersByFilter,
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
+	spanGateway main_gateways.SpanGateway,
 ) *UserController {
 	return &UserController{
 		createNewUser,
@@ -42,6 +43,7 @@ func NewUserController(
 		findUsersByFilter,
 		*main_utils_messages.NewApplicationMessages(),
 		logsMonitoringGateway,
+		spanGateway,
 	}
 }
 
@@ -58,7 +60,7 @@ func ReadUserIP(r *http.Request) string {
 
 func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 
-	span := *main_gateways_logs_resources.NewSpanLogInfo(r.Context())
+	span := this.spanGateway.Get(r.Context(), "UserController-CreateUser")
 	defer span.End()
 
 	this.logsMonitoringGateway.INFO(span, "Creating a new user")
@@ -113,7 +115,7 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 func (this *UserController) FindUserById(w http.ResponseWriter, r *http.Request) {
 
-	span := *main_gateways_logs_resources.NewSpanLogInfo(r.Context())
+	span := this.spanGateway.Get(r.Context(), "UserController-FindUserById")
 	defer span.End()
 	this.logsMonitoringGateway.INFO(span, "Finding User by id")
 
@@ -131,7 +133,7 @@ func (this *UserController) FindUserById(w http.ResponseWriter, r *http.Request)
 
 func (this *UserController) FindUser(w http.ResponseWriter, r *http.Request) {
 
-	span := *main_gateways_logs_resources.NewSpanLogInfo(r.Context())
+	span := this.spanGateway.Get(r.Context(), "UserController-FindUser")
 	defer span.End()
 	this.logsMonitoringGateway.INFO(span, "Finding User by query")
 
