@@ -4,7 +4,7 @@ import (
 	main_configs_rabbitmq_paramaters "baseapplicationgo/main/configs/rabbitmq/paramaters"
 	main_configs_yml "baseapplicationgo/main/configs/yml"
 	main_domains "baseapplicationgo/main/domains"
-	main_gateways_logs_resources "baseapplicationgo/main/gateways/logs/resources"
+	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_rabbitmq_resources "baseapplicationgo/main/gateways/rabbitmq/resources"
 	"context"
 	"encoding/json"
@@ -15,16 +15,18 @@ import (
 const _RABBITMQ_URI_YML_IDX = "RabbitMQ.URI"
 
 type RabbiMQTransactionProducer struct {
+	spanGateway main_gateways.SpanGateway
 }
 
-func NewRabbiMQTransactionProducer() *RabbiMQTransactionProducer {
-	return &RabbiMQTransactionProducer{}
+func NewRabbiMQTransactionProducer(spanGateway main_gateways.SpanGateway,
+) *RabbiMQTransactionProducer {
+	return &RabbiMQTransactionProducer{spanGateway}
 }
 
 func (this *RabbiMQTransactionProducer) Produce(
 	ctx context.Context, transaction main_domains.Transaction) error {
 
-	span := *main_gateways_logs_resources.NewSpanLogInfo(ctx)
+	span := this.spanGateway.Get(ctx, "RabbiMQTransactionProducer - Produce")
 	defer span.End()
 
 	rabbitMqURI := main_configs_yml.GetYmlValueByName(_RABBITMQ_URI_YML_IDX)

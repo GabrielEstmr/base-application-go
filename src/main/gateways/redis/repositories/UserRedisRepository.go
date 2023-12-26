@@ -2,7 +2,9 @@ package main_gateways_redis_repositories
 
 import (
 	main_configs_cache "baseapplicationgo/main/configs/cache"
+	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_redis_documents "baseapplicationgo/main/gateways/redis/documents"
+	main_gateways_spans "baseapplicationgo/main/gateways/spans"
 	"context"
 	"encoding/json"
 	"errors"
@@ -12,15 +14,21 @@ import (
 
 type UserRedisRepository struct {
 	redisClient *redis.Client
+	spanGateway main_gateways.SpanGateway
 }
 
 func NewUserRedisRepository() *UserRedisRepository {
-	return &UserRedisRepository{redisClient: main_configs_cache.GetRedisClusterBean()}
+	return &UserRedisRepository{
+		main_configs_cache.GetRedisClusterBean(),
+		main_gateways_spans.NewSpanGatewayImpl(),
+	}
 }
 
-func (this *UserRedisRepository) Save(
+func (this *UserRedisRepository) Save(ctx context.Context,
 	userRedisDocument main_gateways_redis_documents.UserRedisDocument) (
 	main_gateways_redis_documents.UserRedisDocument, error) {
+	span := this.spanGateway.Get(ctx, "UserRedisRepository-Save")
+	defer span.End()
 
 	userBytes, err := json.Marshal(userRedisDocument)
 	if err != nil {
@@ -36,10 +44,12 @@ func (this *UserRedisRepository) Save(
 	return userRedisDocument, nil
 }
 
-func (this *UserRedisRepository) FindById(indicatorId string) (
+func (this *UserRedisRepository) FindById(ctx context.Context, indicatorId string) (
 	main_gateways_redis_documents.UserRedisDocument, error) {
+	span := this.spanGateway.Get(ctx, "UserRedisRepository-FindById")
+	defer span.End()
 
-	result, err := this.redisClient.Get(context.TODO(), main_gateways_redis_documents.USER_DOC__ID_NAME_PREFIX+indicatorId).Result()
+	result, err := this.redisClient.Get(context.TODO(), main_gateways_redis_documents.USER_DOC_ID_NAME_PREFIX+indicatorId).Result()
 
 	if errors.Is(err, redis.Nil) {
 		return main_gateways_redis_documents.UserRedisDocument{}, nil
@@ -57,12 +67,14 @@ func (this *UserRedisRepository) FindById(indicatorId string) (
 	return cachedIndicatorDocument, nil
 }
 
-func (this *UserRedisRepository) FindByDocumentNumber(documentNumber string) (
+func (this *UserRedisRepository) FindByDocumentNumber(ctx context.Context, documentNumber string) (
 	main_gateways_redis_documents.UserRedisDocument, error) {
+	span := this.spanGateway.Get(ctx, "UserRedisRepository-FindByDocumentNumber")
+	defer span.End()
 
-	result, err := this.redisClient.Get(context.TODO(), main_gateways_redis_documents.USER_DOC__IDX_DOCUMENT_NUMBER_NAME_PREFIX+documentNumber).Result()
+	result, err := this.redisClient.Get(context.TODO(), main_gateways_redis_documents.USER_DOC_IDX_DOCUMENT_NUMBER_NAME_PREFIX+documentNumber).Result()
 
-	if err == redis.Nil {
+	if errors.Is(err, redis.Nil) {
 		return main_gateways_redis_documents.UserRedisDocument{}, nil
 	}
 

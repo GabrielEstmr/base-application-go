@@ -8,6 +8,7 @@ import (
 	main_gateways_mongodb_repositories "baseapplicationgo/main/gateways/mongodb/repositories"
 	main_gateways_redis "baseapplicationgo/main/gateways/redis"
 	main_gateways_redis_repositories "baseapplicationgo/main/gateways/redis/repositories"
+	main_gateways_spans "baseapplicationgo/main/gateways/spans"
 	main_usecases "baseapplicationgo/main/usecases"
 )
 
@@ -31,5 +32,7 @@ func (this *CreateNewUserBean) Get() *main_usecases.CreateNewUser {
 	var logsMonitoringGateway main_gateways.LogsMonitoringGateway = main_gateways_logs.NewLogsMonitoringGatewayImpl(
 		main_configs_apm_logs_impl.NewLogsGatewayImpl())
 
-	return main_usecases.NewCreateNewUser(cachedUserDatabaseGateway, logsMonitoringGateway)
+	var spanGatewayImpl main_gateways.SpanGateway = main_gateways_spans.NewSpanGatewayImpl()
+
+	return main_usecases.NewCreateNewUser(cachedUserDatabaseGateway, logsMonitoringGateway, spanGatewayImpl)
 }

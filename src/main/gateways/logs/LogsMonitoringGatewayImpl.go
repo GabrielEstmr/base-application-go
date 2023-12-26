@@ -2,7 +2,7 @@ package main_gateways_logs
 
 import (
 	main_configs_apm_logs_impl "baseapplicationgo/main/configs/apm/logs/impl"
-	main_gateways_logs_resources "baseapplicationgo/main/gateways/logs/resources"
+	main_domains "baseapplicationgo/main/domains"
 )
 
 type LogsMonitoringGatewayImpl struct {
@@ -17,15 +17,16 @@ func NewLogsMonitoringGatewayImpl(
 }
 
 func (this *LogsMonitoringGatewayImpl) DEBUG(
-	span main_gateways_logs_resources.SpanLogInfo,
+	span main_domains.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {
+
 	this.logLoki.DEBUG(span.GetSpan(), msg, args)
 }
 
 func (this *LogsMonitoringGatewayImpl) WARN(
-	span main_gateways_logs_resources.SpanLogInfo,
+	span main_domains.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {
@@ -33,7 +34,7 @@ func (this *LogsMonitoringGatewayImpl) WARN(
 }
 
 func (this *LogsMonitoringGatewayImpl) INFO(
-	span main_gateways_logs_resources.SpanLogInfo,
+	span main_domains.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {
@@ -41,7 +42,7 @@ func (this *LogsMonitoringGatewayImpl) INFO(
 }
 
 func (this *LogsMonitoringGatewayImpl) ERROR(
-	span main_gateways_logs_resources.SpanLogInfo,
+	span main_domains.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {

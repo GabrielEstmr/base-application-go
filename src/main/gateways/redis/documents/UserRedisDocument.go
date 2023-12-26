@@ -10,8 +10,8 @@ const _USER_COLLECTION_NAME = "User"
 const _USER_ID_NAME = "_id"
 const _USER_IDX_DOCUMENT_NUMBER_NAME = "_idx_documentNumber"
 
-const USER_DOC__ID_NAME_PREFIX = _USER_COLLECTION_NAME + _USER_ID_NAME
-const USER_DOC__IDX_DOCUMENT_NUMBER_NAME_PREFIX = _USER_COLLECTION_NAME + _USER_IDX_DOCUMENT_NUMBER_NAME
+const USER_DOC_ID_NAME_PREFIX = _USER_COLLECTION_NAME + _USER_ID_NAME
+const USER_DOC_IDX_DOCUMENT_NUMBER_NAME_PREFIX = _USER_COLLECTION_NAME + _USER_IDX_DOCUMENT_NUMBER_NAME
 
 // TODO ver depois: https://stackoverflow.com/questions/11126793/json-and-dealing-with-unexported-fields
 type UserRedisDocument struct {
@@ -37,10 +37,10 @@ func NewUserRedisDocument(user main_domains.User) UserRedisDocument {
 func (this *UserRedisDocument) GetKeys() map[string]string {
 	keys := make(map[string]string)
 	if this.Id != "" {
-		keys[_USER_ID_NAME] = fmt.Sprintf(USER_DOC__ID_NAME_PREFIX+"%s", this.Id)
+		keys[_USER_ID_NAME] = fmt.Sprintf(USER_DOC_ID_NAME_PREFIX+"%s", this.Id)
 	}
 	if this.DocumentNumber != "" {
-		keys[_USER_IDX_DOCUMENT_NUMBER_NAME] = fmt.Sprintf(USER_DOC__IDX_DOCUMENT_NUMBER_NAME_PREFIX+"%s", this.DocumentNumber)
+		keys[_USER_IDX_DOCUMENT_NUMBER_NAME] = fmt.Sprintf(USER_DOC_IDX_DOCUMENT_NUMBER_NAME_PREFIX+"%s", this.DocumentNumber)
 	}
 	return keys
 }
