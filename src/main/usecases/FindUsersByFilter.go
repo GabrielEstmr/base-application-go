@@ -6,6 +6,7 @@ import (
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
+	"context"
 	"log/slog"
 )
 
@@ -28,9 +29,10 @@ func NewFindUsersByFilter(
 }
 
 func (this *FindUsersByFilter) Execute(
+	ctx context.Context,
 	filter main_domains.FindUserFilter,
 	pageable main_domains.Pageable) (main_domains.Page, main_domains_exceptions.ApplicationException) {
-	page, err := this.userDatabaseGateway.FindByFilter(filter, pageable)
+	page, err := this.userDatabaseGateway.FindByFilter(ctx, filter, pageable)
 	if err != nil {
 		return main_domains.Page{},
 			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(

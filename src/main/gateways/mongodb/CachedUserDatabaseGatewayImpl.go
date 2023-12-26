@@ -4,6 +4,7 @@ import (
 	main_configs_logs "baseapplicationgo/main/configs/log"
 	main_domains "baseapplicationgo/main/domains"
 	main_gateways "baseapplicationgo/main/gateways"
+	"context"
 	"fmt"
 	"log/slog"
 )
@@ -24,8 +25,8 @@ func NewCachedUserDatabaseGatewayImpl(
 	}
 }
 
-func (this *CachedUserDatabaseGatewayImpl) Save(user main_domains.User) (main_domains.User, error) {
-	user, err := this.userDatabaseGateway.Save(user)
+func (this *CachedUserDatabaseGatewayImpl) Save(ctx context.Context, user main_domains.User) (main_domains.User, error) {
+	user, err := this.userDatabaseGateway.Save(ctx, user)
 	if err != nil {
 		return main_domains.User{}, err
 	}
@@ -38,12 +39,12 @@ func (this *CachedUserDatabaseGatewayImpl) Save(user main_domains.User) (main_do
 	return user, nil
 }
 
-func (this *CachedUserDatabaseGatewayImpl) FindById(id string) (main_domains.User, error) {
+func (this *CachedUserDatabaseGatewayImpl) FindById(ctx context.Context, id string) (main_domains.User, error) {
 	cachedUser, err := this.userDatabaseCacheGateway.FindById(id)
 	if !cachedUser.IsEmpty() && err == nil {
 		return cachedUser, nil
 	}
-	user, err := this.userDatabaseGateway.FindById(id)
+	user, err := this.userDatabaseGateway.FindById(ctx, id)
 	if err != nil {
 		return main_domains.User{}, err
 	}
@@ -59,12 +60,12 @@ func (this *CachedUserDatabaseGatewayImpl) FindById(id string) (main_domains.Use
 	return user, err
 }
 
-func (this *CachedUserDatabaseGatewayImpl) FindByDocumentNumber(documentNumber string) (main_domains.User, error) {
+func (this *CachedUserDatabaseGatewayImpl) FindByDocumentNumber(ctx context.Context, documentNumber string) (main_domains.User, error) {
 	cachedUser, err := this.userDatabaseCacheGateway.FindByDocumentNumber(documentNumber)
 	if !cachedUser.IsEmpty() && err == nil {
 		return cachedUser, nil
 	}
-	user, err := this.userDatabaseGateway.FindByDocumentNumber(documentNumber)
+	user, err := this.userDatabaseGateway.FindByDocumentNumber(ctx, documentNumber)
 	if err != nil {
 		return main_domains.User{}, err
 	}
@@ -80,7 +81,7 @@ func (this *CachedUserDatabaseGatewayImpl) FindByDocumentNumber(documentNumber s
 	return user, err
 }
 
-func (this *CachedUserDatabaseGatewayImpl) FindByFilter(
+func (this *CachedUserDatabaseGatewayImpl) FindByFilter(ctx context.Context,
 	filter main_domains.FindUserFilter, pageable main_domains.Pageable) (main_domains.Page, error) {
-	return this.userDatabaseGateway.FindByFilter(filter, pageable)
+	return this.userDatabaseGateway.FindByFilter(ctx, filter, pageable)
 }

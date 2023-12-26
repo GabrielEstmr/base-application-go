@@ -34,7 +34,7 @@ func NewUserRepository() *UserRepository {
 	return &UserRepository{database: main_configs_mongo.GetMongoDBClient()}
 }
 
-func (this *UserRepository) Save(user main_gateways_mongodb_documents.UserDocument) (main_gateways_mongodb_documents.UserDocument, error) {
+func (this *UserRepository) Save(ctx context.Context, user main_gateways_mongodb_documents.UserDocument) (main_gateways_mongodb_documents.UserDocument, error) {
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
 	indexModel := mongo.IndexModel{
 		Keys: bson.D{{_USER_REPO_DOCUMENT_NUMBER, 1}},
@@ -44,7 +44,7 @@ func (this *UserRepository) Save(user main_gateways_mongodb_documents.UserDocume
 		panic(err)
 	}
 
-	result, err := collection.InsertOne(context.TODO(), user)
+	result, err := collection.InsertOne(ctx, user)
 	if err != nil {
 		return main_gateways_mongodb_documents.UserDocument{}, err
 	}
@@ -54,7 +54,7 @@ func (this *UserRepository) Save(user main_gateways_mongodb_documents.UserDocume
 	return user, nil
 }
 
-func (this *UserRepository) FindById(id string) (*main_gateways_mongodb_documents.UserDocument, error) {
+func (this *UserRepository) FindById(ctx context.Context, id string) (*main_gateways_mongodb_documents.UserDocument, error) {
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
 	var result main_gateways_mongodb_documents.UserDocument
 	objectId, err := primitive.ObjectIDFromHex(id)
@@ -62,7 +62,7 @@ func (this *UserRepository) FindById(id string) (*main_gateways_mongodb_document
 		return &result, nil
 	}
 	filter := bson.D{{_USERS_IDX_INDICATOR_MONGO_ID, objectId}}
-	err2 := collection.FindOne(context.TODO(), filter).Decode(&result)
+	err2 := collection.FindOne(ctx, filter).Decode(&result)
 	if err2 != nil {
 		if errors.Is(err2, mongo.ErrNoDocuments) {
 			return &result, nil
@@ -72,11 +72,11 @@ func (this *UserRepository) FindById(id string) (*main_gateways_mongodb_document
 	return &result, nil
 }
 
-func (this *UserRepository) FindByDocumentNumber(documentNumber string) (*main_gateways_mongodb_documents.UserDocument, error) {
+func (this *UserRepository) FindByDocumentNumber(ctx context.Context, documentNumber string) (*main_gateways_mongodb_documents.UserDocument, error) {
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
 	filter := bson.D{{_USER_REPO_DOCUMENT_NUMBER, documentNumber}}
 	var result main_gateways_mongodb_documents.UserDocument
-	err := collection.FindOne(context.TODO(), filter).Decode(&result)
+	err := collection.FindOne(ctx, filter).Decode(&result)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
 			return &result, nil
@@ -86,7 +86,7 @@ func (this *UserRepository) FindByDocumentNumber(documentNumber string) (*main_g
 	return &result, nil
 }
 
-func (this *UserRepository) FindByFilter(filter main_domains.FindUserFilter,
+func (this *UserRepository) FindByFilter(ctx context.Context, filter main_domains.FindUserFilter,
 	pageable main_domains.Pageable) (*main_domains.Page, error) {
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
 

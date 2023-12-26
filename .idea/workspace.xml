@@ -5,31 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(rabbitmq): add rabbitmq connection">
-      <change afterPath="$PROJECT_DIR$/src/main/domains/SpanLogInfo.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/SpanGateway.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/logs/resources/SpanLogInfoResource.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/spans/SpanGatewayImpl.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/mocks/SpanGatewayMockImpl.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/LogsMonitoringGateway.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/LogsMonitoringGateway.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/resources/SpanLogInfo.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/TransactionEventProducerGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/TransactionEventProducerGatewayImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/TransactionEventProducer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/TransactionEventProducer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/redis/UserDatabaseCacheGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/redis/UserDatabaseCacheGatewayImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/FeaturesControllerBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/FeaturesControllerBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/RabbitMqControllerBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/RabbitMqControllerBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/UserControllerBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/UserControllerBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/FeaturesController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/FeaturesController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/RabbitMqController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/RabbitMqController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/UserDatabaseGateway.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/UserDatabaseGateway.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/mongodb/CachedUserDatabaseGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/mongodb/CachedUserDatabaseGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/mongodb/UserDatabaseGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/mongodb/UserDatabaseGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/mongodb/repositories/UserRepository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/CreateTransactionAmqpEvent.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/CreateTransactionAmqpEvent.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateNewUserBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateNewUserBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateTransactionAmqpEventBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateTransactionAmqpEventBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUsersByFilter.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUsersByFilter.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +40,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="feat/adjust-spans" />
+                    <option name="lastUsedInstant" value="1703606776" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="project/base-app-go" />
                     <option name="lastUsedInstant" value="1703596570" />
                   </RecentBranch>
@@ -70,10 +58,6 @@
                   <RecentBranch>
                     <option name="branchName" value="feat/add-rabbitmq" />
                     <option name="lastUsedInstant" value="1702840899" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="feat/add-features-controller" />
-                    <option name="lastUsedInstant" value="1702675068" />
                   </RecentBranch>
                 </list>
               </option>
@@ -115,7 +99,7 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "project/base-app-go",
+    "git-widget-placeholder": "feat/adjust-spans",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "last_opened_file_path": "/home/gabriel/Documents/Projects/base-application-go/src/test/usecases",
@@ -261,12 +245,12 @@
         </line-breakpoint>
         <line-breakpoint type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/gateways/mongodb/CachedUserDatabaseGatewayImpl.go</url>
-          <line>27</line>
+          <line>28</line>
           <option name="timeStamp" value="132" />
         </line-breakpoint>
         <line-breakpoint type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/main/gateways/mongodb/UserDatabaseGatewayImpl.go</url>
-          <line>18</line>
+          <line>19</line>
           <option name="timeStamp" value="133" />
         </line-breakpoint>
         <line-breakpoint type="DlvLineBreakpoint">

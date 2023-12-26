@@ -121,7 +121,7 @@ func (this *UserController) FindUserById(w http.ResponseWriter, r *http.Request)
 
 	id := strings.TrimPrefix(r.URL.Path, _USER_CONTROLLER_PATH_PREFIX)
 	this.logsMonitoringGateway.INFO(span, fmt.Sprintf("Finding User by id: %s", id))
-	persistedUser, errApp := this.findUserById.Execute(id)
+	persistedUser, errApp := this.findUserById.Execute(span.GetCtx(), id)
 	if errApp != nil {
 		this.logsMonitoringGateway.ERROR(span, errApp.Error())
 		main_utils.ERROR_APP(w, errApp)
@@ -156,7 +156,7 @@ func (this *UserController) FindUser(w http.ResponseWriter, r *http.Request) {
 		main_utils.ERROR(w, http.StatusInternalServerError, errT)
 		return
 	}
-	page, err := this.findUsersByFilter.Execute(filter.ToDomain(), pageable)
+	page, err := this.findUsersByFilter.Execute(span.GetCtx(), filter.ToDomain(), pageable)
 	if err != nil {
 		this.logsMonitoringGateway.ERROR(span, err.Error())
 		main_utils.ERROR_APP(w, err)

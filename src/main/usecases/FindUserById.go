@@ -7,6 +7,7 @@ import (
 	main_domains_features "baseapplicationgo/main/domains/features"
 	main_gateways "baseapplicationgo/main/gateways"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
+	"context"
 	"log"
 	"log/slog"
 )
@@ -33,8 +34,8 @@ func NewFindUserById(
 	}
 }
 
-func (this *FindUserById) Execute(id string) (main_domains.User, main_domains_exceptions.ApplicationException) {
-	user, err := this.userDatabaseGateway.FindById(id)
+func (this *FindUserById) Execute(ctx context.Context, id string) (main_domains.User, main_domains_exceptions.ApplicationException) {
+	user, err := this.userDatabaseGateway.FindById(ctx, id)
 	if err != nil {
 		return main_domains.User{},
 			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(_MSG_FIND_USER_BY_ID_ARCH_ISSUE)

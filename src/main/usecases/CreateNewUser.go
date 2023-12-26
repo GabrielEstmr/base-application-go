@@ -52,7 +52,7 @@ func (this *CreateNewUser) Execute(ctx context.Context, user main_domains.User) 
 
 	this.logsMonitoringGateway.INFO(span,
 		fmt.Sprintf("Creating new User with documentNumber: %s", user.DocumentNumber))
-	userAlreadyPersisted, err := this.userDatabaseGateway.FindByDocumentNumber(user.DocumentNumber)
+	userAlreadyPersisted, err := this.userDatabaseGateway.FindByDocumentNumber(ctx, user.DocumentNumber)
 	if err != nil {
 		return main_domains.User{}, main_domains_exceptions.
 			NewInternalServerErrorExceptionSglMsg(this.messageUtils.
@@ -64,7 +64,7 @@ func (this *CreateNewUser) Execute(ctx context.Context, user main_domains.User) 
 				GetDefaultLocale(_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS))
 	}
 
-	persistedUser, err := this.userDatabaseGateway.Save(user)
+	persistedUser, err := this.userDatabaseGateway.Save(ctx, user)
 	if err != nil {
 		return main_domains.User{}, main_domains_exceptions.
 			NewInternalServerErrorExceptionSglMsg(this.messageUtils.
