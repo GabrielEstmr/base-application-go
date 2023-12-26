@@ -45,12 +45,11 @@ func NewCreateTransactionAmqpEvent(
 
 func (this *CreateTransactionAmqpEvent) Execute(
 	ctx context.Context, transaction main_domains.Transaction) main_domains_exceptions.ApplicationException {
-
 	span := this.spanGateway.Get(ctx, "CreateTransactionAmqpEvent-Execute")
 	defer span.End()
 
 	this.logsMonitoringGateway.DEBUG(span,
 		fmt.Sprintf("Creating new transaction event with accountId: %s", transaction.GetAccountId()))
 
-	return this.transactionEventProducerGateway.Send(ctx, transaction)
+	return this.transactionEventProducerGateway.Send(span.GetCtx(), transaction)
 }

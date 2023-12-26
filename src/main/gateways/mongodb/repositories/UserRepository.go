@@ -4,8 +4,10 @@ import (
 	main_configs_mongo "baseapplicationgo/main/configs/mongodb"
 	main_configs_mongo_collections "baseapplicationgo/main/configs/mongodb/collections"
 	main_domains "baseapplicationgo/main/domains"
+	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_mongodb_documents "baseapplicationgo/main/gateways/mongodb/documents"
 	main_gateways_mongodb_utils "baseapplicationgo/main/gateways/mongodb/utils"
+	main_gateways_spans "baseapplicationgo/main/gateways/spans"
 	"context"
 	"encoding/json"
 	"errors"
@@ -27,14 +29,21 @@ const _USER_REPO_CREATED_DATE = "createdDate"
 const _USER_REPO_LAST_MODIFIED_DATE = "lastModifiedDate"
 
 type UserRepository struct {
-	database *mongo.Database
+	database    *mongo.Database
+	spanGateway main_gateways.SpanGateway
 }
 
 func NewUserRepository() *UserRepository {
-	return &UserRepository{database: main_configs_mongo.GetMongoDBClient()}
+	return &UserRepository{
+		database:    main_configs_mongo.GetMongoDBClient(),
+		spanGateway: main_gateways_spans.NewSpanGatewayImpl(),
+	}
 }
 
 func (this *UserRepository) Save(ctx context.Context, user main_gateways_mongodb_documents.UserDocument) (main_gateways_mongodb_documents.UserDocument, error) {
+	span := this.spanGateway.Get(ctx, "UserRepository-Save")
+	defer span.End()
+
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
 	indexModel := mongo.IndexModel{
 		Keys: bson.D{{_USER_REPO_DOCUMENT_NUMBER, 1}},
@@ -44,7 +53,7 @@ func (this *UserRepository) Save(ctx context.Context, user main_gateways_mongodb
 		panic(err)
 	}
 
-	result, err := collection.InsertOne(ctx, user)
+	result, err := collection.InsertOne(span.GetCtx(), user)
 	if err != nil {
 		return main_gateways_mongodb_documents.UserDocument{}, err
 	}
@@ -55,6 +64,9 @@ func (this *UserRepository) Save(ctx context.Context, user main_gateways_mongodb
 }
 
 func (this *UserRepository) FindById(ctx context.Context, id string) (*main_gateways_mongodb_documents.UserDocument, error) {
+	span := this.spanGateway.Get(ctx, "UserRepository-FindById")
+	defer span.End()
+
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
 	var result main_gateways_mongodb_documents.UserDocument
 	objectId, err := primitive.ObjectIDFromHex(id)
@@ -62,7 +74,7 @@ func (this *UserRepository) FindById(ctx context.Context, id string) (*main_gate
 		return &result, nil
 	}
 	filter := bson.D{{_USERS_IDX_INDICATOR_MONGO_ID, objectId}}
-	err2 := collection.FindOne(ctx, filter).Decode(&result)
+	err2 := collection.FindOne(span.GetCtx(), filter).Decode(&result)
 	if err2 != nil {
 		if errors.Is(err2, mongo.ErrNoDocuments) {
 			return &result, nil
@@ -73,10 +85,13 @@ func (this *UserRepository) FindById(ctx context.Context, id string) (*main_gate
 }
 
 func (this *UserRepository) FindByDocumentNumber(ctx context.Context, documentNumber string) (*main_gateways_mongodb_documents.UserDocument, error) {
+	span := this.spanGateway.Get(ctx, "UserRepository-FindByDocumentNumber")
+	defer span.End()
+
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
 	filter := bson.D{{_USER_REPO_DOCUMENT_NUMBER, documentNumber}}
 	var result main_gateways_mongodb_documents.UserDocument
-	err := collection.FindOne(ctx, filter).Decode(&result)
+	err := collection.FindOne(span.GetCtx(), filter).Decode(&result)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
 			return &result, nil
@@ -88,6 +103,9 @@ func (this *UserRepository) FindByDocumentNumber(ctx context.Context, documentNu
 
 func (this *UserRepository) FindByFilter(ctx context.Context, filter main_domains.FindUserFilter,
 	pageable main_domains.Pageable) (*main_domains.Page, error) {
+	span := this.spanGateway.Get(ctx, "UserRepository-FindByFilter")
+	defer span.End()
+
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
 
 	log.Println(len(pageable.GetSort()))
@@ -132,7 +150,7 @@ func (this *UserRepository) FindByFilter(ctx context.Context, filter main_domain
 
 	var results []main_gateways_mongodb_documents.UserDocument
 	cursor, err := collection.Find(context.TODO(), filterCriterias, opt)
-	if err = cursor.All(context.TODO(), &results); err != nil {
+	if err = cursor.All(span.GetCtx(), &results); err != nil {
 		panic(err)
 	}
 	for _, result := range results {
@@ -140,7 +158,7 @@ func (this *UserRepository) FindByFilter(ctx context.Context, filter main_domain
 		fmt.Println(string(res))
 	}
 
-	numberDocs, err := collection.CountDocuments(context.TODO(), filterCriterias)
+	numberDocs, err := collection.CountDocuments(span.GetCtx(), filterCriterias)
 	if err != nil {
 		return nil, err
 	}
