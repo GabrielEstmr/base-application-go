@@ -36,7 +36,7 @@ func (this *UserRedisRepository) Save(ctx context.Context,
 	}
 
 	for _, value := range userRedisDocument.GetKeys() {
-		_, err := this.redisClient.Set(span.GetCtx(), value, userBytes, time.Hour).Result()
+		_, err := this.redisClient.Set(context.TODO(), value, userBytes, time.Hour).Result()
 		if err != nil {
 			return main_gateways_redis_documents.UserRedisDocument{}, err
 		}
@@ -49,7 +49,7 @@ func (this *UserRedisRepository) FindById(ctx context.Context, indicatorId strin
 	span := this.spanGateway.Get(ctx, "UserRedisRepository-FindById")
 	defer span.End()
 
-	result, err := this.redisClient.Get(span.GetCtx(), main_gateways_redis_documents.USER_DOC__ID_NAME_PREFIX+indicatorId).Result()
+	result, err := this.redisClient.Get(context.TODO(), main_gateways_redis_documents.USER_DOC_ID_NAME_PREFIX+indicatorId).Result()
 
 	if errors.Is(err, redis.Nil) {
 		return main_gateways_redis_documents.UserRedisDocument{}, nil
@@ -72,7 +72,7 @@ func (this *UserRedisRepository) FindByDocumentNumber(ctx context.Context, docum
 	span := this.spanGateway.Get(ctx, "UserRedisRepository-FindByDocumentNumber")
 	defer span.End()
 
-	result, err := this.redisClient.Get(span.GetCtx(), main_gateways_redis_documents.USER_DOC__IDX_DOCUMENT_NUMBER_NAME_PREFIX+documentNumber).Result()
+	result, err := this.redisClient.Get(context.TODO(), main_gateways_redis_documents.USER_DOC_IDX_DOCUMENT_NUMBER_NAME_PREFIX+documentNumber).Result()
 
 	if errors.Is(err, redis.Nil) {
 		return main_gateways_redis_documents.UserRedisDocument{}, nil
