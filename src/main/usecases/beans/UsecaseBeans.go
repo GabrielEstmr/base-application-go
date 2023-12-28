@@ -15,6 +15,7 @@ type UsecaseBeans struct {
 	FindUserById               *main_usecases.FindUserById
 	FindUsersByFilter          *main_usecases.FindUsersByFilter
 	CreateTransactionAmqpEvent *main_usecases.CreateTransactionAmqpEvent
+	PersistTransaction         *main_usecases.PersistTransaction
 }
 
 func GetUsecaseBeans() *UsecaseBeans {
@@ -32,5 +33,6 @@ func subscriptUsecaseBeans() *UsecaseBeans {
 		FindUserById:               main_usecases_beans_factories.NewFindUserByIdBean().Get(),
 		FindUsersByFilter:          main_usecases_beans_factories.NewFindUsersByFilterBean().Get(),
 		CreateTransactionAmqpEvent: main_usecases_beans_factories.NewCreateTransactionAmqpEventBean().Get(),
+		PersistTransaction:         main_usecases_beans_factories.NewPersistTransactionBean().Get(),
 	}
 }
