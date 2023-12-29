@@ -44,7 +44,9 @@ func (this *ListenerTest) Listen() {
 	log.Println(
 		fmt.Sprintf(_MSG_RABBITMQ_TEST_LISTENER_INSTANTIATION, consumerParams.GetQueueName()))
 
-	msgs, err := ch.Consume(
+	ctx := context.TODO()
+	msgs, err := ch.ConsumeWithContext(
+		ctx,
 		consumerParams.GetQueueName(),
 		consumerParams.GetConsumerTag(),
 		consumerParams.GetAutoAck(),
@@ -60,9 +62,7 @@ func (this *ListenerTest) Listen() {
 	go func() {
 		for d := range msgs {
 
-			ctx := context.TODO()
 			span := this.spanGateway.Get(ctx, "ListenerTest-Listen")
-			defer span.End()
 
 			this.logsMonitoringGateway.INFO(span, fmt.Sprintf(
 				"Message has been received. Queue: %s MessageId: %s",
@@ -82,6 +82,7 @@ func (this *ListenerTest) Listen() {
 			if errT != nil {
 				log.Fatal(errT)
 			}
+			span.End()
 		}
 	}()
 
