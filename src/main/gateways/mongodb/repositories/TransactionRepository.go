@@ -34,7 +34,7 @@ func (this *TransactionRepository) Save(
 	transaction main_gateways_mongodb_documents.TransactionDocument,
 ) (main_gateways_mongodb_documents.TransactionDocument, error) {
 
-	span := this.spanGateway.Get(ctx, "UserRepository-Save")
+	span := this.spanGateway.Get(ctx, "TransactionRepository-Save")
 	defer span.End()
 
 	collection := this.database.Collection(_TRANSACTION_COLLECTION_NAME)

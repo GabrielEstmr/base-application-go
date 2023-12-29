@@ -44,7 +44,7 @@ func NewPersistTransaction(
 func (this *PersistTransaction) Execute(
 	ctx context.Context,
 	transaction main_domains.Transaction) (main_domains.Transaction, main_domains_exceptions.ApplicationException) {
-	span := this.spanGateway.Get(ctx, "FindUsersByFilter-Execute")
+	span := this.spanGateway.Get(ctx, "PersistTransaction-Execute")
 	defer span.End()
 
 	persistedTransaction, err := this.transactionDatabaseGateway.Save(span.GetCtx(), transaction)

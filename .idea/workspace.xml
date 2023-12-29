@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(apm): adjust spans">
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/beans/RabbitListenerBeans.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/beans/factories/ListenerTestBean.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/subscribers/SubcribeRabbitListeners.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/SubcribeRabbitListeners.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/mongodb/repositories/TransactionRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/mongodb/repositories/TransactionRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/beans/factories/ListenerTestBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/beans/factories/ListenerTestBean.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/TransactionEventProducer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/producers/TransactionEventProducer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/resources/TransactionResource.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/resources/TransactionResource.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,11 +117,11 @@
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq/subscribers" />
       <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq/resources" />
       <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq" />
       <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/redis/repo" />
       <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/mongo/repo" />
-      <recent name="$PROJECT_DIR$/src/main/configs/ff/lib/factories" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build baseapplicationgo">

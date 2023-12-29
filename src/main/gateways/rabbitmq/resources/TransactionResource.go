@@ -16,6 +16,14 @@ func NewTransactionResource(transaction main_domains.Transaction) *TransactionRe
 	}
 }
 
+func NewTransactionResourceFromProps(props map[string]interface{}) *TransactionResource {
+	return &TransactionResource{
+		AccountId:       props["accountId"].(string),
+		OperationTypeId: props["operationTypeId"].(string),
+		Amount:          props["amount"].(float64),
+	}
+}
+
 func (this *TransactionResource) ToDomain() main_domains.Transaction {
 	if (*this == TransactionResource{}) {
 		return *new(main_domains.Transaction)
