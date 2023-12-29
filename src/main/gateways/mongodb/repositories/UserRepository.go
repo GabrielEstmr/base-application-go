@@ -16,6 +16,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
+	"time"
 )
 
 const _USERS_COLLECTION_NAME = main_configs_mongo_collections.USERS_COLLECTION_NAME
@@ -53,7 +54,11 @@ func (this *UserRepository) Save(ctx context.Context, user main_gateways_mongodb
 		panic(err)
 	}
 
-	result, err := collection.InsertOne(span.GetCtx(), user)
+	now := primitive.NewDateTimeFromTime(time.Now())
+	user.CreatedDate = now
+	user.LastModifiedDate = now
+
+	result, err := collection.InsertOne(context.TODO(), user)
 	if err != nil {
 		return main_gateways_mongodb_documents.UserDocument{}, err
 	}

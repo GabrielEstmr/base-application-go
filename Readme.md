@@ -10,13 +10,13 @@
 - [X] YML Properties Integration;
 - [X] Swagger
 - [X] Msg Bundle
-- [X] Redis Locking
+- [ ] Redis Locking
 - [X] OTEL integration
 - [X] Request Validation
 - [X] Logs
 - [X] How to unmarshall structs with private props
 - [X] Review Redis Repository (With Sentinel)
-  - https://redis.uptrace.dev/guide/go-redis.html
+    - https://redis.uptrace.dev/guide/go-redis.html
 - [X] Review Redis Repository: findByDocumentNumber
 - [ ] Get Locale from proxy
 - [ ] HATEOS golang
@@ -24,7 +24,7 @@
 - [ ] Review page props (they are starting with uppercase) and process (page not working)
 - [ ] Build Metrics: requests per seconds, error rating, etc
 - [OK] POC oauth microservice + go plugin in kong
-- [ ] 
+- [ ] Middleware to threat Content-type and accept header
 - [ ]
 - [ ]
 
@@ -68,13 +68,10 @@ func main() {
 
 https://zhwt.github.io/yaml-to-go/
 
-
-
 https://stackoverflow.com/questions/64712646/how-to-properly-disconnect-mongodb-client
 
 https://apiux.com/2013/04/25/how-to-localize-your-api/
 https://ip2location-go.readthedocs.io/en/latest/quickstart.html
-
 
 // TODO: check func
 // WHen to close connection

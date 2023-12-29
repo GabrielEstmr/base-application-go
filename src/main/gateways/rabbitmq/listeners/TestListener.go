@@ -4,13 +4,34 @@ import (
 	main_configs_error "baseapplicationgo/main/configs/error"
 	main_configs_rabbitmq "baseapplicationgo/main/configs/rabbitmq"
 	main_configs_rabbitmq_paramaters "baseapplicationgo/main/configs/rabbitmq/paramaters"
+	main_gateways "baseapplicationgo/main/gateways"
+	main_gateways_rabbitmq_resources "baseapplicationgo/main/gateways/rabbitmq/resources"
+	main_usecases "baseapplicationgo/main/usecases"
+	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 )
 
 const _MSG_RABBITMQ_TEST_LISTENER_INSTANTIATION = "Rabbitmq test listener instantiation. Queue: %s"
 
-func ListenTest() {
+type ListenerTest struct {
+	persistTransaction    main_usecases.PersistTransaction
+	logsMonitoringGateway main_gateways.LogsMonitoringGateway
+	spanGateway           main_gateways.SpanGateway
+}
+
+func NewListenerTest(
+	persistTransaction main_usecases.PersistTransaction,
+	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
+	spanGateway main_gateways.SpanGateway) *ListenerTest {
+	return &ListenerTest{
+		persistTransaction:    persistTransaction,
+		logsMonitoringGateway: logsMonitoringGateway,
+		spanGateway:           spanGateway}
+}
+
+func (this *ListenerTest) Listen() {
 
 	conn := main_configs_rabbitmq.GetConnection()
 	defer main_configs_rabbitmq.CloseRabbitMqConnection(conn)
@@ -23,7 +44,9 @@ func ListenTest() {
 	log.Println(
 		fmt.Sprintf(_MSG_RABBITMQ_TEST_LISTENER_INSTANTIATION, consumerParams.GetQueueName()))
 
-	msgs, err := ch.Consume(
+	ctx := context.TODO()
+	msgs, err := ch.ConsumeWithContext(
+		ctx,
 		consumerParams.GetQueueName(),
 		consumerParams.GetConsumerTag(),
 		consumerParams.GetAutoAck(),
@@ -38,8 +61,28 @@ func ListenTest() {
 
 	go func() {
 		for d := range msgs {
-			log.Printf(" [MESSAGE RECEIVED FROM RABBITMQ] %s", d.Body)
-			//d.Headers
+
+			span := this.spanGateway.Get(ctx, "ListenerTest-Listen")
+
+			this.logsMonitoringGateway.INFO(span, fmt.Sprintf(
+				"Message has been received. Queue: %s MessageId: %s",
+				consumerParams.GetQueueName(),
+				d.MessageId,
+			))
+
+			var event main_gateways_rabbitmq_resources.Event
+			if err = json.Unmarshal(d.Body, &event); err != nil {
+				log.Fatal(err)
+				return
+			}
+
+			msgMap := event.Message.(map[string]interface{})
+			msg := main_gateways_rabbitmq_resources.NewTransactionResourceFromProps(msgMap)
+			_, errT := this.persistTransaction.Execute(span.GetCtx(), msg.ToDomain())
+			if errT != nil {
+				log.Fatal(errT)
+			}
+			span.End()
 		}
 	}()
 

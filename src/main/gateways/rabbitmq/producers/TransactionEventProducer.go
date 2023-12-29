@@ -46,7 +46,7 @@ func (this *RabbiMQTransactionProducer) Produce(
 		return errJson
 	}
 
-	err := ch.PublishWithContext(ctx,
+	err := ch.PublishWithContext(span.GetCtx(),
 		main_configs_rabbitmq_paramaters.EXCHANGE_BASE_APP_GO_AMQP_TEST,    // exchange
 		main_configs_rabbitmq_paramaters.ROUTING_KEY_BASE_APP_GO_AMQP_TEST, // routing key
 		false,
