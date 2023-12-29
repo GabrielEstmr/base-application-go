@@ -44,18 +44,7 @@ func (this *ListenerTest) Listen() {
 	log.Println(
 		fmt.Sprintf(_MSG_RABBITMQ_TEST_LISTENER_INSTANTIATION, consumerParams.GetQueueName()))
 
-	//msgs, err := ch.Consume(
-	//	consumerParams.GetQueueName(),
-	//	consumerParams.GetConsumerTag(),
-	//	consumerParams.GetAutoAck(),
-	//	consumerParams.GetExclusive(),
-	//	consumerParams.GetNoLocal(),
-	//	consumerParams.GetNoWait(),
-	//	consumerParams.GetArgs(),
-	//)
-	ctxConsumer := context.Background()
-	msgs, err := ch.ConsumeWithContext(
-		ctxConsumer,
+	msgs, err := ch.Consume(
 		consumerParams.GetQueueName(),
 		consumerParams.GetConsumerTag(),
 		consumerParams.GetAutoAck(),
