@@ -6,7 +6,7 @@ import (
 	main_configs_error "baseapplicationgo/main/configs/error"
 	mainConfigsRouterHttp "baseapplicationgo/main/configs/router"
 	main_configs_yml "baseapplicationgo/main/configs/yml"
-	main_gateways_rabbitmq "baseapplicationgo/main/gateways/rabbitmq"
+	main_gateways_rabbitmq "baseapplicationgo/main/gateways/rabbitmq/subscribers"
 	mainGatewaysWs "baseapplicationgo/main/gateways/ws"
 	"context"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
