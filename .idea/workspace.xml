@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(apm): adjust spans">
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/configs/distributedlock/RedisSyncLock.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/domains/SingleLock.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/DistributedLockGateway.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/lock/DistributedLockGatewayImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/lock/resources/SingleLockResource.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +40,16 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="feat/add-traces-into-rabbitmq" />
-                    <option name="lastUsedInstant" value="1703785273" />
+                    <option name="branchName" value="feat/add-redis-locking" />
+                    <option name="lastUsedInstant" value="1703882362" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="project/base-app-go" />
-                    <option name="lastUsedInstant" value="1703631580" />
+                    <option name="lastUsedInstant" value="1703882122" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feat/add-traces-into-rabbitmq" />
+                    <option name="lastUsedInstant" value="1703785273" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="feat/adjust-spans" />
@@ -46,10 +58,6 @@
                   <RecentBranch>
                     <option name="branchName" value="feat/update-pagination" />
                     <option name="lastUsedInstant" value="1703594581" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="feat/add-rabbitmq-controller" />
-                    <option name="lastUsedInstant" value="1702893968" />
                   </RecentBranch>
                 </list>
               </option>
@@ -91,7 +99,7 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "feat/add-traces-into-rabbitmq",
+    "git-widget-placeholder": "feat/add-redis-locking",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "kotlin-language-version-configured": "true",
@@ -99,7 +107,7 @@
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Go"
+    "settings.editor.selected.configurable": "google-java-format.settings"
   }
 }]]></component>
   <component name="RecentsManager">
