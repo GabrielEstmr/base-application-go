@@ -30,7 +30,7 @@ func NewDistributedLockGatewayImpl() *DistributedLockGatewayImpl {
 	}
 }
 
-func (this *DistributedLockGatewayImpl) Get(ctx context.Context, key string, ttl time.Duration) lock.SingleLock {
+func (this *DistributedLockGatewayImpl) Get(ctx context.Context, key string, ttl time.Duration) *lock.SingleLock {
 	span := this.spanGateway.Get(ctx, "DistributedLockGatewayImpl-Get")
 	defer span.End()
 	this.apLog.Debug(fmt.Sprintf(_MSG_DISTRIBUTED_LOCK_GATEWAY, key, ttl))

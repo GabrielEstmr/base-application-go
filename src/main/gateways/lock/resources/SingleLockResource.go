@@ -25,6 +25,6 @@ func (this *SingleLockResource) Unlock() (bool, error) {
 	return this.lock.Unlock()
 }
 
-func (this *SingleLockResource) ToDomain() lock.SingleLock {
-	return *lock.NewSingleLock(this.lock)
+func (this *SingleLockResource) ToDomain() *lock.SingleLock {
+	return lock.NewSingleLock(this.lock)
 }

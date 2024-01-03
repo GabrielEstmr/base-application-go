@@ -5,30 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(apm): adjust spans">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/distributedlock/RedisSyncLock.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/distributedlock/RedisSyncLock.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/domains/SingleLock.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/domains/lock/SingleLock.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/domains/SpanLogInfo.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/domains/apm/SpanLogInfo.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/DistributedLockGateway.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/DistributedLockGateway.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/LogsMonitoringGateway.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/LogsMonitoringGateway.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/SpanGateway.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/SpanGateway.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/lock/DistributedLockGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/lock/DistributedLockGatewayImpl.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/lock/resources/SingleLockResource.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/lock/resources/SingleLockResource.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/beans/factories/ListenerTestBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/beans/factories/ListenerTestBean.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/spans/SpanGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/spans/SpanGatewayImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/FeaturesControllerBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/FeaturesControllerBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/RabbitMqControllerBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/RabbitMqControllerBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/TransactionControllerBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/TransactionControllerBean.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/UserControllerBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/UserControllerBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateNewUserBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateNewUserBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateTransactionAmqpEventBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/CreateTransactionAmqpEventBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/Factories/PersistTransactionBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/PersistTransactionBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/mocks/SpanGatewayMockImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/mocks/SpanGatewayMockImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +82,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build baseapplicationgo.executor": "Run",
+    "Go Build.go build baseapplicationgo.executor": "Debug",
     "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
     "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
     "Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor": "Coverage",

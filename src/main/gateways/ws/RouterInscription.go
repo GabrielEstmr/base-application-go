@@ -71,7 +71,7 @@ func getFunctionBeans() []Route {
 			AuthRequired: false,
 		},
 		{
-			URI:          API_V1_PREFIX + "/transactions/",
+			URI:          API_V1_PREFIX + "/transactions",
 			Method:       http.MethodPost,
 			Function:     beans.TransactionControllerV1Bean.CreateTransaction,
 			AuthRequired: false,

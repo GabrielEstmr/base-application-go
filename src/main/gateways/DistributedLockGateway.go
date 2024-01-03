@@ -7,5 +7,5 @@ import (
 )
 
 type DistributedLockGateway interface {
-	Get(ctx context.Context, key string, ttl time.Duration) lock.SingleLock
+	Get(ctx context.Context, key string, ttl time.Duration) *lock.SingleLock
 }
