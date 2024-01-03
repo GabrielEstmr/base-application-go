@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(apm): adjust spans">
-      <change afterPath="$PROJECT_DIR$/src/main/configs/distributedlock/RedisSyncLock.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/domains/SingleLock.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/DistributedLockGateway.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/lock/DistributedLockGatewayImpl.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/lock/resources/SingleLockResource.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/TransactionControllerBean.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/TransactionController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/src/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/ControllersBeans.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/ControllersBeans.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/beans/Factories/PersistTransactionBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/beans/Factories/PersistTransactionBeanFactory.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,36 +77,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build baseapplicationgo.executor": "Debug",
-    "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
-    "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
-    "Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor": "Coverage",
-    "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
-    "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
-    "Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor": "Debug",
-    "Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor": "Debug",
-    "Go Test.go test baseapplicationgo/test/usecases.executor": "Coverage",
-    "Go Test.go test usecases.executor": "Coverage",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "feat/add-redis-locking",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/gabriel/Documents/Projects/base-application-go/src/test/usecases",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "google-java-format.settings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;Go Build.go build baseapplicationgo.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Test.go test baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go Test.go test usecases.executor&quot;: &quot;Coverage&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/add-redis-locking&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/gabriel/Documents/Projects/base-application-go/src/test/usecases&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;google-java-format.settings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/usecases" />

@@ -55,7 +55,13 @@ func (this *PersistTransaction) Execute(
 
 	lock := this.lockGateway.Get(span.GetCtx(), "Key", 8*time.Second)
 
-	err := lock.Lock()
+	errLock := lock.Lock()
+	if errLock != nil {
+		return main_domains.Transaction{},
+			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_MSG_CREATE_NEW_TRANSACTION_ARCH_ISSUE))
+	}
 
 	persistedTransaction, err := this.transactionDatabaseGateway.Save(span.GetCtx(), transaction)
 	if err != nil {
@@ -65,9 +71,13 @@ func (this *PersistTransaction) Execute(
 					_MSG_CREATE_NEW_TRANSACTION_ARCH_ISSUE))
 	}
 
-	_, err := lock.Unlock()
-	if err != nil {
-		return main_domains.Transaction{}, nil
+	_, errUnlock := lock.Unlock()
+	if errUnlock != nil {
+		return main_domains.Transaction{},
+			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_MSG_CREATE_NEW_TRANSACTION_ARCH_ISSUE))
 	}
+
 	return persistedTransaction, nil
 }
