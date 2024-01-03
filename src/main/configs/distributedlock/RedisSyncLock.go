@@ -3,7 +3,7 @@ package main_configs_distributedlock
 import (
 	main_configs_cache "baseapplicationgo/main/configs/cache"
 	"github.com/go-redsync/redsync/v4"
-	"github.com/go-redsync/redsync/v4/redis/goredis"
+	"github.com/go-redsync/redsync/v4/redis/goredis/v9"
 	"sync"
 )
 

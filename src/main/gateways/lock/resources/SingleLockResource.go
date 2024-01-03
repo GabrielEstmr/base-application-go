@@ -1,7 +1,7 @@
 package main_gateways_lock_resources
 
 import (
-	main_domains "baseapplicationgo/main/domains"
+	"baseapplicationgo/main/domains/lock"
 	"github.com/go-redsync/redsync/v4"
 )
 
@@ -25,6 +25,6 @@ func (this *SingleLockResource) Unlock() (bool, error) {
 	return this.lock.Unlock()
 }
 
-func (this *SingleLockResource) ToDomain() main_domains.SingleLock {
-	return *main_domains.NewSingleLock(*this)
+func (this *SingleLockResource) ToDomain() lock.SingleLock {
+	return *lock.NewSingleLock(this.lock)
 }

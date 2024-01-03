@@ -5,6 +5,7 @@ import (
 	main_configs_rabbitmq "baseapplicationgo/main/configs/rabbitmq"
 	main_configs_rabbitmq_paramaters "baseapplicationgo/main/configs/rabbitmq/paramaters"
 	main_gateways "baseapplicationgo/main/gateways"
+	main_gateways_logs "baseapplicationgo/main/gateways/logs"
 	main_gateways_rabbitmq_resources "baseapplicationgo/main/gateways/rabbitmq/resources"
 	main_usecases "baseapplicationgo/main/usecases"
 	"context"
@@ -23,11 +24,10 @@ type ListenerTest struct {
 
 func NewListenerTest(
 	persistTransaction main_usecases.PersistTransaction,
-	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
 	spanGateway main_gateways.SpanGateway) *ListenerTest {
 	return &ListenerTest{
 		persistTransaction:    persistTransaction,
-		logsMonitoringGateway: logsMonitoringGateway,
+		logsMonitoringGateway: main_gateways_logs.NewLogsMonitoringGatewayImpl(),
 		spanGateway:           spanGateway}
 }
 

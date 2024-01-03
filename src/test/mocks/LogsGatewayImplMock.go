@@ -1,7 +1,7 @@
 package test_mocks
 
 import (
-	main_domains "baseapplicationgo/main/domains"
+	main_domains "baseapplicationgo/main/domains/apm"
 )
 
 type LogsMonitoringGatewayMock struct {

@@ -3,7 +3,7 @@ package main_gateways_lock
 import (
 	main_configs_distributedlock "baseapplicationgo/main/configs/distributedlock"
 	main_configs_logs "baseapplicationgo/main/configs/log"
-	main_domains "baseapplicationgo/main/domains"
+	"baseapplicationgo/main/domains/lock"
 	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_lock_resources "baseapplicationgo/main/gateways/lock/resources"
 	main_gateways_spans "baseapplicationgo/main/gateways/spans"
@@ -30,7 +30,7 @@ func NewDistributedLockGatewayImpl() *DistributedLockGatewayImpl {
 	}
 }
 
-func (this *DistributedLockGatewayImpl) Get(ctx context.Context, key string, ttl time.Duration) main_domains.SingleLock {
+func (this *DistributedLockGatewayImpl) Get(ctx context.Context, key string, ttl time.Duration) lock.SingleLock {
 	span := this.spanGateway.Get(ctx, "DistributedLockGatewayImpl-Get")
 	defer span.End()
 	this.apLog.Debug(fmt.Sprintf(_MSG_DISTRIBUTED_LOCK_GATEWAY, key, ttl))
