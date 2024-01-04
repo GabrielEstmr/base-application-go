@@ -15,6 +15,7 @@ import (
 )
 
 const _MSG_DISTRIBUTED_LOCK_GATEWAY = "Initiating lock. Key: %s, Ttl: %s"
+const _DISTRIBUTED_LOCK_GATEWAY_APP_NAME = "App Name"
 
 type DistributedLockGatewayImpl struct {
 	lockConfig  *redsync.Redsync
@@ -35,6 +36,6 @@ func (this *DistributedLockGatewayImpl) Get(ctx context.Context, key string, ttl
 	defer span.End()
 	this.apLog.Debug(fmt.Sprintf(_MSG_DISTRIBUTED_LOCK_GATEWAY, key, ttl))
 
-	lock := this.lockConfig.NewMutex(key, redsync.WithExpiry(ttl))
-	return main_gateways_lock_resources.NewSingleLockResource(lock).ToDomain()
+	redisLock := this.lockConfig.NewMutex(_DISTRIBUTED_LOCK_GATEWAY_APP_NAME+key, redsync.WithExpiry(ttl))
+	return main_gateways_lock_resources.NewSingleLockResource(redisLock).ToDomain()
 }

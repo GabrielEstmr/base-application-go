@@ -7,6 +7,7 @@ import (
 	main_gateways_spans "baseapplicationgo/main/gateways/spans"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"context"
+	"fmt"
 	"time"
 )
 
@@ -53,7 +54,7 @@ func (this *PersistTransaction) Execute(
 	span := this.spanGateway.Get(ctx, "PersistTransaction-Execute")
 	defer span.End()
 
-	lock := this.lockGateway.Get(span.GetCtx(), "Key", 8*time.Second)
+	lock := this.lockGateway.Get(span.GetCtx(), "Key", 60*time.Second)
 
 	errLock := lock.Lock()
 
@@ -62,17 +63,18 @@ func (this *PersistTransaction) Execute(
 			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg("LOCK ISSUE")
 	}
 
+	// For check lock purposes only
 	time.Sleep(7 * time.Second)
 
 	persistedTransaction, err := this.transactionDatabaseGateway.Save(span.GetCtx(), transaction)
 	if err != nil {
 		return main_domains.Transaction{},
-			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(
+			main_domains_exceptions.NewConflictExceptionSglMsg(
 				this.messageUtils.GetDefaultLocale(
 					_MSG_CREATE_NEW_TRANSACTION_ARCH_ISSUE))
 	}
 
-	_, errUnlock := lock.Unlock()
+	unlocked, errUnlock := lock.Unlock()
 	if errUnlock != nil {
 		return main_domains.Transaction{},
 			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(
@@ -80,5 +82,6 @@ func (this *PersistTransaction) Execute(
 					_MSG_CREATE_NEW_TRANSACTION_ARCH_ISSUE))
 	}
 
+	fmt.Println("UNLOCKED =============> ", unlocked)
 	return persistedTransaction, nil
 }
