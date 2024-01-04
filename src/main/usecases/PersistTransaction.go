@@ -12,6 +12,7 @@ import (
 )
 
 const _MSG_CREATE_NEW_TRANSACTION_ARCH_ISSUE = "exceptions.architecture.application.issue"
+const _MSG_CREATE_NEW_TRANSACTION_LOCK_ISSUE = "providers.general.lock.issue"
 
 type PersistTransaction struct {
 	transactionDatabaseGateway main_gateways.TransactionDatabaseGateway
@@ -60,7 +61,8 @@ func (this *PersistTransaction) Execute(
 
 	if errLock != nil {
 		return main_domains.Transaction{},
-			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg("LOCK ISSUE")
+			main_domains_exceptions.NewConflictExceptionSglMsg(this.messageUtils.GetDefaultLocale(
+				_MSG_CREATE_NEW_TRANSACTION_LOCK_ISSUE))
 	}
 
 	// For check lock purposes only
@@ -69,7 +71,7 @@ func (this *PersistTransaction) Execute(
 	persistedTransaction, err := this.transactionDatabaseGateway.Save(span.GetCtx(), transaction)
 	if err != nil {
 		return main_domains.Transaction{},
-			main_domains_exceptions.NewConflictExceptionSglMsg(
+			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(
 				this.messageUtils.GetDefaultLocale(
 					_MSG_CREATE_NEW_TRANSACTION_ARCH_ISSUE))
 	}
