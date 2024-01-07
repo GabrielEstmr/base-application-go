@@ -10,7 +10,7 @@
 - [X] YML Properties Integration;
 - [X] Swagger
 - [X] Msg Bundle
-- [ ] Redis Locking
+- [X] Redis Locking
 - [X] OTEL integration
 - [X] Request Validation
 - [X] Logs
@@ -20,10 +20,10 @@
 - [X] Review Redis Repository: findByDocumentNumber
 - [ ] Get Locale from proxy
 - [ ] HATEOS golang
-- [ ] Colocar struct nos beans de usecases
+- [X] Colocar struct nos beans de usecases
 - [ ] Review page props (they are starting with uppercase) and process (page not working)
 - [ ] Build Metrics: requests per seconds, error rating, etc
-- [OK] POC oauth microservice + go plugin in kong
+- [X] POC oauth microservice + go plugin in kong
 - [ ] Middleware to threat Content-type and accept header
 - [ ]
 - [ ]

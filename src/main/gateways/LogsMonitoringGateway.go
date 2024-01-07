@@ -1,7 +1,7 @@
 package main_gateways
 
 import (
-	main_domains "baseapplicationgo/main/domains"
+	main_domains "baseapplicationgo/main/domains/apm"
 )
 
 type LogsMonitoringGateway interface {

@@ -1,7 +1,6 @@
 package main_usecases_beans_factories
 
 import (
-	main_configs_apm_logs_impl "baseapplicationgo/main/configs/apm/logs/impl"
 	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_logs "baseapplicationgo/main/gateways/logs"
 	main_gateways_rabbitmq "baseapplicationgo/main/gateways/rabbitmq"
@@ -22,8 +21,7 @@ func (this *CreateTransactionAmqpEventBean) Get() *main_usecases.CreateTransacti
 	var spanGatewayImpl main_gateways.SpanGateway = main_gateways_spans.NewSpanGatewayImpl()
 
 	rabbitProducer := *main_gateways_rabbitmq_producers.NewRabbiMQTransactionProducer(spanGatewayImpl)
-	var logsMonitoringGateway main_gateways.LogsMonitoringGateway = main_gateways_logs.NewLogsMonitoringGatewayImpl(
-		main_configs_apm_logs_impl.NewLogsGatewayImpl())
+	var logsMonitoringGateway main_gateways.LogsMonitoringGateway = main_gateways_logs.NewLogsMonitoringGatewayImpl()
 
 	var producerGateway main_gateways.TransactionEventProducerGateway = main_gateways_rabbitmq.NewTransactionEventProducerGatewayImpl(rabbitProducer, logsMonitoringGateway, spanGatewayImpl)
 

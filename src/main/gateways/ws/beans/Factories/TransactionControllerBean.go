@@ -8,21 +8,22 @@ import (
 	main_usecases_beans "baseapplicationgo/main/usecases/beans"
 )
 
-type RabbitMqControllerBean struct {
+type TransactionControllerBean struct {
 }
 
-func NewRabbitMqControllerBean() *RabbitMqControllerBean {
-	return &RabbitMqControllerBean{}
+func NewTransactionControllerBean() *TransactionControllerBean {
+	return &TransactionControllerBean{}
 }
 
-func (this *RabbitMqControllerBean) Get() *main_gateways_ws_v1.RabbitMqController {
+func (this *TransactionControllerBean) Get() *main_gateways_ws_v1.TransactionController {
 	var logsMonitoringGateway main_gateways.LogsMonitoringGateway = main_gateways_logs.NewLogsMonitoringGatewayImpl()
 	var spanGatewayImpl main_gateways.SpanGateway = main_gateways_spans.NewSpanGatewayImpl()
 	usecaseBeans := main_usecases_beans.GetUsecaseBeans()
-	rabbitMqController := *main_gateways_ws_v1.NewRabbitMqController(
-		usecaseBeans.CreateTransactionAmqpEvent,
+
+	userController := *main_gateways_ws_v1.NewTransactionController(
+		usecaseBeans.PersistTransaction,
 		logsMonitoringGateway,
 		spanGatewayImpl,
 	)
-	return &rabbitMqController
+	return &userController
 }

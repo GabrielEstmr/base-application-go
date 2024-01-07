@@ -2,17 +2,23 @@ package main_gateways_logs
 
 import (
 	main_configs_apm_logs_impl "baseapplicationgo/main/configs/apm/logs/impl"
-	main_domains "baseapplicationgo/main/domains"
+	main_domains "baseapplicationgo/main/domains/apm"
 )
 
 type LogsMonitoringGatewayImpl struct {
 	logLoki main_configs_apm_logs_impl.LogsMethods
 }
 
-func NewLogsMonitoringGatewayImpl(
+func NewLogsMonitoringGatewayImplAllArgs(
 	logLoki main_configs_apm_logs_impl.LogsMethods) *LogsMonitoringGatewayImpl {
 	return &LogsMonitoringGatewayImpl{
 		logLoki: logLoki,
+	}
+}
+
+func NewLogsMonitoringGatewayImpl() *LogsMonitoringGatewayImpl {
+	return &LogsMonitoringGatewayImpl{
+		logLoki: main_configs_apm_logs_impl.NewLogsGatewayImpl(),
 	}
 }
 
