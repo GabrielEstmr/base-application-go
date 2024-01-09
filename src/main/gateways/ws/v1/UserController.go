@@ -9,6 +9,7 @@ import (
 	main_usecases "baseapplicationgo/main/usecases"
 	main_utils "baseapplicationgo/main/utils"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -47,20 +48,10 @@ func NewUserController(
 	}
 }
 
-func ReadUserIP(r *http.Request) string {
-	IPAddress := r.Header.Get("X-Real-Ip")
-	if IPAddress == "" {
-		IPAddress = r.Header.Get("X-Forwarded-For")
-	}
-	if IPAddress == "" {
-		IPAddress = r.RemoteAddr
-	}
-	return IPAddress
-}
-
 func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 
-	span := this.spanGateway.Get(r.Context(), "UserController-CreateUser")
+	ctx := context.Background()
+	span := this.spanGateway.Get(ctx, "UserController-CreateUser")
 	defer span.End()
 
 	this.logsMonitoringGateway.INFO(span, "Creating a new user")
@@ -73,12 +64,6 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 	//}
 	//span.SetAttributes(rollValueAttr)
 	//rollCnt.Add(r.Context(), 1)
-
-	//// TODO get locale from ip
-	//ipAddress, port, err := net.SplitHostPort(ReadUserIP(r))
-	//ip := net.ParseIP(ipAddress)
-	//log.Println(ip)
-	//log.Println(port)
 
 	requestBody, err := io.ReadAll(r.Body)
 	if err != nil || len(requestBody) == 0 {
@@ -103,7 +88,7 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	user := userRequest.ToDomain()
 
-	persistedUser, errApp := this.createNewUser.Execute(r.Context(), user)
+	persistedUser, errApp := this.createNewUser.Execute(span.GetCtx(), user)
 	if errApp != nil {
 		this.logsMonitoringGateway.ERROR(span, errApp.Error())
 		main_utils.ERROR_APP(w, errApp)

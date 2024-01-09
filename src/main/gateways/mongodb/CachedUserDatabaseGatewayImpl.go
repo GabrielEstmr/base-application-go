@@ -1,20 +1,19 @@
 package main_gateways_mongodb
 
 import (
-	main_configs_logs "baseapplicationgo/main/configs/log"
 	main_domains "baseapplicationgo/main/domains"
 	main_gateways "baseapplicationgo/main/gateways"
+	main_gateways_logs "baseapplicationgo/main/gateways/logs"
 	main_gateways_spans "baseapplicationgo/main/gateways/spans"
 	"context"
 	"fmt"
-	"log/slog"
 )
 
 type CachedUserDatabaseGatewayImpl struct {
 	userDatabaseGateway      main_gateways.UserDatabaseGateway
 	userDatabaseCacheGateway main_gateways.UserDatabaseCacheGateway
 	spanGateway              main_gateways.SpanGateway
-	apLog                    *slog.Logger
+	logsMonitoringGateway    main_gateways.LogsMonitoringGateway
 }
 
 func NewCachedUserDatabaseGatewayImpl(
@@ -24,7 +23,7 @@ func NewCachedUserDatabaseGatewayImpl(
 		userDatabaseGateway:      userDatabaseGateway,
 		userDatabaseCacheGateway: userDatabaseCacheGateway,
 		spanGateway:              main_gateways_spans.NewSpanGatewayImpl(),
-		apLog:                    main_configs_logs.GetLogConfigBean(),
+		logsMonitoringGateway:    main_gateways_logs.NewLogsMonitoringGatewayImpl(),
 	}
 }
 
@@ -39,7 +38,7 @@ func (this *CachedUserDatabaseGatewayImpl) Save(ctx context.Context, user main_d
 	go func() {
 		_, err := this.userDatabaseCacheGateway.Save(span.GetCtx(), user)
 		if err != nil {
-			this.apLog.Error(fmt.Sprintf("Error to save document into Redis. Document: User, Id: %s", user.Id))
+			this.logsMonitoringGateway.ERROR(span, fmt.Sprintf("Error to save document into Redis. Document: User, Id: %s", user.Id))
 		}
 	}()
 	return user, nil
@@ -62,7 +61,7 @@ func (this *CachedUserDatabaseGatewayImpl) FindById(ctx context.Context, id stri
 		go func() {
 			_, err := this.userDatabaseCacheGateway.Save(span.GetCtx(), user)
 			if err != nil {
-				this.apLog.Error("Error to save in Redis")
+				this.logsMonitoringGateway.ERROR(span, "Error to save in Redis")
 			}
 		}()
 	}
@@ -86,7 +85,7 @@ func (this *CachedUserDatabaseGatewayImpl) FindByDocumentNumber(ctx context.Cont
 		go func() {
 			_, err := this.userDatabaseCacheGateway.Save(span.GetCtx(), user)
 			if err != nil {
-				this.apLog.Error("Error to save in Redis")
+				this.logsMonitoringGateway.ERROR(span, "Error to save in Redis")
 			}
 		}()
 	}

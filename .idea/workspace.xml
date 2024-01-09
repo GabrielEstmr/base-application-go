@@ -5,13 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(apm): adjust spans">
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/ContentTypeLanguageMiddleware.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingMiddleware.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-default.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-default.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-en-US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-en-US.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-pt-BR.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-pt-BR.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/ConfigBeansInitialization.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ConfigBeansInitialization.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/log/GetLogConfigBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/log/GetLogConfigBean.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/lock/DistributedLockGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/lock/DistributedLockGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/mongodb/CachedUserDatabaseGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/mongodb/CachedUserDatabaseGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/commons/PageResponse.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/PageResponse.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUsersByFilter.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUsersByFilter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/utils/messages/ApplicationMessages.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/utils/messages/ApplicationMessages.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/mocks/UserDatabaseGatewayMock.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/mocks/UserDatabaseGatewayMock.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +90,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build baseapplicationgo.executor": "Debug",
+    "Go Build.go build baseapplicationgo.executor": "Run",
     "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
     "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
     "Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor": "Coverage",
@@ -89,7 +98,7 @@
     "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
     "Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor": "Debug",
     "Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor": "Debug",
-    "Go Test.go test baseapplicationgo/test/usecases.executor": "Coverage",
+    "Go Test.go test baseapplicationgo/test/usecases.executor": "Run",
     "Go Test.go test usecases.executor": "Coverage",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -97,7 +106,7 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "feat/add-redis-locking",
+    "git-widget-placeholder": "feat/review-page-props",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "kotlin-language-version-configured": "true",
@@ -187,6 +196,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build baseapplicationgo" />
+        <item itemvalue="Go Test.go test baseapplicationgo/test/usecases" />
       </list>
     </recent_temporary>
   </component>

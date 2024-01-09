@@ -3,6 +3,7 @@ package main_configs
 import (
 	main_configs_cache "baseapplicationgo/main/configs/cache"
 	main_configs_ff "baseapplicationgo/main/configs/ff"
+	main_configs_log "baseapplicationgo/main/configs/log"
 	main_configs_messages "baseapplicationgo/main/configs/messages"
 	main_configs_mongo "baseapplicationgo/main/configs/mongodb"
 	main_configs_rabbitmq "baseapplicationgo/main/configs/rabbitmq"
@@ -21,5 +22,6 @@ func InitConfigBeans() {
 	main_configs_cache.GetRedisClusterBean()
 	main_configs_ff.GetFfConfigDataBean()
 	main_configs_rabbitmq.SetAmqpConfig()
+	main_configs_log.GetLogConfigBean()
 	slog.Info(_MSG_APPLICATION_BEANS_INITIATED)
 }

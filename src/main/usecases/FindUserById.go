@@ -1,25 +1,25 @@
 package main_usecases
 
 import (
-	main_configs_logs "baseapplicationgo/main/configs/log"
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
+	main_gateways_logs "baseapplicationgo/main/gateways/logs"
 	main_gateways_spans "baseapplicationgo/main/gateways/spans"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"context"
-	"log/slog"
+	"fmt"
 )
 
 const _MSG_FIND_USER_BY_ID_DOC_NOT_FOUND = "find.user.user.not.found"
 const _MSG_FIND_USER_BY_ID_ARCH_ISSUE = "exceptions.architecture.application.issue"
 
 type FindUserById struct {
-	userDatabaseGateway main_gateways.UserDatabaseGateway
-	apLog               *slog.Logger
-	messageUtils        main_utils_messages.ApplicationMessages
-	featuresGateway     main_gateways.FeaturesGateway
-	spanGateway         main_gateways.SpanGateway
+	userDatabaseGateway   main_gateways.UserDatabaseGateway
+	messageUtils          main_utils_messages.ApplicationMessages
+	featuresGateway       main_gateways.FeaturesGateway
+	spanGateway           main_gateways.SpanGateway
+	logsMonitoringGateway main_gateways.LogsMonitoringGateway
 }
 
 func NewFindUserById(
@@ -28,16 +28,17 @@ func NewFindUserById(
 ) *FindUserById {
 	return &FindUserById{
 		userDatabaseGateway,
-		main_configs_logs.GetLogConfigBean(),
 		*main_utils_messages.NewApplicationMessages(),
 		featuresGateway,
 		main_gateways_spans.NewSpanGatewayImpl(),
+		main_gateways_logs.NewLogsMonitoringGatewayImpl(),
 	}
 }
 
 func (this *FindUserById) Execute(ctx context.Context, id string) (main_domains.User, main_domains_exceptions.ApplicationException) {
 	span := this.spanGateway.Get(ctx, "FindUserById-Execute")
 	defer span.End()
+	this.logsMonitoringGateway.DEBUG(span, fmt.Sprintf("FindUserById-Execute. id: %s", id))
 
 	user, err := this.userDatabaseGateway.FindById(span.GetCtx(), id)
 	if err != nil {
