@@ -1,7 +1,8 @@
-package main_gateways_ws_middlewares
+package main_gateways_ws_middlewares_impl
 
 import (
 	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
+	"baseapplicationgo/main/gateways/ws/middlewares"
 	main_utils "baseapplicationgo/main/utils"
 	"net/http"
 )
@@ -9,10 +10,10 @@ import (
 type AcceptLanguageMiddleware struct {
 	acceptLanguageHeaderKey string
 	stringUtils             main_utils.StringUtils
-	appMiddleware           AppMiddleware
+	appMiddleware           main_gateways_ws_middlewares.AppMiddleware
 }
 
-func NewAcceptLanguageMiddleware(appMiddleware AppMiddleware) *AcceptLanguageMiddleware {
+func NewAcceptLanguageMiddleware(appMiddleware main_gateways_ws_middlewares.AppMiddleware) *AcceptLanguageMiddleware {
 	return &AcceptLanguageMiddleware{
 		acceptLanguageHeaderKey: "Accept-Language",
 		stringUtils:             *main_utils.NewStringUtils(),

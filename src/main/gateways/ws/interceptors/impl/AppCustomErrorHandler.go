@@ -1,4 +1,4 @@
-package main_gateways_ws_middlewares
+package main_gateways_ws_interceptors_impl
 
 import (
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"

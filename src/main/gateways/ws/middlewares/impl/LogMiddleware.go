@@ -1,9 +1,10 @@
-package main_gateways_ws_middlewares
+package main_gateways_ws_middlewares_impl
 
 import (
 	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_logs "baseapplicationgo/main/gateways/logs"
 	main_gateways_spans "baseapplicationgo/main/gateways/spans"
+	"baseapplicationgo/main/gateways/ws/middlewares"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -12,10 +13,10 @@ import (
 type LogMiddleware struct {
 	spanGateway           main_gateways.SpanGateway
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway
-	appMiddleware         AppMiddleware
+	appMiddleware         main_gateways_ws_middlewares.AppMiddleware
 }
 
-func NewLogMiddleware(appMiddleware AppMiddleware) *LogMiddleware {
+func NewLogMiddleware(appMiddleware main_gateways_ws_middlewares.AppMiddleware) *LogMiddleware {
 	return &LogMiddleware{
 		main_gateways_spans.NewSpanGatewayImpl(),
 		main_gateways_logs.NewLogsMonitoringGatewayImpl(),

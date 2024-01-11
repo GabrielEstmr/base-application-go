@@ -1,7 +1,8 @@
-package main_gateways_ws_middlewares
+package main_gateways_ws_middlewares_impl
 
 import (
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
+	"baseapplicationgo/main/gateways/ws/middlewares"
 	main_utils "baseapplicationgo/main/utils"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"net/http"
@@ -13,10 +14,10 @@ type CheckTokenMiddleware struct {
 	acceptLanguageHeaderKey string
 	stringUtils             main_utils.StringUtils
 	messageUtils            main_utils_messages.ApplicationMessages
-	appMiddleware           AppMiddleware
+	appMiddleware           main_gateways_ws_middlewares.AppMiddleware
 }
 
-func NewCheckTokenMiddleware(appMiddleware AppMiddleware) *CheckTokenMiddleware {
+func NewCheckTokenMiddleware(appMiddleware main_gateways_ws_middlewares.AppMiddleware) *CheckTokenMiddleware {
 	return &CheckTokenMiddleware{
 		acceptLanguageHeaderKey: "Authorization",
 		stringUtils:             *main_utils.NewStringUtils(),

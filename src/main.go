@@ -32,10 +32,6 @@ func main() {
 	applicationPort := main_configs_yml.GetYmlValueByName(IDX_APPLICATION_PORT)
 	routes := mainGatewaysWs.GetRoutesBean()
 	router := mainGatewaysWs.ConfigRoutes(mainConfigsRouterHttp.GetRouterBean(), *routes)
-	//router.Use(main_gateways_ws_middlewares.NewLogMiddleware().Handler)
-	//router.Use(main_gateways_ws_middlewares.NewAcceptLanguageMiddleware().Handler)
-	//router.Use(main_gateways_ws_middlewares.NewCheckTokenMiddleware().Handler)
-	//router.Use(otelmux.Middleware(main_configs_yml.GetYmlValueByName(IDX_TRACER_APM_SERVER_NAME_YML)))
 	router.Handle("/metrics", promhttp.Handler())
 	log.Printf(MSG_LISTENER, applicationPort)
 
