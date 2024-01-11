@@ -9,16 +9,18 @@ type BadRequestException struct {
 	messages []string
 }
 
+const STATUS_BAD_REQUEST = http.StatusBadRequest
+
 func NewBadRequestException(messages []string) *BadRequestException {
 	return &BadRequestException{
-		code:     http.StatusBadRequest,
+		code:     STATUS_BAD_REQUEST,
 		messages: messages,
 	}
 }
 
 func NewBadRequestExceptionSglMsg(message string) *BadRequestException {
 	return &BadRequestException{
-		code:     http.StatusBadRequest,
+		code:     STATUS_BAD_REQUEST,
 		messages: []string{message},
 	}
 }

@@ -18,7 +18,7 @@
 - [X] Review Redis Repository (With Sentinel)
     - https://redis.uptrace.dev/guide/go-redis.html
 - [X] Review Redis Repository: findByDocumentNumber
-- [ ] Get Locale from proxy - USING Accept-Language en-gb for instance
+- [X] Get Locale from proxy - USING Accept-Language en-gb for instance
 - [NA] HATEOS golang
 - [X] Colocar struct nos beans de usecases
 - [X] Review page props (they are starting with uppercase) and process (page not working)

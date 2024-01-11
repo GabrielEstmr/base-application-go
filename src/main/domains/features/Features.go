@@ -21,6 +21,6 @@ var FEATURES = Features{
 	RABBITMQ_TES_LISTENER_RETRY: *NewFeaturesDataAllArgs(
 		RABBITMQ_TES_LISTENER_RETRY,
 		GROUP_ID_RABBITMQ_LISTENER_RETRY,
-		"feature to test rabbitmq behaviour",
+		"feature to middlewares rabbitmq behaviour",
 		false),
 }

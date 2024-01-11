@@ -4,23 +4,44 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(apm): adjust spans">
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/ContentTypeLanguageMiddleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingMiddleware.go" afterDir="false" />
+    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(middlewares): add application middlewares">
+      <change afterPath="$PROJECT_DIR$/src/main/domains/exceptions/UnauthorizedException.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/email/EmailGatewayImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/email/template.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/ApplicationLanguages.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/ControllerResponse.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageMiddleware.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppCustomErrorHandler.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppHandlerDecoratorBaseImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppHandlerDecoratorImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppHandlerDecoratorImpl2.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppMiddleware.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/GeneralMiddlewareInscription.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/utils/StringUtils.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/ConfigBeansInitialization.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/ConfigBeansInitialization.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/log/GetLogConfigBean.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/log/GetLogConfigBean.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/lock/DistributedLockGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/lock/DistributedLockGatewayImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/logs/LogsMonitoringGatewayImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/mongodb/CachedUserDatabaseGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/mongodb/CachedUserDatabaseGatewayImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/commons/PageResponse.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/PageResponse.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-es-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/doc/dist/swagger-ui-es-bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/domains/exceptions/BadRequestException.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/domains/exceptions/BadRequestException.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/domains/exceptions/ConflictException.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/domains/exceptions/ConflictException.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/domains/exceptions/InternalServerErrorException.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/domains/exceptions/InternalServerErrorException.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/domains/exceptions/ResourceNotFoundException.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/domains/exceptions/ResourceNotFoundException.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/domains/features/Features.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/domains/features/Features.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/listeners/TestListener.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/ContentTypeLanguageMiddleware.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/LogMiddleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/FeaturesController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/FeaturesController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/RabbitMqController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/RabbitMqController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/TransactionController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/TransactionController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUserById.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/FindUsersByFilter.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/FindUsersByFilter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/utils/messages/ApplicationMessages.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/utils/messages/ApplicationMessages.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/mocks/UserDatabaseGatewayMock.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/mocks/UserDatabaseGatewayMock.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-default.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-default.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-en-US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-en-US.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-pt-BR.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-pt-BR.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +111,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build baseapplicationgo.executor": "Run",
+    "Go Build.go build baseapplicationgo.executor": "Debug",
     "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
     "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
     "Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor": "Coverage",
@@ -124,11 +145,11 @@
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/gateways/email" />
       <recent name="$PROJECT_DIR$/src/main/domains/lock" />
       <recent name="$PROJECT_DIR$/src/main/domains/apm" />
       <recent name="$PROJECT_DIR$/src/main/domains" />
       <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq/subscribers" />
-      <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq/resources" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build baseapplicationgo">
@@ -230,6 +251,32 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppHandlerDecoratorImpl2.go</url>
+          <line>16</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go</url>
+          <line>28</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageMiddleware.go</url>
+          <line>23</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/LogMiddleware.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/base_application_go$go_test_usecases.out" NAME="go test usecases Coverage Results" MODIFIED="1702464344336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

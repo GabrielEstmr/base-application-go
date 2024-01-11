@@ -1,7 +1,10 @@
 package main_gateways_ws
 
 import (
+	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	mainGatewaysWsBeans "baseapplicationgo/main/gateways/ws/beans"
+	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
+	main_gateways_ws_middlewares "baseapplicationgo/main/gateways/ws/middlewares"
 	"github.com/gorilla/mux"
 	"net/http"
 	"sync"
@@ -10,9 +13,11 @@ import (
 const API_V1_PREFIX = "/api/v1"
 
 type Route struct {
-	URI          string
-	Method       string
-	Function     func(http.ResponseWriter, *http.Request)
+	URI      string
+	Method   string
+	Function func(http.ResponseWriter, *http.Request) (
+		main_gateways_ws_commons.ControllerResponse,
+		main_domains_exceptions.ApplicationException)
 	AuthRequired bool
 }
 
@@ -82,8 +87,10 @@ func getFunctionBeans() []Route {
 
 // TODO: ver como colocar swagger
 func ConfigRoutes(r *mux.Router, routes []Route) *mux.Router {
+
 	for _, route := range routes {
-		r.HandleFunc(route.URI, route.Function).Methods(route.Method)
+		middleware := main_gateways_ws_middlewares.NewGeneralMiddlewareInscription(route.Function)
+		r.HandleFunc(route.URI, middleware.ServeHTTP).Methods(route.Method)
 	}
 
 	sh := http.StripPrefix("/swagger-ui/", http.FileServer(http.Dir("./main/configs/doc/dist/")))

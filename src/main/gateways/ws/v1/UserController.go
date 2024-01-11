@@ -2,23 +2,23 @@ package main_gateways_ws_v1
 
 import (
 	main_domains "baseapplicationgo/main/domains"
+	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
 	main_gateways_ws_v1_request "baseapplicationgo/main/gateways/ws/v1/request"
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
 	main_usecases "baseapplicationgo/main/usecases"
-	main_utils "baseapplicationgo/main/utils"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"strings"
 )
 
-const _USER_CONTROLLER_MSG_MALFORMED_REQUEST_BODY = "controllers.param.missing.or.malformed"
+const _USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY = "controllers.param.missing.or.malformed"
+const _USER_CONTROLLER_MSG_KEY_ARCH_ISSUE = "exceptions.architecture.application.issue"
 
 const _USER_CONTROLLER_PATH_PREFIX = "/api/v1/users/"
 
@@ -48,7 +48,10 @@ func NewUserController(
 	}
 }
 
-func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
+func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) (
+	main_gateways_ws_commons.ControllerResponse,
+	main_domains_exceptions.ApplicationException,
+) {
 
 	ctx := context.Background()
 	span := this.spanGateway.Get(ctx, "UserController-CreateUser")
@@ -67,38 +70,47 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	requestBody, err := io.ReadAll(r.Body)
 	if err != nil || len(requestBody) == 0 {
-		errLog := errors.New(
-			this.messageUtils.GetDefaultLocale(
-				_USER_CONTROLLER_MSG_MALFORMED_REQUEST_BODY))
-		main_utils.ERROR(w, http.StatusBadRequest, errLog)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY))
 	}
 
 	var userRequest main_gateways_ws_v1_request.CreateUserRequest
 	if err = json.Unmarshal(requestBody, &userRequest); err != nil {
-		main_utils.ERROR(w, http.StatusBadRequest, err)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY))
 	}
 
 	bodyErr := userRequest.Validate()
 	if bodyErr != nil {
 		this.logsMonitoringGateway.ERROR(span, bodyErr.Error())
-		main_utils.ERROR_APP(w, bodyErr)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				bodyErr.Error())
 	}
 	user := userRequest.ToDomain()
 
 	persistedUser, errApp := this.createNewUser.Execute(span.GetCtx(), user)
 	if errApp != nil {
 		this.logsMonitoringGateway.ERROR(span, errApp.Error())
-		main_utils.ERROR_APP(w, errApp)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse), errApp
 	}
 
-	main_utils.JSON(w, http.StatusCreated, main_gateways_ws_v1_response.NewUserResponse(persistedUser))
+	return *main_gateways_ws_commons.NewControllerResponse(
+		http.StatusCreated,
+		main_gateways_ws_v1_response.NewUserResponse(persistedUser)), nil
 }
 
-func (this *UserController) FindUserById(w http.ResponseWriter, r *http.Request) {
+func (this *UserController) FindUserById(
+	w http.ResponseWriter,
+	r *http.Request,
+) (
+	main_gateways_ws_commons.ControllerResponse,
+	main_domains_exceptions.ApplicationException,
+) {
 
 	span := this.spanGateway.Get(r.Context(), "UserController-FindUserById")
 	defer span.End()
@@ -109,14 +121,18 @@ func (this *UserController) FindUserById(w http.ResponseWriter, r *http.Request)
 	persistedUser, errApp := this.findUserById.Execute(span.GetCtx(), id)
 	if errApp != nil {
 		this.logsMonitoringGateway.ERROR(span, errApp.Error())
-		main_utils.ERROR_APP(w, errApp)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse), errApp
 	}
 
-	main_utils.JSON(w, http.StatusOK, main_gateways_ws_v1_response.NewUserResponse(persistedUser))
+	return *main_gateways_ws_commons.NewControllerResponse(
+		http.StatusOK, main_gateways_ws_v1_response.NewUserResponse(persistedUser)), nil
 }
 
-func (this *UserController) FindUser(w http.ResponseWriter, r *http.Request) {
+func (this *UserController) FindUser(
+	w http.ResponseWriter,
+	r *http.Request,
+) (main_gateways_ws_commons.ControllerResponse,
+	main_domains_exceptions.ApplicationException) {
 
 	span := this.spanGateway.Get(r.Context(), "UserController-FindUser")
 	defer span.End()
@@ -125,27 +141,25 @@ func (this *UserController) FindUser(w http.ResponseWriter, r *http.Request) {
 	filter, err1 := new(main_gateways_ws_v1_request.FindUserFilterRequest).QueryParamsToObject(w, r)
 	if err1 != nil {
 		this.logsMonitoringGateway.ERROR(span, err1.Error())
-		main_utils.ERROR_APP(w, err1)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse), err1
 	}
 
 	pageableReq, err2 := new(main_gateways_ws_commons.PageableRequest).QueryParamsToObject(w, r)
 	if err2 != nil {
 		this.logsMonitoringGateway.ERROR(span, err2.Error())
-		main_utils.ERROR_APP(w, err2)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse), err2
 	}
 	pageable, errT := pageableReq.ToDomain()
 	if errT != nil {
 		this.logsMonitoringGateway.ERROR(span, errT.Error())
-		main_utils.ERROR(w, http.StatusInternalServerError, errT)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse), main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(
+			this.messageUtils.GetDefaultLocale(
+				_USER_CONTROLLER_MSG_KEY_ARCH_ISSUE))
 	}
 	page, err := this.findUsersByFilter.Execute(span.GetCtx(), filter.ToDomain(), pageable)
 	if err != nil {
 		this.logsMonitoringGateway.ERROR(span, err.Error())
-		main_utils.ERROR_APP(w, err)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse), err
 	}
 
 	content := page.GetContent()
@@ -156,12 +170,11 @@ func (this *UserController) FindUser(w http.ResponseWriter, r *http.Request) {
 		respContent = append(respContent,
 			main_gateways_ws_v1_response.NewUserResponse(user))
 	}
-	main_utils.JSON(w, http.StatusOK,
+	return *main_gateways_ws_commons.NewControllerResponse(http.StatusOK,
 		main_gateways_ws_commons.NewPageResponse(
 			respContent,
 			page.GetPage(),
 			page.GetSize(),
 			page.GetTotalElements(),
-			page.GetTotalPages()))
-
+			page.GetTotalPages())), nil
 }
