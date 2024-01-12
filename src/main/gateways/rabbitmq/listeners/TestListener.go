@@ -14,7 +14,7 @@ import (
 	"log"
 )
 
-const _MSG_RABBITMQ_TEST_LISTENER_INSTANTIATION = "Rabbitmq test listener instantiation. Queue: %s"
+const _MSG_RABBITMQ_TEST_LISTENER_INSTANTIATION = "Rabbitmq middlewares listener instantiation. Queue: %s"
 
 type ListenerTest struct {
 	persistTransaction    main_usecases.PersistTransaction

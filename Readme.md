@@ -18,10 +18,10 @@
 - [X] Review Redis Repository (With Sentinel)
     - https://redis.uptrace.dev/guide/go-redis.html
 - [X] Review Redis Repository: findByDocumentNumber
-- [ ] Get Locale from proxy
-- [ ] HATEOS golang
+- [X] Get Locale from proxy - USING Accept-Language en-gb for instance
+- [NA] HATEOS golang
 - [X] Colocar struct nos beans de usecases
-- [ ] Review page props (they are starting with uppercase) and process (page not working)
+- [X] Review page props (they are starting with uppercase) and process (page not working)
 - [ ] Build Metrics: requests per seconds, error rating, etc
 - [X] POC oauth microservice + go plugin in kong
 - [ ] Middleware to threat Content-type and accept header

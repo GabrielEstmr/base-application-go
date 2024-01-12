@@ -3,6 +3,7 @@ package main_gateways_logs
 import (
 	main_configs_apm_logs_impl "baseapplicationgo/main/configs/apm/logs/impl"
 	main_domains "baseapplicationgo/main/domains/apm"
+	"log/slog"
 )
 
 type LogsMonitoringGatewayImpl struct {
@@ -27,7 +28,7 @@ func (this *LogsMonitoringGatewayImpl) DEBUG(
 	msg string,
 	args ...any,
 ) {
-
+	slog.Debug(msg)
 	this.logLoki.DEBUG(span.GetSpan(), msg, args)
 }
 
@@ -36,6 +37,7 @@ func (this *LogsMonitoringGatewayImpl) WARN(
 	msg string,
 	args ...any,
 ) {
+	slog.Warn(msg)
 	this.logLoki.WARN(span.GetSpan(), msg, args)
 }
 
@@ -44,6 +46,7 @@ func (this *LogsMonitoringGatewayImpl) INFO(
 	msg string,
 	args ...any,
 ) {
+	slog.Info(msg)
 	this.logLoki.INFO(span.GetSpan(), msg, args)
 }
 
@@ -52,5 +55,6 @@ func (this *LogsMonitoringGatewayImpl) ERROR(
 	msg string,
 	args ...any,
 ) {
+	slog.Error(msg)
 	this.logLoki.ERROR(span.GetSpan(), msg, args)
 }

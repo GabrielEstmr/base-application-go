@@ -7,16 +7,18 @@ type InternalServerErrorException struct {
 	messages []string
 }
 
+const STATUS_INTERNAL_SERVER_ERROR = http.StatusInternalServerError
+
 func NewInternalServerErrorException(messages []string) *InternalServerErrorException {
 	return &InternalServerErrorException{
-		code:     http.StatusInternalServerError,
+		code:     STATUS_INTERNAL_SERVER_ERROR,
 		messages: messages,
 	}
 }
 
 func NewInternalServerErrorExceptionSglMsg(message string) *InternalServerErrorException {
 	return &InternalServerErrorException{
-		code:     http.StatusInternalServerError,
+		code:     STATUS_INTERNAL_SERVER_ERROR,
 		messages: []string{message},
 	}
 }

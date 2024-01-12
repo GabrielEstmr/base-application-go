@@ -2,6 +2,8 @@ package main_gateways_ws
 
 import (
 	mainGatewaysWsBeans "baseapplicationgo/main/gateways/ws/beans"
+	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
+	main_gateways_ws_interceptors "baseapplicationgo/main/gateways/ws/interceptors"
 	"github.com/gorilla/mux"
 	"net/http"
 	"sync"
@@ -10,10 +12,11 @@ import (
 const API_V1_PREFIX = "/api/v1"
 
 type Route struct {
-	URI          string
-	Method       string
-	Function     func(http.ResponseWriter, *http.Request)
-	AuthRequired bool
+	URI              string
+	Method           string
+	ControllerParams main_gateways_ws_commons.ControllerParams
+	AuthRequired     bool
+	Handler          main_gateways_ws_commons.Middlewares
 }
 
 var once sync.Once
@@ -35,46 +38,74 @@ func getFunctionBeans() []Route {
 	beans := mainGatewaysWsBeans.GetControllerBeans()
 	var RoutesConfig = []Route{
 		{
-			URI:          API_V1_PREFIX + "/users",
-			Method:       http.MethodPost,
-			Function:     beans.UserControllerV1Bean.CreateUser,
+			URI:    API_V1_PREFIX + "/users",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.UserControllerV1Bean.CreateUser),
 			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
+			),
 		},
 		{
-			URI:          API_V1_PREFIX + "/users/{id}",
-			Method:       http.MethodGet,
-			Function:     beans.UserControllerV1Bean.FindUserById,
+			URI:    API_V1_PREFIX + "/users/{id}",
+			Method: http.MethodGet,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.UserControllerV1Bean.FindUserById),
 			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
+			),
 		},
 		{
-			URI:          API_V1_PREFIX + "/users",
-			Method:       http.MethodGet,
-			Function:     beans.UserControllerV1Bean.FindUser,
+			URI:    API_V1_PREFIX + "/users",
+			Method: http.MethodGet,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.UserControllerV1Bean.FindUser),
 			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
+			),
 		},
 		{
-			URI:          API_V1_PREFIX + "/features/{key}/enable",
-			Method:       http.MethodPost,
-			Function:     beans.FeatureControllerV1Bean.EnableFeatureByKey,
+			URI:    API_V1_PREFIX + "/features/{key}/enable",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.FeatureControllerV1Bean.EnableFeatureByKey),
 			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
+			),
 		},
 		{
-			URI:          API_V1_PREFIX + "/features/{key}/disable",
-			Method:       http.MethodPost,
-			Function:     beans.FeatureControllerV1Bean.DisableFeatureByKey,
+			URI:    API_V1_PREFIX + "/features/{key}/disable",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.FeatureControllerV1Bean.DisableFeatureByKey),
 			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
+			),
 		},
 		{
-			URI:          API_V1_PREFIX + "/rabbitmq/send-event",
-			Method:       http.MethodPost,
-			Function:     beans.RabbitMqControllerV1Bean.CreateRabbitMqTransactionEvent,
+			URI:    API_V1_PREFIX + "/rabbitmq/send-event",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.RabbitMqControllerV1Bean.CreateRabbitMqTransactionEvent),
 			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
+			),
 		},
 		{
-			URI:          API_V1_PREFIX + "/transactions",
-			Method:       http.MethodPost,
-			Function:     beans.TransactionControllerV1Bean.CreateTransaction,
+			URI:    API_V1_PREFIX + "/transactions",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.TransactionControllerV1Bean.CreateTransaction),
 			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
+			),
 		},
 	}
 	return RoutesConfig
@@ -83,7 +114,16 @@ func getFunctionBeans() []Route {
 // TODO: ver como colocar swagger
 func ConfigRoutes(r *mux.Router, routes []Route) *mux.Router {
 	for _, route := range routes {
-		r.HandleFunc(route.URI, route.Function).Methods(route.Method)
+		subRouter := r.PathPrefix(route.URI).Subrouter()
+
+		for _, v := range NewGeneralHandlersInscription().Build() {
+			subRouter.Use(v)
+		}
+
+		for _, v := range route.Handler.GetFuncs() {
+			subRouter.Use(v)
+		}
+		subRouter.HandleFunc("", route.ControllerParams.GetHttpFunc()).Methods(route.Method)
 	}
 
 	sh := http.StripPrefix("/swagger-ui/", http.FileServer(http.Dir("./main/configs/doc/dist/")))

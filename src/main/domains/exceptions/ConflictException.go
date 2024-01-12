@@ -7,16 +7,18 @@ type ConflictException struct {
 	messages []string
 }
 
+const STATUS_CONFLICT = http.StatusConflict
+
 func NewConflictException(messages []string) *ConflictException {
 	return &ConflictException{
-		code:     http.StatusConflict,
+		code:     STATUS_CONFLICT,
 		messages: messages,
 	}
 }
 
 func NewConflictExceptionSglMsg(message string) *ConflictException {
 	return &ConflictException{
-		code:     http.StatusConflict,
+		code:     STATUS_CONFLICT,
 		messages: []string{message},
 	}
 }

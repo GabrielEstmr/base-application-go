@@ -3,6 +3,7 @@ package test_mocks
 import (
 	main_domains "baseapplicationgo/main/domains"
 	test_mocks_support "baseapplicationgo/test/mocks/support"
+	"context"
 	"reflect"
 )
 
@@ -14,7 +15,7 @@ func NewUserDatabaseGatewayMock(methodsMock map[string]test_mocks_support.ArgsMo
 	return &UserDatabaseGatewayMock{cases: *test_mocks_support.NewMethodArgsMockSupport(methodsMock)}
 }
 
-func (this *UserDatabaseGatewayMock) Save(user main_domains.User) (main_domains.User, error) {
+func (this *UserDatabaseGatewayMock) Save(ctx context.Context, user main_domains.User) (main_domains.User, error) {
 	argsMockSupport := this.cases.GetMethodMock()["Save"]
 	anyInput := argsMockSupport.GetInputs()[1]
 	userResp := argsMockSupport.GetOutputs()[1].(main_domains.User)
@@ -33,7 +34,7 @@ func buildError(outPut any) error {
 	return funcError
 }
 
-func (this *UserDatabaseGatewayMock) FindById(id string) (main_domains.User, error) {
+func (this *UserDatabaseGatewayMock) FindById(ctx context.Context, id string) (main_domains.User, error) {
 	argsMockSupport := this.cases.GetMethodMock()["FindById"]
 	anyInput := argsMockSupport.GetInputs()[1]
 	userResp := argsMockSupport.GetOutputs()[1].(main_domains.User)
@@ -44,7 +45,7 @@ func (this *UserDatabaseGatewayMock) FindById(id string) (main_domains.User, err
 	return main_domains.User{}, nil
 }
 
-func (this *UserDatabaseGatewayMock) FindByDocumentNumber(documentNumber string) (main_domains.User, error) {
+func (this *UserDatabaseGatewayMock) FindByDocumentNumber(ctx context.Context, documentNumber string) (main_domains.User, error) {
 	argsMockSupport := this.cases.GetMethodMock()["FindByDocumentNumber"]
 	anyInput := argsMockSupport.GetInputs()[1]
 	userResp := argsMockSupport.GetOutputs()[1].(main_domains.User)
@@ -56,7 +57,7 @@ func (this *UserDatabaseGatewayMock) FindByDocumentNumber(documentNumber string)
 }
 
 func (this *UserDatabaseGatewayMock) FindByFilter(
-	filter main_domains.FindUserFilter,
+	ctx context.Context, filter main_domains.FindUserFilter,
 	pageable main_domains.Pageable) (main_domains.Page, error) {
 	argsMockSupport := this.cases.GetMethodMock()["FindByFilter"]
 	anyInput1 := argsMockSupport.GetInputs()[1]

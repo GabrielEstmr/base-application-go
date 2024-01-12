@@ -10,7 +10,6 @@ import (
 	mainGatewaysWs "baseapplicationgo/main/gateways/ws"
 	"context"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux"
 	"log"
 	"net/http"
 )
@@ -30,11 +29,9 @@ func main() {
 	ctx := context.Background()
 	main_configs_apm.InitiateApmConfig(&ctx)
 	defer main_configs.TerminateConfigBeans(&ctx)
-
 	applicationPort := main_configs_yml.GetYmlValueByName(IDX_APPLICATION_PORT)
 	routes := mainGatewaysWs.GetRoutesBean()
 	router := mainGatewaysWs.ConfigRoutes(mainConfigsRouterHttp.GetRouterBean(), *routes)
-	router.Use(otelmux.Middleware(main_configs_yml.GetYmlValueByName(IDX_TRACER_APM_SERVER_NAME_YML)))
 	router.Handle("/metrics", promhttp.Handler())
 	log.Printf(MSG_LISTENER, applicationPort)
 

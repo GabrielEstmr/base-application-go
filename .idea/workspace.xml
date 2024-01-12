@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(apm): adjust spans">
+    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(middlewares): add application middlewares">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/PersistTransaction.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageValidationMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageValidationMiddleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingBeforeRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingBeforeRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-default.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-default.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-en-US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-en-US.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-pt-BR.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-pt-BR.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,36 +78,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build baseapplicationgo.executor": "Debug",
-    "Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor": "Run",
-    "Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor": "Debug",
-    "Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor": "Coverage",
-    "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
-    "Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor": "Coverage",
-    "Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor": "Debug",
-    "Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor": "Debug",
-    "Go Test.go test baseapplicationgo/test/usecases.executor": "Coverage",
-    "Go Test.go test usecases.executor": "Coverage",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "feat/add-redis-locking",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/gabriel/Documents/Projects/base-application-go/src/test/usecases",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "google-java-format.settings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;Go Build.go build baseapplicationgo.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
+    &quot;Go Test.go test baseapplicationgo/test/usecases.executor&quot;: &quot;Run&quot;,
+    &quot;Go Test.go test usecases.executor&quot;: &quot;Coverage&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/review-page-props&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/gabriel/Documents/Projects/base-application-go/src/test/usecases&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;google-java-format.settings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/usecases" />
@@ -115,11 +115,11 @@
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/domains/lock" />
-      <recent name="$PROJECT_DIR$/src/main/domains/apm" />
-      <recent name="$PROJECT_DIR$/src/main/domains" />
-      <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq/subscribers" />
-      <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq/resources" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/commonsresources" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/errorhandler" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/interceptors/impl" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build baseapplicationgo">
@@ -187,6 +187,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build baseapplicationgo" />
+        <item itemvalue="Go Test.go test baseapplicationgo/test/usecases" />
       </list>
     </recent_temporary>
   </component>
@@ -220,6 +221,50 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/CheckTokenMiddleware.go</url>
+          <line>29</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/LogMiddleware.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/BaseMiddleware.go</url>
+          <line>26</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/BaseMiddleware.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/BaseMiddleware.go</url>
+          <line>28</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/CheckTokenMiddleware.go</url>
+          <line>28</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/AcceptLanguageMiddleware.go</url>
+          <line>23</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="DlvErrorBreakpoint" />
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/base_application_go$go_test_usecases.out" NAME="go test usecases Coverage Results" MODIFIED="1702464344336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

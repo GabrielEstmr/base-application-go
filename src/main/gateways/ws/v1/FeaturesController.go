@@ -1,14 +1,19 @@
 package main_gateways_ws_v1
 
 import (
+	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_features "baseapplicationgo/main/gateways/features"
-	main_utils "baseapplicationgo/main/utils"
+	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commonsresources"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"fmt"
 	"net/http"
 	"strings"
 )
+
+const _FEATURES_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY = "controllers.param.missing.or.malformed"
+const _FEATURES_CONTROLLER_MSG_KEY_RESOURCE_NOT_FOUND = "exceptions.not.found.resource.error"
+const _FEATURES_CONTROLLER_MSG_KEY_ARCH_ISSUE = "exceptions.architecture.application.issue"
 
 const _FEATURES_CONTROLLER_PATH_PREFIX = "/api/v1/features/"
 const _FEATURES_CONTROLLER_PATH_SUFFIX_ENABLE = "/enable"
@@ -33,7 +38,10 @@ func NewFeaturesController(
 	}
 }
 
-func (this *FeaturesController) EnableFeatureByKey(w http.ResponseWriter, r *http.Request) {
+func (this *FeaturesController) EnableFeatureByKey(w http.ResponseWriter, r *http.Request) (
+	main_gateways_ws_commons.ControllerResponse,
+	main_domains_exceptions.ApplicationException,
+) {
 
 	span := this.spanGateway.Get(r.Context(), "FeaturesController-EnableFeatureByKey")
 	defer span.End()
@@ -45,18 +53,26 @@ func (this *FeaturesController) EnableFeatureByKey(w http.ResponseWriter, r *htt
 	feature, err := this.featuresGateway.Enable(key)
 	if err != nil {
 		this.logsMonitoringGateway.ERROR(span, err.Error())
-		main_utils.ERROR(w, http.StatusInternalServerError, err)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_FEATURES_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY))
 	}
 	if feature.IsEmpty() {
-		main_utils.ERROR(w, http.StatusNotFound, err)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse),
+			main_domains_exceptions.NewResourceNotFoundExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_FEATURES_CONTROLLER_MSG_KEY_RESOURCE_NOT_FOUND))
 	}
 
-	main_utils.JSON(w, http.StatusOK, fmt.Sprintf("Feature with key %s has been enabled", key))
+	return *main_gateways_ws_commons.NewControllerResponse(
+		http.StatusOK, fmt.Sprintf("Feature with key %s has been enabled", key)), nil
 }
 
-func (this *FeaturesController) DisableFeatureByKey(w http.ResponseWriter, r *http.Request) {
+func (this *FeaturesController) DisableFeatureByKey(w http.ResponseWriter, r *http.Request) (
+	main_gateways_ws_commons.ControllerResponse,
+	main_domains_exceptions.ApplicationException,
+) {
 
 	span := this.spanGateway.Get(r.Context(), "FeaturesController-DisableFeatureByKey")
 	defer span.End()
@@ -68,13 +84,18 @@ func (this *FeaturesController) DisableFeatureByKey(w http.ResponseWriter, r *ht
 	feature, err := this.featuresGateway.Disable(key)
 	if err != nil {
 		this.logsMonitoringGateway.ERROR(span, err.Error())
-		main_utils.ERROR(w, http.StatusInternalServerError, err)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse),
+			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_FEATURES_CONTROLLER_MSG_KEY_ARCH_ISSUE))
 	}
 	if feature.IsEmpty() {
-		main_utils.ERROR(w, http.StatusNotFound, err)
-		return
+		return *new(main_gateways_ws_commons.ControllerResponse),
+			main_domains_exceptions.NewResourceNotFoundExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_FEATURES_CONTROLLER_MSG_KEY_RESOURCE_NOT_FOUND))
 	}
 
-	main_utils.JSON(w, http.StatusOK, fmt.Sprintf("Disable with key %s has been disable", key))
+	return *main_gateways_ws_commons.NewControllerResponse(
+		http.StatusOK, fmt.Sprintf("Disable with key %s has been disable", key)), nil
 }

@@ -28,7 +28,7 @@ func getLogConfig() *slog.Logger {
 
 	//Como é ponteiro, mudando o ponteiro muda todos mundo que usa ele tbm
 	logLevel.Set(slog.LevelDebug)
-	//slog.SetDefault(l)
+	slog.SetDefault(l)
 
 	// "!BADKEY": pois sempre tem que ser key/value
 	slog.Info(_MSG_LOG_BEANS_INITIATED)
