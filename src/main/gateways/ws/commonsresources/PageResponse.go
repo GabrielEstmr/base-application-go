@@ -1,4 +1,4 @@
-package main_gateways_ws_commons
+package main_gateways_ws_commonsresources
 
 import main_domains "baseapplicationgo/main/domains"
 

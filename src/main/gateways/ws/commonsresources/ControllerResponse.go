@@ -1,4 +1,4 @@
-package main_gateways_ws_commons
+package main_gateways_ws_commonsresources
 
 type ControllerResponse struct {
 	statusCode int
@@ -15,10 +15,10 @@ func NewControllerResponse(
 	}
 }
 
-func (c *ControllerResponse) GetData() interface{} {
-	return c.data
+func (this *ControllerResponse) GetData() interface{} {
+	return this.data
 }
 
-func (c *ControllerResponse) GetStatusCode() int {
-	return c.statusCode
+func (this *ControllerResponse) GetStatusCode() int {
+	return this.statusCode
 }

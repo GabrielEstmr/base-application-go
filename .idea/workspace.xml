@@ -5,25 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(middlewares): add application middlewares">
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/RunAfterRequest.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/RunAfterTestImpl.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageMiddleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/NewAcceptJsonContentTypeHeaderMiddleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RunBeforeRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/ControllerParams.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/Middlewares.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/AppInterceptor.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/InterseptorInscription.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/impl/AppCustomErrorHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/errorhandler/AppCustomErrorHandler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppMiddleware.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/GeneralMiddlewareInscription.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/AcceptLanguageMiddleware.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/AppHandlerDecoratorBaseImpl.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/CheckTokenMiddleware.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/LogMiddleware.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/utils/HttpResponsesUtil.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/utils/HttpResponsesUtil.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/commons/ControllerResponse.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/ControllerResponse.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/commons/PageResponse.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/commonsresources/PageResponse.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/commons/PageableRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/commonsresources/PageableRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,11 +116,11 @@
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/commonsresources" />
       <recent name="$PROJECT_DIR$/src/main/gateways/ws/errorhandler" />
       <recent name="$PROJECT_DIR$/src/main/gateways/ws/interceptors/impl" />
       <recent name="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl" />
       <recent name="$PROJECT_DIR$/src/main/gateways/ws" />
-      <recent name="$PROJECT_DIR$/src/main/gateways/ws/interceptors" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build baseapplicationgo">

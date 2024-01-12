@@ -4,7 +4,7 @@ import (
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_features "baseapplicationgo/main/gateways/features"
-	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
+	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commonsresources"
 	main_gateways_ws_v1_request "baseapplicationgo/main/gateways/ws/v1/request"
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
 	main_usecases "baseapplicationgo/main/usecases"

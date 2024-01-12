@@ -2,7 +2,7 @@ package main_gateways_ws_errorhandler
 
 import (
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
-	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
+	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commonsresources"
 	main_utils "baseapplicationgo/main/utils"
 	"net/http"
 )
