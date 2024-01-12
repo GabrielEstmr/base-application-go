@@ -5,18 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(middlewares): add application middlewares">
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/AppInterceptor.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/InterseptorInscription.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/RunAfterRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/RunAfterTestImpl.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageMiddleware.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/NewAcceptJsonContentTypeHeaderMiddleware.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RunBeforeRequest.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/AcceptLanguageMiddleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppCustomErrorHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/impl/AppCustomErrorHandler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppHandlerDecoratorBaseImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/AppHandlerDecoratorBaseImpl.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppHandlerDecoratorImpl.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppHandlerDecoratorImpl2.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/CheckTokenMiddleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/GeneralMiddlewareInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/GeneralMiddlewareInscription.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/LogMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/LogMiddleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/AppInterceptor.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/InterseptorInscription.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/impl/AppCustomErrorHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/errorhandler/AppCustomErrorHandler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AppMiddleware.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/GeneralMiddlewareInscription.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/AcceptLanguageMiddleware.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/AppHandlerDecoratorBaseImpl.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/CheckTokenMiddleware.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/LogMiddleware.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/utils/HttpResponsesUtil.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/utils/HttpResponsesUtil.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,11 +127,11 @@
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/errorhandler" />
       <recent name="$PROJECT_DIR$/src/main/gateways/ws/interceptors/impl" />
       <recent name="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws" />
       <recent name="$PROJECT_DIR$/src/main/gateways/ws/interceptors" />
-      <recent name="$PROJECT_DIR$/src/main/gateways/email" />
-      <recent name="$PROJECT_DIR$/src/main/domains/lock" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build baseapplicationgo">
@@ -226,6 +233,50 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/CheckTokenMiddleware.go</url>
+          <line>29</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/LogMiddleware.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/BaseMiddleware.go</url>
+          <line>26</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/BaseMiddleware.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/BaseMiddleware.go</url>
+          <line>28</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/CheckTokenMiddleware.go</url>
+          <line>28</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/AcceptLanguageMiddleware.go</url>
+          <line>23</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="DlvErrorBreakpoint" />
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/base_application_go$go_test_usecases.out" NAME="go test usecases Coverage Results" MODIFIED="1702464344336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

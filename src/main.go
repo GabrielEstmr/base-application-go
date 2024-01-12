@@ -35,26 +35,8 @@ func main() {
 	router.Handle("/metrics", promhttp.Handler())
 	log.Printf(MSG_LISTENER, applicationPort)
 
-	err2 := http.ListenAndServe(":"+applicationPort, runsafter(runsbefore(router)))
+	err2 := http.ListenAndServe(":"+applicationPort, router)
 	if err2 != nil {
 		main_configs_error.FailOnError(err2, MSG_APPLICATION_FAILED)
 	}
-}
-
-func runsafter(h http.Handler) http.Handler {
-	fn := func(w http.ResponseWriter, r *http.Request) {
-		h.ServeHTTP(w, r)
-		log.Println("runsafter")
-		//w.Write([]byte("run after, "))
-	}
-	return http.HandlerFunc(fn)
-}
-
-func runsbefore(h http.Handler) http.Handler {
-	fn := func(w http.ResponseWriter, r *http.Request) {
-		log.Println("runsbefore")
-		//w.Write([]byte("run before, "))
-		h.ServeHTTP(w, r)
-	}
-	return http.HandlerFunc(fn)
 }
