@@ -5,17 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(middlewares): add application middlewares">
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/GeneralHandlersInscription.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingBeforeRequest.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/commons/ApplicationLanguages.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/ApplicationLanguages.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageValidationMiddleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageValidationMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageValidationMiddleware.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/NewAcceptJsonContentTypeHeaderMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/NewAcceptJsonContentTypeHeaderMiddleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-default.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-default.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-en-US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-en-US.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-pt-BR.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-pt-BR.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingBeforeRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingBeforeRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

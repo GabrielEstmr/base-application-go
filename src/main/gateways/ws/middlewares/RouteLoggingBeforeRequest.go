@@ -25,12 +25,12 @@ func NewRouteLoggingBeforeRequestMiddleware() *RouteLoggingBeforeRequestMiddlewa
 
 func (this *RouteLoggingBeforeRequestMiddleware) ServeHTTP(h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
-		span := this.spanGateway.Get(r.Context(), fmt.Sprintf("Middleware %s", r.URL.Path))
+		span := this.spanGateway.Get(r.Context(), fmt.Sprintf("Router Middleware %s", r.URL.Path))
 		defer span.End()
 		this.logsMonitoringGateway.INFO(span, fmt.Sprintf(_ROUTE_LOGGING_MSG_KEY, r.Method, r.URL.Path, r.RemoteAddr))
 		slog.Info(fmt.Sprintf(_ROUTE_LOGGING_MSG_KEY, r.Method, r.URL.Path, r.RemoteAddr))
-		r = r.WithContext(span.GetCtx())
-		h.ServeHTTP(w, r)
+		newR := r.WithContext(span.GetCtx())
+		h.ServeHTTP(w, newR)
 	}
 	return http.HandlerFunc(fn)
 }

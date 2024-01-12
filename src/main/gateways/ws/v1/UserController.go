@@ -9,7 +9,6 @@ import (
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
 	main_usecases "baseapplicationgo/main/usecases"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -53,8 +52,8 @@ func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) (
 	main_domains_exceptions.ApplicationException,
 ) {
 
-	ctx := context.Background()
-	span := this.spanGateway.Get(ctx, "UserController-CreateUser")
+	//ctx := context.Background()
+	span := this.spanGateway.Get(r.Context(), "UserController-CreateUser")
 	defer span.End()
 
 	this.logsMonitoringGateway.INFO(span, "Creating a new user")
