@@ -1,8 +1,8 @@
 package main_gateways_ws_middlewares
 
 import (
-	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
 	main_utils "baseapplicationgo/main/utils"
+	"log"
 	"net/http"
 )
 
@@ -20,10 +20,7 @@ func NewAcceptJsonContentTypeHeaderMiddleware() *AcceptJsonContentTypeHeaderMidd
 
 func (this *AcceptJsonContentTypeHeaderMiddleware) ServeHTTP(h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
-		languageHeader := r.Header.Get(this.acceptLanguageHeaderKey)
-		if this.stringUtils.IsEmpty(languageHeader) {
-			r.Header.Set(this.acceptLanguageHeaderKey, main_gateways_ws_commons.EN_US)
-		}
+		log.Println("RUNS BEFORE")
 		h.ServeHTTP(w, r)
 	}
 	return http.HandlerFunc(fn)

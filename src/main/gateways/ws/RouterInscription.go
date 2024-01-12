@@ -4,7 +4,6 @@ import (
 	mainGatewaysWsBeans "baseapplicationgo/main/gateways/ws/beans"
 	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
 	main_gateways_ws_interceptors "baseapplicationgo/main/gateways/ws/interceptors"
-	main_gateways_ws_middlewares "baseapplicationgo/main/gateways/ws/middlewares"
 	"github.com/gorilla/mux"
 	"net/http"
 	"sync"
@@ -45,7 +44,6 @@ func getFunctionBeans() []Route {
 				beans.UserControllerV1Bean.CreateUser),
 			AuthRequired: false,
 			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				main_gateways_ws_middlewares.NewCheckTokenMiddleware().ServeHTTP,
 				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
 			),
 		},
@@ -56,7 +54,6 @@ func getFunctionBeans() []Route {
 				beans.UserControllerV1Bean.FindUserById),
 			AuthRequired: false,
 			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				main_gateways_ws_middlewares.NewCheckTokenMiddleware().ServeHTTP,
 				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
 			),
 		},
@@ -67,7 +64,6 @@ func getFunctionBeans() []Route {
 				beans.UserControllerV1Bean.FindUser),
 			AuthRequired: false,
 			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				main_gateways_ws_middlewares.NewCheckTokenMiddleware().ServeHTTP,
 				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
 			),
 		},
@@ -78,7 +74,6 @@ func getFunctionBeans() []Route {
 				beans.FeatureControllerV1Bean.EnableFeatureByKey),
 			AuthRequired: false,
 			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				main_gateways_ws_middlewares.NewCheckTokenMiddleware().ServeHTTP,
 				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
 			),
 		},
@@ -89,7 +84,6 @@ func getFunctionBeans() []Route {
 				beans.FeatureControllerV1Bean.DisableFeatureByKey),
 			AuthRequired: false,
 			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				main_gateways_ws_middlewares.NewCheckTokenMiddleware().ServeHTTP,
 				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
 			),
 		},
@@ -100,7 +94,6 @@ func getFunctionBeans() []Route {
 				beans.RabbitMqControllerV1Bean.CreateRabbitMqTransactionEvent),
 			AuthRequired: false,
 			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				main_gateways_ws_middlewares.NewCheckTokenMiddleware().ServeHTTP,
 				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
 			),
 		},
@@ -111,7 +104,6 @@ func getFunctionBeans() []Route {
 				beans.TransactionControllerV1Bean.CreateTransaction),
 			AuthRequired: false,
 			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				main_gateways_ws_middlewares.NewCheckTokenMiddleware().ServeHTTP,
 				main_gateways_ws_interceptors.NewRunAfterTestImpl().ServeHTTP,
 			),
 		},
@@ -123,6 +115,11 @@ func getFunctionBeans() []Route {
 func ConfigRoutes(r *mux.Router, routes []Route) *mux.Router {
 	for _, route := range routes {
 		subRouter := r.PathPrefix(route.URI).Subrouter()
+
+		for _, v := range NewGeneralHandlersInscription().Build() {
+			subRouter.Use(v)
+		}
+
 		for _, v := range route.Handler.GetFuncs() {
 			subRouter.Use(v)
 		}
