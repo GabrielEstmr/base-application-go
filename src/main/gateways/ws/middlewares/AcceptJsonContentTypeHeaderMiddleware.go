@@ -12,9 +12,9 @@ import (
 	"net/http"
 )
 
-const _MSG_KEY_LANGUAGE_HEADER_NOT_FOUND = "middlewares.headers.language.not.found.error"
+const _MSG_KEY_CONTENT_TYPE_NOT_FOUND = "middlewares.headers.content.type.not.found.error"
 
-type AcceptLanguageValidationMiddleware struct {
+type AcceptJsonContentTypeHeaderMiddleware struct {
 	acceptLanguageHeaderKey string
 	stringUtils             main_utils.StringUtils
 	messageUtils            main_utils_messages.ApplicationMessages
@@ -22,9 +22,9 @@ type AcceptLanguageValidationMiddleware struct {
 	logsMonitoringGateway   main_gateways.LogsMonitoringGateway
 }
 
-func NewAcceptLanguageValidationMiddleware() *AcceptLanguageValidationMiddleware {
-	return &AcceptLanguageValidationMiddleware{
-		acceptLanguageHeaderKey: "Accept-Language",
+func NewAcceptJsonContentTypeHeaderMiddleware() *AcceptJsonContentTypeHeaderMiddleware {
+	return &AcceptJsonContentTypeHeaderMiddleware{
+		acceptLanguageHeaderKey: "Content-Type",
 		stringUtils:             *main_utils.NewStringUtils(),
 		messageUtils:            *main_utils_messages.NewApplicationMessages(),
 		spanGateway:             main_gateways_spans.NewSpanGatewayImpl(),
@@ -32,16 +32,17 @@ func NewAcceptLanguageValidationMiddleware() *AcceptLanguageValidationMiddleware
 	}
 }
 
-func (this *AcceptLanguageValidationMiddleware) ServeHTTP(h http.Handler) http.Handler {
+func (this *AcceptJsonContentTypeHeaderMiddleware) ServeHTTP(h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
-		span := this.spanGateway.Get(r.Context(), fmt.Sprintf("AcceptLanguageValidationMiddleware %s", r.URL.Path))
+		span := this.spanGateway.Get(r.Context(), fmt.Sprintf("AcceptJsonContentTypeHeaderMiddleware %s", r.URL.Path))
 		defer span.End()
 
-		languageHeader := r.Header.Get(this.acceptLanguageHeaderKey)
-		if !this.stringUtils.IsEmpty(languageHeader) {
-			if this.stringUtils.IsEmpty(main_gateways_ws_commons.GetAllAvailableLanguages()[languageHeader]) {
+		contentTypeHeader := r.Header.Get(this.acceptLanguageHeaderKey)
+
+		if !this.stringUtils.IsEmpty(contentTypeHeader) {
+			if main_gateways_ws_commons.CONTENT_TYPE_JSON != contentTypeHeader {
 				message := this.messageUtils.
-					GetDefaultLocale(_MSG_KEY_LANGUAGE_HEADER_NOT_FOUND)
+					GetDefaultLocale(_MSG_KEY_CONTENT_TYPE_NOT_FOUND)
 				errApp := main_domains_exceptions.NewResourceNotFoundExceptionSglMsg(message)
 				this.logsMonitoringGateway.ERROR(span, message)
 				main_utils.ERROR_APP(w, errApp)

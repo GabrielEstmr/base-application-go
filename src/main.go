@@ -7,7 +7,8 @@ import (
 	mainConfigsRouterHttp "baseapplicationgo/main/configs/router"
 	main_configs_yml "baseapplicationgo/main/configs/yml"
 	main_gateways_rabbitmq "baseapplicationgo/main/gateways/rabbitmq/subscribers"
-	mainGatewaysWs "baseapplicationgo/main/gateways/ws"
+	main_gateways_ws "baseapplicationgo/main/gateways/ws"
+	main_gateways_ws_beans "baseapplicationgo/main/gateways/ws/beans"
 	"context"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
@@ -30,8 +31,8 @@ func main() {
 	main_configs_apm.InitiateApmConfig(&ctx)
 	defer main_configs.TerminateConfigBeans(&ctx)
 	applicationPort := main_configs_yml.GetYmlValueByName(IDX_APPLICATION_PORT)
-	routes := mainGatewaysWs.GetRoutesBean()
-	router := mainGatewaysWs.ConfigRoutes(mainConfigsRouterHttp.GetRouterBean(), *routes)
+	routes := main_gateways_ws_beans.GetRoutesBean()
+	router := main_gateways_ws.ConfigRoutes(mainConfigsRouterHttp.GetRouterBean(), *routes)
 	router.Handle("/metrics", promhttp.Handler())
 	log.Printf(MSG_LISTENER, applicationPort)
 
