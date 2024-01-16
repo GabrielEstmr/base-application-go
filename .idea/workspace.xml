@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(middlewares): add application middlewares">
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/ApplicationAcceptTypes.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/ApplicationContentTypes.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptJsonAcceptHeaderMiddleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptJsonContentTypeHeaderMiddleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/RouteBeans.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/RouteBeans.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageValidationMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageValidationMiddleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/NewAcceptJsonContentTypeHeaderMiddleware.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-default.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-default.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-en-US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-en-US.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/messages/messages-pt-BR.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/messages/messages-pt-BR.properties" afterDir="false" />
-    </list>
+    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(middlewares): add application middlewares" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -286,11 +272,6 @@
           <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptJsonAcceptHeaderMiddleware.go</url>
           <line>36</line>
           <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptJsonContentTypeHeaderMiddleware.go</url>
-          <line>36</line>
-          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
