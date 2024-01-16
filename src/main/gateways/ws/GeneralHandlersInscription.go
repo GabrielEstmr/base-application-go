@@ -13,8 +13,8 @@ type GeneralHandlersInscription struct {
 func NewGeneralHandlersInscription() *GeneralHandlersInscription {
 	return &GeneralHandlersInscription{
 		middlewares: *main_gateways_ws_commons.NewMiddlewares(
-			main_gateways_ws_middlewares.NewCheckTokenBeforeRequestMiddleware().ServeHTTP,
 			main_gateways_ws_middlewares.NewRouteLoggingBeforeRequestMiddleware().ServeHTTP,
+			main_gateways_ws_middlewares.NewCheckTokenBeforeRequestMiddleware().ServeHTTP,
 			main_gateways_ws_middlewares.NewAcceptLanguageValidationMiddleware().ServeHTTP,
 		)}
 }

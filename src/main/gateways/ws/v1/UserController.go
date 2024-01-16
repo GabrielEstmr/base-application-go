@@ -47,7 +47,7 @@ func NewUserController(
 	}
 }
 
-func (this *UserController) CreateUser(w http.ResponseWriter, r *http.Request) (
+func (this *UserController) CreateUser(_ http.ResponseWriter, r *http.Request) (
 	main_gateways_ws_commonsresources.ControllerResponse,
 	main_domains_exceptions.ApplicationException,
 ) {

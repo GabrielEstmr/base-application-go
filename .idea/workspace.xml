@@ -5,13 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(middlewares): add application middlewares">
+      <change afterPath="$PROJECT_DIR$/src/main/configs/apm/metrics/GlobalMeter.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/RouteBeans.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/AppResponseWriter.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/commons/Routes.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/MetricsAfterRequest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/MetricsMiddleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageValidationMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptLanguageValidationMiddleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/CheckTokenMiddleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/rabbitmq/TransactionEventProducerGatewayImpl.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/rabbitmq/TransactionEventProducerGatewayImpl.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/GeneralHandlersInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/GeneralHandlersInscription.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/RouterInscription.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/interceptors/RunAfterTestImpl.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingBeforeRequest.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingBeforeRequest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/RabbitMqController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/RabbitMqController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zresources/.env" beforeDir="false" afterPath="$PROJECT_DIR$/src/zresources/.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +47,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="feat/add-metrics-middleware" />
+                    <option name="lastUsedInstant" value="1705266039" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="feat/add-redis-locking" />
                     <option name="lastUsedInstant" value="1703882362" />
                   </RecentBranch>
@@ -52,10 +65,6 @@
                   <RecentBranch>
                     <option name="branchName" value="feat/adjust-spans" />
                     <option name="lastUsedInstant" value="1703606776" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="feat/update-pagination" />
-                    <option name="lastUsedInstant" value="1703594581" />
                   </RecentBranch>
                 </list>
               </option>
@@ -97,7 +106,7 @@
     &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/review-page-props&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/add-metrics-middleware&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -115,11 +124,11 @@
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/beans" />
       <recent name="$PROJECT_DIR$/src/main/gateways/ws/commonsresources" />
       <recent name="$PROJECT_DIR$/src/main/gateways/ws/errorhandler" />
       <recent name="$PROJECT_DIR$/src/main/gateways/ws/interceptors/impl" />
-      <recent name="$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl" />
-      <recent name="$PROJECT_DIR$/src/main/gateways/ws" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build baseapplicationgo">
@@ -214,6 +223,17 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat(mocking): add struct mocking" />

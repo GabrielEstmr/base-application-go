@@ -41,7 +41,7 @@ func (this *TransactionEventProducerGatewayImpl) Send(
 	this.logsMonitoringGateway.DEBUG(span,
 		fmt.Sprintf("Creating new transaction event with accountId: %s", transaction.GetAccountId()))
 
-	err := this.transactionProducer.Produce(ctx, transaction)
+	err := this.transactionProducer.Produce(span.GetCtx(), transaction)
 	if err != nil {
 		return main_domains_exceptions.
 			NewInternalServerErrorExceptionSglMsg(this.messageUtils.

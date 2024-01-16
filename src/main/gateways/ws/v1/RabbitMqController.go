@@ -38,7 +38,7 @@ func NewRabbitMqController(
 	}
 }
 
-func (this *RabbitMqController) CreateRabbitMqTransactionEvent(w http.ResponseWriter, r *http.Request) (
+func (this *RabbitMqController) CreateRabbitMqTransactionEvent(_ http.ResponseWriter, r *http.Request) (
 	main_gateways_ws_commons.ControllerResponse,
 	main_domains_exceptions.ApplicationException,
 ) {
@@ -73,7 +73,7 @@ func (this *RabbitMqController) CreateRabbitMqTransactionEvent(w http.ResponseWr
 	}
 	transaction := transactionRequest.ToDomain()
 
-	errApp := this.createTransactionAmqpEvent.Execute(ctx, transaction)
+	errApp := this.createTransactionAmqpEvent.Execute(span.GetCtx(), transaction)
 	if errApp != nil {
 		this.logsMonitoringGateway.ERROR(span, errApp.Error())
 		return *new(main_gateways_ws_commons.ControllerResponse), errApp
