@@ -2,7 +2,6 @@ package main_gateways_ws_beans
 
 import (
 	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
-	main_gateways_ws_interceptors "baseapplicationgo/main/gateways/ws/interceptors"
 	"fmt"
 	"net/http"
 	"sync"
@@ -40,8 +39,6 @@ func GetRoutesBean() *map[string]Route {
 func getFunctionBeans() map[string]Route {
 	beans := GetControllerBeans()
 
-	request := main_gateways_ws_interceptors.NewMetricsAfterRequest()
-
 	var RoutesConfig = []Route{
 		{
 			URI:    API_V1_PREFIX + "/users",
@@ -49,9 +46,7 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.UserControllerV1Bean.CreateUser),
 			AuthRequired: false,
-			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				request.ServeHTTP,
-			),
+			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
 		},
 		{
 			URI:    API_V1_PREFIX + "/users/{id}",
@@ -59,9 +54,7 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.UserControllerV1Bean.FindUserById),
 			AuthRequired: false,
-			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				request.ServeHTTP,
-			),
+			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
 		},
 		{
 			URI:    API_V1_PREFIX + "/users",
@@ -69,9 +62,7 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.UserControllerV1Bean.FindUser),
 			AuthRequired: false,
-			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				request.ServeHTTP,
-			),
+			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
 		},
 		{
 			URI:    API_V1_PREFIX + "/features/{key}/enable",
@@ -79,9 +70,7 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.FeatureControllerV1Bean.EnableFeatureByKey),
 			AuthRequired: false,
-			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				request.ServeHTTP,
-			),
+			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
 		},
 		{
 			URI:    API_V1_PREFIX + "/features/{key}/disable",
@@ -89,9 +78,7 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.FeatureControllerV1Bean.DisableFeatureByKey),
 			AuthRequired: false,
-			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				request.ServeHTTP,
-			),
+			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
 		},
 		{
 			URI:    API_V1_PREFIX + "/rabbitmq/send-event",
@@ -99,9 +86,7 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.RabbitMqControllerV1Bean.CreateRabbitMqTransactionEvent),
 			AuthRequired: false,
-			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				request.ServeHTTP,
-			),
+			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
 		},
 		{
 			URI:    API_V1_PREFIX + "/transactions",
@@ -109,9 +94,7 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.TransactionControllerV1Bean.CreateTransaction),
 			AuthRequired: false,
-			Handler: *main_gateways_ws_commons.NewMiddlewares(
-				request.ServeHTTP,
-			),
+			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
 		},
 	}
 
