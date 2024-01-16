@@ -2,6 +2,7 @@ package main_gateways_ws_beans
 
 import (
 	main_gateways_ws_commons "baseapplicationgo/main/gateways/ws/commons"
+	main_gateways_ws_middlewares "baseapplicationgo/main/gateways/ws/middlewares"
 	"fmt"
 	"net/http"
 	"sync"
@@ -46,7 +47,10 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.UserControllerV1Bean.CreateUser),
 			AuthRequired: false,
-			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP,
+				main_gateways_ws_middlewares.NewAcceptJsonContentTypeHeaderMiddleware().ServeHTTP,
+			),
 		},
 		{
 			URI:    API_V1_PREFIX + "/users/{id}",
@@ -54,7 +58,8 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.UserControllerV1Bean.FindUserById),
 			AuthRequired: false,
-			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP),
 		},
 		{
 			URI:    API_V1_PREFIX + "/users",
@@ -62,7 +67,8 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.UserControllerV1Bean.FindUser),
 			AuthRequired: false,
-			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP),
 		},
 		{
 			URI:    API_V1_PREFIX + "/features/{key}/enable",
@@ -70,7 +76,8 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.FeatureControllerV1Bean.EnableFeatureByKey),
 			AuthRequired: false,
-			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP),
 		},
 		{
 			URI:    API_V1_PREFIX + "/features/{key}/disable",
@@ -78,7 +85,8 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.FeatureControllerV1Bean.DisableFeatureByKey),
 			AuthRequired: false,
-			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP),
 		},
 		{
 			URI:    API_V1_PREFIX + "/rabbitmq/send-event",
@@ -86,7 +94,10 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.RabbitMqControllerV1Bean.CreateRabbitMqTransactionEvent),
 			AuthRequired: false,
-			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP,
+				main_gateways_ws_middlewares.NewAcceptJsonContentTypeHeaderMiddleware().ServeHTTP,
+			),
 		},
 		{
 			URI:    API_V1_PREFIX + "/transactions",
@@ -94,7 +105,10 @@ func getFunctionBeans() map[string]Route {
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
 				beans.TransactionControllerV1Bean.CreateTransaction),
 			AuthRequired: false,
-			Handler:      *main_gateways_ws_commons.NewMiddlewares(),
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP,
+				main_gateways_ws_middlewares.NewAcceptJsonContentTypeHeaderMiddleware().ServeHTTP,
+			),
 		},
 	}
 

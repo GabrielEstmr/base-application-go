@@ -4,7 +4,7 @@
 
 - [X] MongoDB Integration;
 - [X] Mongo Transactions;
-- [ ] PostgresDB integration;
+- [X] PostgresDB integration;
 - [X] RabbitMQ Integration;
 - [X] FF4J integration;
 - [X] YML Properties Integration;
@@ -22,9 +22,9 @@
 - [NA] HATEOS golang
 - [X] Colocar struct nos beans de usecases
 - [X] Review page props (they are starting with uppercase) and process (page not working)
-- [ ] Build Metrics: requests per seconds, error rating, etc
+- [X] Build Metrics: requests per seconds, error rating, etc
 - [X] POC oauth microservice + go plugin in kong
-- [ ] Middleware to threat Content-type and accept header
+- [X] Middleware to threat Content-type and accept header
 - [ ]
 - [ ]
 
