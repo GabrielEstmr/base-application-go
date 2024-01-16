@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="test(mocking): add struct mocking">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/configs/messages/MessagesProperties.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/configs/messages/MessagesProperties.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/UserControllerBeanFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/beans/Factories/UserControllerBeanFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/gateways/ws/v1/UserController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/usecases/CreateNewUser.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/utils/HttpResponsesUtil.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/utils/HttpResponsesUtil.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/mocks/LogsGatewayImplMock.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/mocks/UserDatabaseGatewayMock.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/mocks/UserDatabaseGatewayMock.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/usecases/CreateNewUser_test.go" afterDir="false" />
-    </list>
+    <list default="true" id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(middlewares): add application middlewares" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,20 +30,24 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="test/adding-struct-mocking" />
-                    <option name="lastUsedInstant" value="1702404210" />
+                    <option name="branchName" value="feat/add-metrics-middleware" />
+                    <option name="lastUsedInstant" value="1705266039" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="feat/add-monitoring" />
-                    <option name="lastUsedInstant" value="1702248682" />
+                    <option name="branchName" value="feat/add-redis-locking" />
+                    <option name="lastUsedInstant" value="1703882362" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="feat/prometheus" />
-                    <option name="lastUsedInstant" value="1702229627" />
+                    <option name="branchName" value="project/base-app-go" />
+                    <option name="lastUsedInstant" value="1703882122" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="main" />
-                    <option name="lastUsedInstant" value="1702229626" />
+                    <option name="branchName" value="feat/add-traces-into-rabbitmq" />
+                    <option name="lastUsedInstant" value="1703785273" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feat/adjust-spans" />
+                    <option name="lastUsedInstant" value="1703606776" />
                   </RecentBranch>
                 </list>
               </option>
@@ -79,13 +73,13 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;Go Build.go build baseapplicationgo.executor&quot;: &quot;Run&quot;,
+    &quot;Go Build.go build baseapplicationgo.executor&quot;: &quot;Debug&quot;,
     &quot;Go Test.TestCreateNewUser_Execute in baseapplicationgo/test/usecases.executor&quot;: &quot;Run&quot;,
     &quot;Go Test.TestCreateNewUser_Execute_Error_DocumentNumber_Already_Exists in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
     &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
     &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
     &quot;Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
     &quot;Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases.executor&quot;: &quot;Debug&quot;,
     &quot;Go Test.go test baseapplicationgo/test/usecases.executor&quot;: &quot;Run&quot;,
     &quot;Go Test.go test usecases.executor&quot;: &quot;Coverage&quot;,
@@ -95,25 +89,29 @@
     &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;test/adding-struct-mocking&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/add-metrics-middleware&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/gabriel/Documents/Projects/base-application-go/docker/grafana&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/gabriel/Documents/Projects/base-application-go/src/test/usecases&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;google-java-format.settings&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/usecases" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/rabbitmq" />
       <recent name="$PROJECT_DIR$/docker/grafana" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/utils/messages" />
-      <recent name="$PROJECT_DIR$/src/main/utils" />
-      <recent name="$PROJECT_DIR$/src/test/usecases" />
-      <recent name="$PROJECT_DIR$/src/test/mocks" />
-      <recent name="$PROJECT_DIR$/src/test/mocks/support" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/beans" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/commonsresources" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/errorhandler" />
+      <recent name="$PROJECT_DIR$/src/main/gateways/ws/interceptors/impl" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build baseapplicationgo">
@@ -182,25 +180,47 @@
       <list>
         <item itemvalue="Go Build.go build baseapplicationgo" />
         <item itemvalue="Go Test.go test baseapplicationgo/test/usecases" />
-        <item itemvalue="Go Test.TestNewCreateNewUser in baseapplicationgo/test/usecases" />
-        <item itemvalue="Go Test.TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases" />
-        <item itemvalue="Go Test.TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-gosdk-467a64f6063b-ee0e143f3e2b-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-233.11799.286" />
+        <option value="bundled-gosdk-266795519c66-911b893a1778-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-233.13135.104" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="257bd844-a90c-442f-a813-dcc8e93c38cb" name="Changes" comment="feat(apm): adjust spans" />
+      <created>1703782389228</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1703782389228</updated>
+    </task>
+    <servers />
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="feat(mocking): add struct mocking" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(mocking): add struct mocking" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -208,54 +228,62 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/configs/apm/logs/impl/request/CreateLogRequest.go</url>
-          <line>11</line>
-          <option name="timeStamp" value="9" />
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/CheckTokenMiddleware.go</url>
+          <line>29</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/LogMiddleware.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/BaseMiddleware.go</url>
+          <line>26</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/BaseMiddleware.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/BaseMiddleware.go</url>
+          <line>28</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/CheckTokenMiddleware.go</url>
+          <line>28</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/impl/AcceptLanguageMiddleware.go</url>
+          <line>23</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/test/mocks/Test2.go</url>
-          <line>34</line>
-          <option name="timeStamp" value="12" />
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/RouteLoggingBeforeRequest.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/test/mocks/Test2.go</url>
-          <line>32</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/test/usecases/CreateNewUser_test_off.go</url>
-          <line>80</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/test/usecases/CreateNewUser_test_off.go</url>
-          <line>81</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/utils/messages/ApplicationMessages.go</url>
-          <line>25</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/utils/messages/ApplicationMessages.go</url>
-          <line>30</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/src/main/usecases/CreateNewUser.go</url>
-          <line>35</line>
-          <option name="timeStamp" value="60" />
+          <url>file://$PROJECT_DIR$/src/main/gateways/ws/middlewares/AcceptJsonAcceptHeaderMiddleware.go</url>
+          <line>36</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="DlvErrorBreakpoint" />
+      </default-breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/base_application_go$go_test_usecases.out" NAME="go test usecases Coverage Results" MODIFIED="1702464344336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumberReturnsError in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702464362111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_ShouldSaveNewUser_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute_ShouldSaveNewUser in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702465267427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/base_application_go$go_test_baseapplicationgo_test_usecases.out" NAME="go test baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702467376946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/base_application_go$go_test_baseapplicationgo_test_usecases.out" NAME="go test baseapplicationgo/test/usecases Coverage Results" MODIFIED="1703606112931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702314304717" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsError in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702465236779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/base_application_go$TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber_in_baseapplicationgo_test_usecases.out" NAME="TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSameDocNumber in baseapplicationgo/test/usecases Coverage Results" MODIFIED="1702464688500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

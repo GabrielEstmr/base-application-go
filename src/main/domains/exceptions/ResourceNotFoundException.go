@@ -7,16 +7,18 @@ type ResourceNotFoundException struct {
 	messages []string
 }
 
+const STATUS_NOT_FOUND = http.StatusNotFound
+
 func NewResourceNotFoundException(messages []string) *ResourceNotFoundException {
 	return &ResourceNotFoundException{
-		code:     http.StatusNotFound,
+		code:     STATUS_NOT_FOUND,
 		messages: messages,
 	}
 }
 
 func NewResourceNotFoundExceptionSglMsg(message string) *ResourceNotFoundException {
 	return &ResourceNotFoundException{
-		code:     http.StatusNotFound,
+		code:     STATUS_NOT_FOUND,
 		messages: []string{message},
 	}
 }

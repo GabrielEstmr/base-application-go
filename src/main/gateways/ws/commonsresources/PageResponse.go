@@ -1,13 +1,13 @@
-package main_gateways_ws_commons
+package main_gateways_ws_commonsresources
 
 import main_domains "baseapplicationgo/main/domains"
 
 type PageResponse struct {
-	Content       any   `json:"Content"`
-	Page          int64 `json:"Page"`
-	Size          int64 `json:"Size"`
-	TotalElements int64 `json:"TotalElements"`
-	TotalPages    int64 `json:"TotalPages"`
+	Content       any   `json:"content"`
+	Page          int64 `json:"page"`
+	Size          int64 `json:"size"`
+	TotalElements int64 `json:"totalElements"`
+	TotalPages    int64 `json:"totalPages"`
 }
 
 func NewPageResponse(content any, page int64, size int64, totalElements int64, totalPages int64) *PageResponse {

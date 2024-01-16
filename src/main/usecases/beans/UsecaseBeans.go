@@ -11,9 +11,11 @@ var once sync.Once
 var usecaseBeans *UsecaseBeans
 
 type UsecaseBeans struct {
-	CreateNewUser     *main_usecases.CreateNewUser
-	FindUserById      *main_usecases.FindUserById
-	FindUsersByFilter *main_usecases.FindUsersByFilter
+	CreateNewUser              *main_usecases.CreateNewUser
+	FindUserById               *main_usecases.FindUserById
+	FindUsersByFilter          *main_usecases.FindUsersByFilter
+	CreateTransactionAmqpEvent *main_usecases.CreateTransactionAmqpEvent
+	PersistTransaction         *main_usecases.PersistTransaction
 }
 
 func GetUsecaseBeans() *UsecaseBeans {
@@ -27,8 +29,10 @@ func GetUsecaseBeans() *UsecaseBeans {
 
 func subscriptUsecaseBeans() *UsecaseBeans {
 	return &UsecaseBeans{
-		CreateNewUser:     main_usecases_beans_factories.NewCreateNewUserBean().Get(),
-		FindUserById:      main_usecases_beans_factories.NewFindUserByIdBean().Get(),
-		FindUsersByFilter: main_usecases_beans_factories.NewFindUsersByFilterBean().Get(),
+		CreateNewUser:              main_usecases_beans_factories.NewCreateNewUserBean().Get(),
+		FindUserById:               main_usecases_beans_factories.NewFindUserByIdBean().Get(),
+		FindUsersByFilter:          main_usecases_beans_factories.NewFindUsersByFilterBean().Get(),
+		CreateTransactionAmqpEvent: main_usecases_beans_factories.NewCreateTransactionAmqpEventBean().Get(),
+		PersistTransaction:         main_usecases_beans_factories.NewPersistTransactionBean().Get(),
 	}
 }

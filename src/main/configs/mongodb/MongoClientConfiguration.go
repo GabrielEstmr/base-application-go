@@ -24,13 +24,11 @@ const MONGO_DATABASE_NAME = "MongoDB.DatabaseName"
 
 var once sync.Once
 var mongoDatabase *mongo.Database = nil
-var mongoDatabaseBean mongo.Database
 
 func GetMongoDBClient() *mongo.Database {
 	once.Do(func() {
 		if mongoDatabase == nil {
-			mongoDatabaseBean = getDatabaseConnection()
-			mongoDatabase = &mongoDatabaseBean
+			mongoDatabase = getDatabaseConnection()
 		}
 	})
 	return mongoDatabase
@@ -45,7 +43,7 @@ func CloseConnection() {
 }
 
 // IF Connection failed, how to solve
-func getDatabaseConnection() mongo.Database {
+func getDatabaseConnection() *mongo.Database {
 	slog.Info(_MSG_MONGO_BEAN_INITIALIZING)
 	databaseUri := main_configs_yml.GetYmlValueByName(MONGO_URI_NAME)
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(databaseUri))
@@ -53,10 +51,9 @@ func getDatabaseConnection() mongo.Database {
 		log.Fatalf(_MSG_ERROR_TO_CONNECT_TO_DATABASE, databaseUri)
 	}
 	// Ping the primary
-	if err := client.Ping(context.TODO(), readpref.Primary()); err != nil {
+	if errP := client.Ping(context.TODO(), readpref.Primary()); errP != nil {
 		log.Fatalf(_MSG_ERROR_TO_PING_DATABASE, databaseUri)
-		panic(err)
 	}
 	slog.Info(_MSG_MONGO_BEAN_PINGED)
-	return *client.Database(main_configs_yml.GetYmlValueByName(MONGO_DATABASE_NAME))
+	return client.Database(main_configs_yml.GetYmlValueByName(MONGO_DATABASE_NAME))
 }

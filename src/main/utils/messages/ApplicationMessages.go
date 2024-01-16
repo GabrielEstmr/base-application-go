@@ -26,8 +26,7 @@ func (this *ApplicationMessages) GetDefaultLocale(key string) string {
 	return this.GetMessageByLocale(key, "DEFAULT")
 }
 
-func (this *ApplicationMessages) GetMessageByLocale(key string,
-	langProfile string) string {
+func (this *ApplicationMessages) GetMessageByLocale(key string, langProfile string) string {
 	langKey := key + "-" + langProfile
 	return this.properties[langKey]
 }

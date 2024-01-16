@@ -10,6 +10,10 @@ services:
         MONGO_INITDB_ROOT_PASSWORD: admin
         DB_MONGO_HOST: mongo
         REDIS_HOST: redis
+        RABBITMQ_USER: admin
+        RABBITMQ_PASSWORD: admin
+        RABBITMQ_HOST: rabbitmq
+        RABBITMQ_DEFAULT_VHOST: dev01_mktplace
         OTEL_SERVICE_NAME: your-service-name
         CLUSTER_OTLP_ENDPOINT_ENV: otel-collector:4317
         CLUSTER_LOKI_ENDPOINT_ENV: loki:3100
@@ -18,6 +22,7 @@ services:
       depends_on:
         - mongo
         - redis
+        - rabbitmq
       networks:
         - broker-base-go
     mongo:
@@ -35,6 +40,18 @@ services:
       image: "redis:alpine"
       ports:
         - 6379:6379
+      networks:
+        - broker-base-go
+    rabbitmq:
+      image: "rabbitmq:3-management"
+      environment:
+        RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+        RABBITMQ_DEFAULT_USER: "admin"
+        RABBITMQ_DEFAULT_PASS: "admin"
+        RABBITMQ_DEFAULT_VHOST: "dev01_mktplace"
+      ports:
+        - "15672:15672"
+        - "5672:5672"
       networks:
         - broker-base-go
     otel-collector:

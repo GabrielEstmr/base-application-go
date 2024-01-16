@@ -14,7 +14,7 @@ func NewPageableUtils() *PageableUtils {
 }
 
 func (this *PageableUtils) GetOptsFromPageable(pageable main_domains.Pageable) *options.FindOptions {
-	return options.Find().SetSkip(pageable.GetPage()).SetLimit(
+	return options.Find().SetSkip(pageable.GetPage() * pageable.GetSize()).SetLimit(
 		pageable.GetSize()).SetSort(
 		buildBsonSortFromMap(pageable.GetSort()))
 }

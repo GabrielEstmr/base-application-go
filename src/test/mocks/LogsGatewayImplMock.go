@@ -1,14 +1,14 @@
 package test_mocks
 
 import (
-	main_gateways_logs_resources "baseapplicationgo/main/gateways/logs/resources"
+	main_domains "baseapplicationgo/main/domains/apm"
 )
 
 type LogsMonitoringGatewayMock struct {
 }
 
 func (this *LogsMonitoringGatewayMock) DEBUG(
-	span main_gateways_logs_resources.SpanLogInfo,
+	span main_domains.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {
@@ -16,7 +16,7 @@ func (this *LogsMonitoringGatewayMock) DEBUG(
 }
 
 func (this *LogsMonitoringGatewayMock) WARN(
-	span main_gateways_logs_resources.SpanLogInfo,
+	span main_domains.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {
@@ -24,7 +24,7 @@ func (this *LogsMonitoringGatewayMock) WARN(
 }
 
 func (this *LogsMonitoringGatewayMock) INFO(
-	span main_gateways_logs_resources.SpanLogInfo,
+	span main_domains.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {
@@ -32,7 +32,7 @@ func (this *LogsMonitoringGatewayMock) INFO(
 }
 
 func (this *LogsMonitoringGatewayMock) ERROR(
-	span main_gateways_logs_resources.SpanLogInfo,
+	span main_domains.SpanLogInfo,
 	msg string,
 	args ...any,
 ) {

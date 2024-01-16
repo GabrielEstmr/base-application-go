@@ -8,17 +8,9 @@ MongoDB.URI:
 MongoDB.DatabaseName:
   value: dbApplicationGo
 
-## Kafka Properties
-#Kafka.bootstrap.servers:
-#  value: ${KAFKA_HOST}:${KAFKA_PORT}
-#Kafka.group.id:
-#  value: ${KAFKA_GROUP_ID}
-#Kafka.auto.offset.reset:
-#  value: earliest
-#
-## RabbitMQ Properties
-#RabbitMQ.URI:
-#  value: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:5672/${RABBITMQ_DEFAULT_VHOST}
+# RabbitMQ Properties
+RabbitMQ.URI:
+  value: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:5672/${RABBITMQ_DEFAULT_VHOST}
 
 ## Rest Integration Properties
 #Integration.mp-order-search.url:

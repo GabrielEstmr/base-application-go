@@ -3,24 +3,30 @@
 ## ToDos:
 
 - [X] MongoDB Integration;
-- [ ] PostgresDB integration;
-- [ ] Kafka Integration;
-- [ ] RabbitMQ Integration;
-- [ ] FF4J integration;
+- [X] Mongo Transactions;
+- [X] PostgresDB integration;
+- [X] RabbitMQ Integration;
+- [X] FF4J integration;
 - [X] YML Properties Integration;
 - [X] Swagger
 - [X] Msg Bundle
-- [ ] Redis Locking
-- [ ] OTEL integration
+- [X] Redis Locking
+- [X] OTEL integration
 - [X] Request Validation
 - [X] Logs
 - [X] How to unmarshall structs with private props
-- [ ] Review Redis Repository (With Sentinel)
-  - https://redis.uptrace.dev/guide/go-redis.html
+- [X] Review Redis Repository (With Sentinel)
+    - https://redis.uptrace.dev/guide/go-redis.html
 - [X] Review Redis Repository: findByDocumentNumber
-- [ ] Get Locale from proxy
-- [ ] HATEOS golang
-- [ ] Colocar struct nos beans de usecases
+- [X] Get Locale from proxy - USING Accept-Language en-gb for instance
+- [NA] HATEOS golang
+- [X] Colocar struct nos beans de usecases
+- [X] Review page props (they are starting with uppercase) and process (page not working)
+- [X] Build Metrics: requests per seconds, error rating, etc
+- [X] POC oauth microservice + go plugin in kong
+- [X] Middleware to threat Content-type and accept header
+- [ ]
+- [ ]
 
 ## Notes:
 
@@ -62,13 +68,10 @@ func main() {
 
 https://zhwt.github.io/yaml-to-go/
 
-
-
 https://stackoverflow.com/questions/64712646/how-to-properly-disconnect-mongodb-client
 
 https://apiux.com/2013/04/25/how-to-localize-your-api/
 https://ip2location-go.readthedocs.io/en/latest/quickstart.html
-
 
 // TODO: check func
 // WHen to close connection
