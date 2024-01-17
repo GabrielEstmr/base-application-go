@@ -3,7 +3,7 @@ package main_configs_rabbitmq_paramaters
 import main_configs_rabbitmq_paramaters "baseapplicationgo/main/configs/rabbitmq/resources"
 
 const (
-	EXCHANGE_BASE_APP_GO_AMQP_TEST = "ExchangeQueueBaseAppAmqpTest"
+	EXCHANGE_BASE_APP_GO_AMQP_TEST = "app-base-golang-exchange-test"
 )
 
 const (

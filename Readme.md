@@ -25,7 +25,7 @@
 - [X] Build Metrics: requests per seconds, error rating, etc
 - [X] POC oauth microservice + go plugin in kong
 - [X] Middleware to threat Content-type and accept header
-- [ ]
+- [ ] Retry RabbitMQ deadletter https://medium.com/@damithadayananda/retrying-mechanism-for-rabbitmq-consumers-3d2276ccbedd
 - [ ]
 
 ## Notes:

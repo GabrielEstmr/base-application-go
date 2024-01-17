@@ -6,7 +6,7 @@ var AmqpConsumerParameters = map[string]main_configs_rabbitmq_paramaters.AmqpCon
 	QUEUE_BASE_APP_GO_AMQP_TEST: *main_configs_rabbitmq_paramaters.NewAmqpConsumerProperties(
 		QUEUE_BASE_APP_GO_AMQP_TEST,
 		"",
-		true,
+		false,
 		false,
 		false,
 		false,
