@@ -1,0 +1,3 @@
+package main_configs_rabbitmq_resources
+
+type AmqpConfigArguments map[string]any

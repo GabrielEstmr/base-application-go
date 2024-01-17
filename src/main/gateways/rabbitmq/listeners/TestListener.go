@@ -64,24 +64,31 @@ func (this *ListenerTest) Listen() {
 
 			span := this.spanGateway.Get(ctx, "ListenerTest-Listen")
 
-			this.logsMonitoringGateway.INFO(span, fmt.Sprintf(
+			messageQueue := fmt.Sprintf(
 				"Message has been received. Queue: %s MessageId: %s",
 				consumerParams.GetQueueName(),
 				d.MessageId,
-			))
+			)
+
+			this.logsMonitoringGateway.INFO(span, messageQueue)
 
 			var event main_gateways_rabbitmq_resources.Event
 			if err = json.Unmarshal(d.Body, &event); err != nil {
-				log.Fatal(err)
+				this.logsMonitoringGateway.ERROR(span, messageQueue, err)
+				_ = d.Nack(false, false)
 				return
 			}
 
 			msgMap := event.Message.(map[string]interface{})
 			msg := main_gateways_rabbitmq_resources.NewTransactionResourceFromProps(msgMap)
 			_, errT := this.persistTransaction.Execute(span.GetCtx(), msg.ToDomain())
+
 			if errT != nil {
-				log.Fatal(errT)
+				this.logsMonitoringGateway.ERROR(span, messageQueue, errT)
+				_ = d.Nack(false, false)
+				return
 			}
+			_ = d.Ack(true)
 			span.End()
 		}
 	}()

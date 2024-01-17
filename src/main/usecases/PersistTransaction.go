@@ -66,7 +66,7 @@ func (this *PersistTransaction) Execute(
 	}
 
 	// For check lock purposes only
-	time.Sleep(7 * time.Second)
+	time.Sleep(1 * time.Second)
 
 	persistedTransaction, err := this.transactionDatabaseGateway.Save(span.GetCtx(), transaction)
 	if err != nil {

@@ -10,4 +10,11 @@ var AmqpBindingQueue = []main_configs_rabbitmq_paramaters.AmqpBindingQueueProper
 		false,
 		nil,
 	),
+	*main_configs_rabbitmq_paramaters.NewAmqpBindingQueueProperties(
+		QUEUE_BASE_APP_GO_AMQP_DLQ_TEST,
+		ROUTING_KEY_BASE_APP_GO_AMQP_DLQ_TEST,
+		EXCHANGE_BASE_APP_GO_AMQP_TEST,
+		false,
+		nil,
+	),
 }

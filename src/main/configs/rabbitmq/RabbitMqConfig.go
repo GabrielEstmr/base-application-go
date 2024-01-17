@@ -68,7 +68,7 @@ func declareQueues(ch *amqp091.Channel) {
 			value.GetDeleteWhenUnused(), // delete when unused
 			value.GetExclusive(),        // exclusive
 			value.GetNowait(),           // no-wait
-			nil,                         // arguments
+			value.GetArgs(),             // arguments
 		)
 		main_configs_error.FailOnError(err, _MSG_RABBITMQ_DECLARE_QUEUE_FAILURE)
 	}
