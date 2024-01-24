@@ -28,6 +28,11 @@
 - [ ] Retry RabbitMQ deadletter https://medium.com/@damithadayananda/retrying-mechanism-for-rabbitmq-consumers-3d2276ccbedd
 - [ ]
 
+
+go test ./test/usecases/factories/... -coverprofile=cover_usecases_factories.out -coverpkg ./main/usecases/factories
+go tool cover -html=cover_usecases_factories.out
+
+
 ## Notes:
 
 ### Golang Packages:
