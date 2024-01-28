@@ -25,15 +25,15 @@ func NewBadRequestExceptionSglMsg(message string) *BadRequestException {
 	}
 }
 
-func (this *BadRequestException) GetCode() int {
+func (this BadRequestException) GetCode() int {
 	return this.code
 }
 
-func (this *BadRequestException) GetMessages() []string {
+func (this BadRequestException) GetMessages() []string {
 	return this.messages
 }
 
-func (this *BadRequestException) Error() string {
+func (this BadRequestException) Error() string {
 	var message string
 	for _, value := range this.messages {
 		message = message + value

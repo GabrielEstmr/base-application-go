@@ -23,15 +23,15 @@ func NewResourceNotFoundExceptionSglMsg(message string) *ResourceNotFoundExcepti
 	}
 }
 
-func (this *ResourceNotFoundException) GetCode() int {
+func (this ResourceNotFoundException) GetCode() int {
 	return this.code
 }
 
-func (this *ResourceNotFoundException) GetMessages() []string {
+func (this ResourceNotFoundException) GetMessages() []string {
 	return this.messages
 }
 
-func (this *ResourceNotFoundException) Error() string {
+func (this ResourceNotFoundException) Error() string {
 	var message string
 	for _, value := range this.messages {
 		message = message + value

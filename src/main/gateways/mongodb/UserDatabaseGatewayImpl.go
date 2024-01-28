@@ -61,10 +61,10 @@ func (this *UserDatabaseGatewayImpl) FindByFilter(ctx context.Context, filter ma
 		return main_domains.Page{}, err
 	}
 	contentDoc := page.GetContent()
-	var content []main_domains.Content
+	var content []any
 	for _, value := range contentDoc {
-		userDoc := value.GetObj().(main_gateways_mongodb_documents.UserDocument)
-		content = append(content, *main_domains.NewContent(userDoc.ToDomain()))
+		userDoc := value.(main_gateways_mongodb_documents.UserDocument)
+		content = append(content, userDoc.ToDomain())
 	}
 	return *main_domains.NewPageFromContentAndPage(content, *page), err
 }

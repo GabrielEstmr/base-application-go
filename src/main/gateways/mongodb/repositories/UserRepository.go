@@ -46,14 +46,6 @@ func (this *UserRepository) Save(ctx context.Context, user main_gateways_mongodb
 	defer span.End()
 
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
-	indexModel := mongo.IndexModel{
-		Keys: bson.D{{_USER_REPO_DOCUMENT_NUMBER, 1}},
-	}
-	_, err := this.database.Collection(_USERS_COLLECTION_NAME).Indexes().CreateOne(context.TODO(), indexModel)
-	if err != nil {
-		panic(err)
-	}
-
 	now := primitive.NewDateTimeFromTime(time.Now())
 	user.CreatedDate = now
 	user.LastModifiedDate = now
@@ -168,9 +160,9 @@ func (this *UserRepository) FindByFilter(ctx context.Context, filter main_domain
 		return nil, err
 	}
 
-	var contents []main_domains.Content
+	var contents []any
 	for _, value := range results {
-		contents = append(contents, *main_domains.NewContent(value))
+		contents = append(contents, value)
 	}
 
 	return main_domains.NewPage(contents, pageable.GetPage(), pageable.GetSize(), numberDocs), nil

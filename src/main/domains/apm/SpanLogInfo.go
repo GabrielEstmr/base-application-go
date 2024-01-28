@@ -1,4 +1,4 @@
-package apm
+package main_domains_apm
 
 import (
 	main_gateways_logs_resources "baseapplicationgo/main/gateways/logs/resources"

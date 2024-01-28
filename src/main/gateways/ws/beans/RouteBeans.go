@@ -110,6 +110,27 @@ func getFunctionBeans() map[string]Route {
 				main_gateways_ws_middlewares.NewAcceptJsonContentTypeHeaderMiddleware().ServeHTTP,
 			),
 		},
+		{
+			URI:    API_V1_PREFIX + "/emails",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.EmailControllerV1Bean.ReprocessEmail),
+			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP,
+				main_gateways_ws_middlewares.NewAcceptJsonContentTypeHeaderMiddleware().ServeHTTP,
+			),
+		},
+		{
+			URI:    API_V1_PREFIX + "/emails",
+			Method: http.MethodGet,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.EmailControllerV1Bean.FindEmail),
+			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonContentTypeHeaderMiddleware().ServeHTTP,
+			),
+		},
 	}
 
 	RoutesConfigMap := make(map[string]Route)

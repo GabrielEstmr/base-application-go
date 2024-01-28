@@ -1,10 +1,10 @@
-package test_usecases
+package main_usecases_test
 
 import (
 	main_domains "baseapplicationgo/main/domains"
 	main_domains_exceptions "baseapplicationgo/main/domains/exceptions"
 	main_gateways "baseapplicationgo/main/gateways"
-	"baseapplicationgo/main/usecases"
+	main_usecases "baseapplicationgo/main/usecases"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
 	test_mocks "baseapplicationgo/test/mocks"
 	test_mocks_support "baseapplicationgo/test/mocks/support"
@@ -57,26 +57,29 @@ func TestCreateNewUser_Execute_ShouldSaveNewUser(t *testing.T) {
 		LastModifiedDate: time.Now(),
 	}
 
-	methodName := make(map[string]test_mocks_support.ArgsMockSupport)
-	methodName["FindByDocumentNumber"] =
+	methodMocks := make(map[string]test_mocks_support.ArgsMockSupport)
+	methodMocks["FindByDocumentNumber"] =
 		*test_mocks_support.NewArgsMockSupport().
 			AddInput(1, user.DocumentNumber).
 			AddOutput(1, main_domains.User{}).
 			AddOutput(2, nil)
-	methodName["Save"] =
+	methodMocks["Save"] =
 		*test_mocks_support.NewArgsMockSupport().
 			AddInput(1, user).
 			AddOutput(1, userResponse).
 			AddOutput(2, nil)
 
-	mock := test_mocks.NewUserDatabaseGatewayMock(methodName)
+	mock := test_mocks.NewUserDatabaseGatewayMock(methodMocks)
 
 	messageUtilsMock := *main_utils_messages.NewApplicationMessagesAllArgs(map[string]string{
 		_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS: _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS_VALUE,
 	})
 
 	testCreateNewUserFields := testCreateNewUserFields{
-		mock, new(test_mocks.LogsMonitoringGatewayMock), new(test_mocks.SpanGatewayMockImpl), messageUtilsMock,
+		mock,
+		new(test_mocks.LogsMonitoringGatewayMock),
+		new(test_mocks.SpanGatewayMockImpl),
+		messageUtilsMock,
 	}
 
 	args := testCreateNewUserArgs{
@@ -101,14 +104,14 @@ func TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenFindByDocNumbe
 		Birthday:       time.Now(),
 	}
 
-	methodName := make(map[string]test_mocks_support.ArgsMockSupport)
-	methodName["FindByDocumentNumber"] =
+	methodMocks := make(map[string]test_mocks_support.ArgsMockSupport)
+	methodMocks["FindByDocumentNumber"] =
 		*test_mocks_support.NewArgsMockSupport().
 			AddInput(1, user.DocumentNumber).
 			AddOutput(1, *new(main_domains.User)).
 			AddOutput(2, errors.New("generic Error"))
 
-	mock := test_mocks.NewUserDatabaseGatewayMock(methodName)
+	mock := test_mocks.NewUserDatabaseGatewayMock(methodMocks)
 
 	messageUtilsMock := *main_utils_messages.NewApplicationMessagesAllArgs(map[string]string{
 		_MSG_CREATE_NEW_DOC_ARCH_ISSUE: _MSG_CREATE_NEW_DOC_ARCH_ISSUE_VALUE,
@@ -149,14 +152,14 @@ func TestCreateNewUser_Execute_ShouldReturnConflictExceptionWhenExistsDocWithSam
 		LastModifiedDate: time.Now(),
 	}
 
-	methodName := make(map[string]test_mocks_support.ArgsMockSupport)
-	methodName["FindByDocumentNumber"] =
+	methodMocks := make(map[string]test_mocks_support.ArgsMockSupport)
+	methodMocks["FindByDocumentNumber"] =
 		*test_mocks_support.NewArgsMockSupport().
 			AddInput(1, user.DocumentNumber).
 			AddOutput(1, userResponse).
 			AddOutput(2, nil)
 
-	mock := test_mocks.NewUserDatabaseGatewayMock(methodName)
+	mock := test_mocks.NewUserDatabaseGatewayMock(methodMocks)
 
 	messageUtils := *main_utils_messages.NewApplicationMessagesAllArgs(map[string]string{
 		_MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS: _MSG_CREATE_NEW_DOC_DOC_ALREADY_EXISTS_VALUE,
@@ -188,19 +191,19 @@ func TestCreateNewUser_Execute_ShouldReturnInternalServerErrorWhenSaveReturnsErr
 		Birthday:       time.Now(),
 	}
 
-	methodName := make(map[string]test_mocks_support.ArgsMockSupport)
-	methodName["FindByDocumentNumber"] =
+	methodMocks := make(map[string]test_mocks_support.ArgsMockSupport)
+	methodMocks["FindByDocumentNumber"] =
 		*test_mocks_support.NewArgsMockSupport().
 			AddInput(1, user.DocumentNumber).
 			AddOutput(1, *new(main_domains.User)).
 			AddOutput(2, nil)
-	methodName["Save"] =
+	methodMocks["Save"] =
 		*test_mocks_support.NewArgsMockSupport().
 			AddInput(1, user).
 			AddOutput(1, *new(main_domains.User)).
 			AddOutput(2, errors.New("save error"))
 
-	mock := test_mocks.NewUserDatabaseGatewayMock(methodName)
+	mock := test_mocks.NewUserDatabaseGatewayMock(methodMocks)
 
 	messageUtilsMock := *main_utils_messages.NewApplicationMessagesAllArgs(map[string]string{
 		_MSG_CREATE_NEW_DOC_ARCH_ISSUE: _MSG_CREATE_NEW_DOC_ARCH_ISSUE_VALUE,

@@ -17,6 +17,8 @@ services:
         OTEL_SERVICE_NAME: your-service-name
         CLUSTER_OTLP_ENDPOINT_ENV: otel-collector:4317
         CLUSTER_LOKI_ENDPOINT_ENV: loki:3100
+        GMAIL_EMAIL_CLIENT_EMAIL: gabriel.estmr@gmail.com
+        GMAIL_EMAIL_CLIENT_PASSWORD: zvqw wzdt jqiz rgul
       ports:
         - "8080:8080"
       depends_on:
