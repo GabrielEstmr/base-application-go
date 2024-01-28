@@ -23,15 +23,15 @@ func NewConflictExceptionSglMsg(message string) *ConflictException {
 	}
 }
 
-func (this *ConflictException) GetCode() int {
+func (this ConflictException) GetCode() int {
 	return this.code
 }
 
-func (this *ConflictException) GetMessages() []string {
+func (this ConflictException) GetMessages() []string {
 	return this.messages
 }
 
-func (this *ConflictException) Error() string {
+func (this ConflictException) Error() string {
 	var message string
 	for _, value := range this.messages {
 		message = message + value

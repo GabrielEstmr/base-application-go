@@ -29,3 +29,9 @@ Apm.server.loki.collector.http.host:
   value: ${CLUSTER_LOKI_ENDPOINT_ENV}
 Apm.server.loki.collector.http.timeout.milliseconds:
   value: 2000
+
+# Email Client Properties
+Email.gmail.credentials.email:
+  value: ${GMAIL_EMAIL_CLIENT_EMAIL}
+Email.gmail.credentials.password:
+  value: ${GMAIL_EMAIL_CLIENT_PASSWORD}

@@ -62,7 +62,6 @@ func (this *LogsMethodsImpl) postLog(
 	msg string,
 	args ...any,
 ) {
-
 	client := http.Client{
 		Timeout: 2000 * time.Millisecond,
 	}

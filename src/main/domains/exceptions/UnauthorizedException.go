@@ -23,15 +23,15 @@ func NewUnauthorizedExceptionSglMsg(message string) *UnauthorizedException {
 	}
 }
 
-func (this *UnauthorizedException) GetCode() int {
+func (this UnauthorizedException) GetCode() int {
 	return this.code
 }
 
-func (this *UnauthorizedException) GetMessages() []string {
+func (this UnauthorizedException) GetMessages() []string {
 	return this.messages
 }
 
-func (this *UnauthorizedException) Error() string {
+func (this UnauthorizedException) Error() string {
 	var message string
 	for _, value := range this.messages {
 		message = message + value

@@ -3,11 +3,14 @@ package main_usecases_beans_factories
 import (
 	main_gateways "baseapplicationgo/main/gateways"
 	main_gateways_features "baseapplicationgo/main/gateways/features"
+	main_gateways_logs "baseapplicationgo/main/gateways/logs"
 	main_gateways_mongodb "baseapplicationgo/main/gateways/mongodb"
 	main_gateways_mongodb_repositories "baseapplicationgo/main/gateways/mongodb/repositories"
 	main_gateways_redis "baseapplicationgo/main/gateways/redis"
 	main_gateways_redis_repositories "baseapplicationgo/main/gateways/redis/repositories"
+	main_gateways_spans "baseapplicationgo/main/gateways/spans"
 	main_usecases "baseapplicationgo/main/usecases"
+	main_utils_messages "baseapplicationgo/main/utils/messages"
 )
 
 type FindUserByIdBean struct {
@@ -29,5 +32,10 @@ func (this *FindUserByIdBean) Get() *main_usecases.FindUserById {
 
 	var featuresGateway main_gateways.FeaturesGateway = main_gateways_features.NewFeaturesGatewayImpl()
 
-	return main_usecases.NewFindUserById(cachedUserDatabaseGateway, featuresGateway)
+	return main_usecases.NewFindUserByIdAllArgs(
+		cachedUserDatabaseGateway,
+		*main_utils_messages.NewApplicationMessages(),
+		featuresGateway,
+		main_gateways_spans.NewSpanGatewayImpl(),
+		main_gateways_logs.NewLogsMonitoringGatewayImpl())
 }

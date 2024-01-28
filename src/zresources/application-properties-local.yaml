@@ -29,3 +29,9 @@ Apm.server.loki.collector.http.host:
   value: 127.0.0.1/3100
 Apm.server.loki.collector.http.timeout.milliseconds:
   value: 2000
+
+# Email Client Properties
+Email.gmail.credentials.email:
+  value: gabriel.estmr@gmail.com
+Email.gmail.credentials.password:
+  value: zvqw wzdt jqiz rgul

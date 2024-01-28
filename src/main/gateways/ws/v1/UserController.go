@@ -164,8 +164,7 @@ func (this *UserController) FindUser(
 	content := page.GetContent()
 	respContent := make([]main_gateways_ws_v1_response.UserResponse, 0)
 	for _, value := range content {
-		test := value.GetObj()
-		user := test.(main_domains.User)
+		user := value.(main_domains.User)
 		respContent = append(respContent,
 			main_gateways_ws_v1_response.NewUserResponse(user))
 	}

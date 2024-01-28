@@ -17,4 +17,27 @@ var AmqpBindingQueue = []main_configs_rabbitmq_paramaters.AmqpBindingQueueProper
 		false,
 		nil,
 	),
+
+	*main_configs_rabbitmq_paramaters.NewAmqpBindingQueueProperties(
+		QUEUE_RM_NOTIFICATION_CREATE_EMAIL,
+		ROUTING_RM_NOTIFICATION_CREATE_EMAIL,
+		EXCHANGE_RM_NOTIFICATION_CREATE_EMAIL,
+		false,
+		nil,
+	),
+	*main_configs_rabbitmq_paramaters.NewAmqpBindingQueueProperties(
+		QUEUE_RM_NOTIFICATION_CREATE_EMAIL_DLQ,
+		ROUTING_RM_NOTIFICATION_CREATE_EMAIL_DLQ,
+		EXCHANGE_RM_NOTIFICATION_CREATE_EMAIL,
+		false,
+		nil,
+	),
+
+	*main_configs_rabbitmq_paramaters.NewAmqpBindingQueueProperties(
+		QUEUE_RM_NOTIFICATION_REPROCESS_EMAIL,
+		ROUTING_RM_NOTIFICATION_REPROCESS_EMAIL,
+		EXCHANGE_RM_NOTIFICATION_REPROCESS_EMAIL,
+		false,
+		nil,
+	),
 }

@@ -22,6 +22,22 @@ type FindUserById struct {
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway
 }
 
+func NewFindUserByIdAllArgs(
+	userDatabaseGateway main_gateways.UserDatabaseGateway,
+	messageUtils main_utils_messages.ApplicationMessages,
+	featuresGateway main_gateways.FeaturesGateway,
+	spanGateway main_gateways.SpanGateway,
+	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
+) *FindUserById {
+	return &FindUserById{
+		userDatabaseGateway:   userDatabaseGateway,
+		messageUtils:          messageUtils,
+		featuresGateway:       featuresGateway,
+		spanGateway:           spanGateway,
+		logsMonitoringGateway: logsMonitoringGateway,
+	}
+}
+
 func NewFindUserById(
 	userDatabaseGateway main_gateways.UserDatabaseGateway,
 	featuresGateway main_gateways.FeaturesGateway,

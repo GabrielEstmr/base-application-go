@@ -93,6 +93,5 @@ func (this *ListenerTest) Listen() {
 		}
 	}()
 
-	log.Printf(" [*] Waiting for logs. To exit press CTRL+C")
 	<-forever
 }
