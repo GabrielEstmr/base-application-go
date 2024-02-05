@@ -1,6 +1,9 @@
 package main_utils_messages
 
-import main_configs_messages "baseapplicationgo/main/configs/messages"
+import (
+	main_configs_messages "baseapplicationgo/main/configs/messages"
+	main_domains_enums "baseapplicationgo/main/domains/enums"
+)
 
 type ApplicationMessages struct {
 	properties map[string]string
@@ -23,10 +26,10 @@ func (this *ApplicationMessages) SetProperties(properties map[string]string) {
 }
 
 func (this *ApplicationMessages) GetDefaultLocale(key string) string {
-	return this.GetMessageByLocale(key, "DEFAULT")
+	return this.GetMessageByLocale(key, main_domains_enums.LANGUAGE_PROFILE_DEFAULT)
 }
 
-func (this *ApplicationMessages) GetMessageByLocale(key string, langProfile string) string {
-	langKey := key + "-" + langProfile
+func (this *ApplicationMessages) GetMessageByLocale(key string, langProfile main_domains_enums.LanguageProfiles) string {
+	langKey := key + "-" + langProfile.Name()
 	return this.properties[langKey]
 }

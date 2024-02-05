@@ -1,6 +1,8 @@
 # Application Properties
 Application.Port:
   value: 8080
+Application.log.level:
+  value: ${APP_LOG_LEVEL}
 
 # MongoDB Properties
 MongoDB.URI:

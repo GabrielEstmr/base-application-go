@@ -2,82 +2,61 @@
 
 ## ToDos:
 
-- [X] MongoDB Integration;
-- [X] Mongo Transactions;
-- [X] PostgresDB integration;
-- [X] RabbitMQ Integration;
-- [X] FF4J integration;
-- [X] YML Properties Integration;
-- [X] Swagger
-- [X] Msg Bundle
-- [X] Redis Locking
-- [X] OTEL integration
-- [X] Request Validation
-- [X] Logs
-- [X] How to unmarshall structs with private props
-- [X] Review Redis Repository (With Sentinel)
-    - https://redis.uptrace.dev/guide/go-redis.html
-- [X] Review Redis Repository: findByDocumentNumber
-- [X] Get Locale from proxy - USING Accept-Language en-gb for instance
-- [NA] HATEOS golang
-- [X] Colocar struct nos beans de usecases
-- [X] Review page props (they are starting with uppercase) and process (page not working)
-- [X] Build Metrics: requests per seconds, error rating, etc
-- [X] POC oauth microservice + go plugin in kong
-- [X] Middleware to threat Content-type and accept header
-- [ ] Retry RabbitMQ deadletter https://medium.com/@damithadayananda/retrying-mechanism-for-rabbitmq-consumers-3d2276ccbedd
-- [ ]
+- [X] Index EmailType Mongo
+- [X] Persist Error in MongoDocument
+- [X] Adjust Listener (get message to json)
+- [X] Review Listener error handler
+- [X] Review Listeners Concurrency (via multiple pods)
+- [X] Send Template to Resources
+- [ ] Reprocess Emails
+- [X] Get Emails By Filter
+- [ ] Tests
+- [ ] Review Log Profiles
+- [ ] DLQ listeners
+- [ ] Review Feature Gateway
+- [ ] Review Metrics Listeners
 
 
-go test ./test/usecases/factories/... -coverprofile=cover_usecases_factories.out -coverpkg ./main/usecases/factories
-go tool cover -html=cover_usecases_factories.out
+## Guides:
+- Errors:
+  - Log in the gateway layer, after transform do domain error
 
 
-## Notes:
 
-### Golang Packages:
-
-Create go modules: go to main path and use the command below:
 
 ```
-go mod init
+go test ./test/usecases/... -coverprofile=../coverageresults/cover_usecases.out -coverpkg ./main/usecases
+go tool cover -html=../coverageresults/cover_usecases.out
 ```
 
-Build project into one native executable file: (in main's path file)
 
-```
-go build
-```
+https://gist.github.com/TsuyoshiUshio/7eca53ff455b67eb08e3f1db8a01640d
 
-Get external libs
 
-```
-go get gopkg.in/yaml.v3
-```
 
-To use external libs: use last part of the import reference:
 
-```go
-package main
-
-import (
-	"fmt"
-	"modulo/auxiliar"
-)
-
-func main() {
-	fmt.Print("Some logs message")
-	auxiliar.Execute("id")
+```json
+{
+    "message": {
+        "emailTemplateType": "WELCOME_EMAIL",
+        "appOwner": "mp-test",
+        "requestUserId": "123",
+        "to": [
+            "gabriel.estmr@gmail.com"
+        ],
+        "subject": "Test app",
+        "bodyParams": {
+            "Message": "Mensagem Teste",
+            "Name": "Gabriel Rodrigues"
+        }
+    },
+    "eventId": "11c68b42-b4f2-41d5-a392-3f342cb8fe41",
+    "eventDate": "2024-01-18T19:10:42.69149448-03:00"
 }
 ```
 
-https://zhwt.github.io/yaml-to-go/
 
-https://stackoverflow.com/questions/64712646/how-to-properly-disconnect-mongodb-client
 
-https://apiux.com/2013/04/25/how-to-localize-your-api/
-https://ip2location-go.readthedocs.io/en/latest/quickstart.html
 
-// TODO: check func
-// WHen to close connection
-// IF Connection failed, how to solve
+
+

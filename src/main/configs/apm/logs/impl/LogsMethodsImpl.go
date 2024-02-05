@@ -8,8 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"go.opentelemetry.io/otel/trace"
-	"net/http"
-	"time"
+	"log/slog"
 )
 
 const _MSG_LOKI_IMPL_ERROR_POST_LOKI_LOGS = "Error to send message to loki integration"
@@ -29,6 +28,7 @@ func (this *LogsMethodsImpl) DEBUG(
 	msg string,
 	args ...any,
 ) {
+	slog.Debug(msg)
 	go this.postLog(METHOD_DEBUG, span, msg, args)
 }
 
@@ -37,6 +37,7 @@ func (this *LogsMethodsImpl) WARN(
 	msg string,
 	args ...any,
 ) {
+	slog.Warn(msg)
 	go this.postLog(METHOD_WARN, span, msg, args)
 }
 
@@ -45,6 +46,7 @@ func (this *LogsMethodsImpl) INFO(
 	msg string,
 	args ...any,
 ) {
+	slog.Info(msg)
 	go this.postLog(METHOD_INFO, span, msg, args)
 }
 
@@ -53,6 +55,7 @@ func (this *LogsMethodsImpl) ERROR(
 	msg string,
 	args ...any,
 ) {
+	slog.Error(msg)
 	go this.postLog(METHOD_ERROR, span, msg, args)
 }
 
@@ -60,27 +63,22 @@ func (this *LogsMethodsImpl) postLog(
 	methodLog string,
 	span trace.Span,
 	msg string,
-	args ...any,
+	_ ...any,
 ) {
-	client := http.Client{
-		Timeout: 2000 * time.Millisecond,
+	if new(main_configs_apm_logs_resources.LogProfile).FromValue(methodLog).IsHigher(this.logConfig.GetLogProfile()) {
+		stringJson, err := main_gateways_logs_request2.NewLogMessage(
+			span.SpanContext().TraceID().String(),
+			span.SpanContext().SpanID().String(),
+			methodLog, msg, "", 1).TO_STRING_JSON()
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		request := main_gateways_logs_request2.NewCreateLogRequest(methodLog, this.logConfig.GetAppName(), stringJson)
+		body, _ := json.Marshal(request)
+		payload := bytes.NewBuffer(body)
+		_, errPost := this.logConfig.GetClient().Post(this.logConfig.GetBaseUrl(), "application/json", payload)
+		if errPost != nil {
+			fmt.Println(_MSG_LOKI_IMPL_ERROR_POST_LOKI_LOGS, errPost.Error())
+		}
 	}
-	baseUrl := "http://" + this.logConfig.GetHost() + "/loki/api/v1/push"
-
-	stringJson, err := main_gateways_logs_request2.NewLogMessage(
-		span.SpanContext().TraceID().String(),
-		span.SpanContext().SpanID().String(),
-		methodLog, msg, "", 1).TO_STRING_JSON()
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	request := main_gateways_logs_request2.NewCreateLogRequest(methodLog, this.logConfig.GetAppName(), stringJson)
-	body, _ := json.Marshal(request)
-	payload := bytes.NewBuffer(body)
-	_, errPost := client.Post(baseUrl, "application/json", payload)
-	if errPost != nil {
-		fmt.Println(_MSG_LOKI_IMPL_ERROR_POST_LOKI_LOGS, errPost.Error())
-	}
-
 }

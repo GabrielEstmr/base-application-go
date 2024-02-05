@@ -77,7 +77,7 @@ func (this *EmailController) ReprocessEmail(_ http.ResponseWriter, r *http.Reque
 	this.sendEmailEventsToReprocess.Execute(span.GetCtx(), emailRequest.Ids)
 
 	return *main_gateways_ws_commonsresources.NewControllerResponse(
-		http.StatusCreated,
+		http.StatusAccepted,
 		nil), nil
 }
 

@@ -6,6 +6,7 @@ services:
         dockerfile: Dockerfile
       restart: always
       environment:
+        APP_LOG_LEVEL: DEBUG
         MONGO_INITDB_ROOT_USERNAME: admin
         MONGO_INITDB_ROOT_PASSWORD: admin
         DB_MONGO_HOST: mongo
