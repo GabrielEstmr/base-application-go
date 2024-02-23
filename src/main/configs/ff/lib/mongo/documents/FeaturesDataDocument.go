@@ -2,6 +2,7 @@ package main_configs_ff_lib_mongo_documents
 
 import (
 	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
+	"reflect"
 )
 
 type FeaturesDataDocument struct {
@@ -20,13 +21,14 @@ func NewFeaturesDataDocument(featuresData main_configs_ff_lib_resources.Features
 	}
 }
 
-func (this *FeaturesDataDocument) IsEmpty() bool {
-	return *this == FeaturesDataDocument{}
+func (this FeaturesDataDocument) IsEmpty() bool {
+	document := *new(FeaturesDataDocument)
+	return reflect.DeepEqual(this, document)
 }
 
-func (this *FeaturesDataDocument) ToDomain() main_configs_ff_lib_resources.FeaturesData {
+func (this FeaturesDataDocument) ToDomain() main_configs_ff_lib_resources.FeaturesData {
 	if this.IsEmpty() {
-		return main_configs_ff_lib_resources.FeaturesData{}
+		return *new(main_configs_ff_lib_resources.FeaturesData)
 	}
 	return *main_configs_ff_lib_resources.NewFeaturesData(
 		this.Key,
@@ -36,10 +38,10 @@ func (this *FeaturesDataDocument) ToDomain() main_configs_ff_lib_resources.Featu
 	)
 }
 
-func (this *FeaturesDataDocument) IsEnabled() bool {
+func (this FeaturesDataDocument) IsEnabled() bool {
 	return this.DefaultValue == true
 }
 
-func (this *FeaturesDataDocument) IsDisabled() bool {
+func (this FeaturesDataDocument) IsDisabled() bool {
 	return this.DefaultValue == false
 }

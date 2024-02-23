@@ -17,6 +17,16 @@ func NewPageable(
 	}
 }
 
+func NewPageableNoSort(
+	page int64,
+	size int64,
+) *Pageable {
+	return &Pageable{
+		page: page,
+		size: size,
+	}
+}
+
 func (this *Pageable) GetPage() int64 {
 	return this.page
 }

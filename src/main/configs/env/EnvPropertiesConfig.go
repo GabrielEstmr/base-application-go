@@ -9,8 +9,8 @@ import (
 	"sync"
 )
 
-const _MSG_ENV_BEAN = "Invalid env property value."
-const _MSG_ERROR_READ_ENV_FILE = "Error to read .env file."
+const _MSG_ENV_BEAN = "invalid env property value"
+const _MSG_ERROR_READ_ENV_FILE = "error to read .env file"
 
 const YML_BASE_DIRECTORY_MAIN_REFERENCE = "./zresources"
 
@@ -27,21 +27,16 @@ func GetEnvConfigBean() *map[string]string {
 }
 
 func getEnvConfig() *map[string]string {
-
-	envNames := []string{
-		MP_INDICATOR_APPLICATION_PROFILE.GetDescription(),
-	}
-
 	err := godotenv.Load(YML_BASE_DIRECTORY_MAIN_REFERENCE + "/.env")
 	main_error.FailOnError(err, _MSG_ERROR_READ_ENV_FILE)
 
 	data := make(map[string]string)
-	for _, value := range envNames {
-		envValue := os.Getenv(value)
+	for _, value := range new(EnvironmentProperty).Values() {
+		envValue := os.Getenv(value.Name())
 		if envValue == "" {
 			log.Panicf("%s: %s", _MSG_ENV_BEAN, errors.New(_MSG_ENV_BEAN))
 		}
-		data[value] = envValue
+		data[value.Name()] = envValue
 	}
 	return &data
 }

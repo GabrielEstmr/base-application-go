@@ -42,7 +42,6 @@ func (this *TransactionController) CreateTransaction(w http.ResponseWriter, r *h
 
 	span := this.spanGateway.Get(r.Context(), "TransactionController-CreateTransaction")
 	defer span.End()
-
 	this.logsMonitoringGateway.INFO(span, "Creating a new transaction")
 
 	requestBody, err := io.ReadAll(r.Body)

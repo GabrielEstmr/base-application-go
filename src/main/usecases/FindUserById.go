@@ -54,9 +54,9 @@ func NewFindUserById(
 func (this *FindUserById) Execute(ctx context.Context, id string) (main_domains.User, main_domains_exceptions.ApplicationException) {
 	span := this.spanGateway.Get(ctx, "FindUserById-Execute")
 	defer span.End()
-	this.logsMonitoringGateway.DEBUG(span, fmt.Sprintf("FindUserById-Execute. id: %s", id))
+	this.logsMonitoringGateway.INFO(span, fmt.Sprintf("FindUserById-Execute. id: %s", id))
 
-	user, err := this.userDatabaseGateway.FindById(span.GetCtx(), id)
+	user, err := this.userDatabaseGateway.FindById(span.GetCtx(), id, nil)
 	if err != nil {
 		return main_domains.User{},
 			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(_MSG_FIND_USER_BY_ID_ARCH_ISSUE)

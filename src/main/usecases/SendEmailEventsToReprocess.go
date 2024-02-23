@@ -29,7 +29,6 @@ func NewSendEmailEventsToReprocessAllArgs(
 
 func (this *SendEmailEventsToReprocess) Execute(ctx context.Context, ids []string,
 ) {
-
 	span := this.spanGateway.Get(ctx, "ReprocessEmails-Execute")
 	defer span.End()
 	this.logsMonitoringGateway.DEBUG(span, "Reprocessing emails")

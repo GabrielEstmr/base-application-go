@@ -1,10 +1,17 @@
 package main_domains
 
-import "time"
+import (
+	main_domains_enums "baseapplicationgo/main/domains/enums"
+	"time"
+)
 
 type Account struct {
-	Id               string
-	UserId           string
-	CreatedDate      time.Time
-	LastModifiedDate time.Time
+	id                string
+	status            main_domains_enums.AccountStatus
+	ownerId           string
+	companies         []Company
+	subscriptionDate  time.Time
+	creationUserEmail string
+	createdDate       time.Time
+	lastModifiedDate  time.Time
 }

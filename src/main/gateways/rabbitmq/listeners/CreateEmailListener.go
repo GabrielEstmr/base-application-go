@@ -83,7 +83,7 @@ func (this *CreateEmailListener) Listen() {
 				d.MessageId,
 			)
 
-			this.logsMonitoringGateway.INFO(span, messageQueue)
+			this.logsMonitoringGateway.DEBUG(span, messageQueue)
 
 			var event main_gateways_rabbitmq_resources.EventUUID
 

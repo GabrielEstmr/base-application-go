@@ -54,7 +54,7 @@ func (this *CreateEmailFallback) Execute(
 	span := this.spanGateway.Get(ctx, "CreateEmailFallback-Execute")
 	defer span.End()
 
-	this.logsMonitoringGateway.INFO(span,
+	this.logsMonitoringGateway.DEBUG(span,
 		fmt.Sprintf("Creating new email by fallback process. eventId: %s", msgId))
 
 	emailDB, errF := this.emailDatabaseGateway.FindByEventId(span.GetCtx(), msgId)

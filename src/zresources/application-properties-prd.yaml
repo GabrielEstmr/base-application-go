@@ -1,6 +1,8 @@
 # Application Properties
 Application.Port:
-  value: 8080
+  value: 8081
+Application.log.level:
+  value: ${APP_LOG_LEVEL}
 
 # MongoDB Properties
 MongoDB.URI:
@@ -11,6 +13,22 @@ MongoDB.DatabaseName:
 # RabbitMQ Properties
 RabbitMQ.URI:
   value: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:5672/${RABBITMQ_DEFAULT_VHOST}
+
+## Rest Integration Properties
+Integration.authProvider.url:
+  value: http://localhost:8080
+Integration.authProvider.timeout-in-milliseconds:
+  value: 1000
+Integration.authProvider.client.id:
+  value: ${RM_USER_KEYCLOAK_CLIENT_ID}
+Integration.authProvider.client.secret:
+  value: ${RM_USER_KEYCLOAK_SECRET}
+Integration.authProvider.realm:
+  value: ${RM_USER_KEYCLOAK_REALM}
+Integration.authProvider.client.id.token.exchange:
+  value: ${RM_USER_KEYCLOAK_CLIENT_ID_TOKEN_EXCHANGE}
+Integration.authProvider.token.public.secret:
+  value: ${KEYCLOAK_TOKEN_CLIENT_PUBLIC_SECRET}
 
 ## Rest Integration Properties
 #Integration.mp-order-search.url:

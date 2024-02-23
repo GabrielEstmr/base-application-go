@@ -16,6 +16,7 @@ type ControllerBeans struct {
 	RabbitMqControllerV1Bean    *main_gateways_ws_v1.RabbitMqController
 	TransactionControllerV1Bean *main_gateways_ws_v1.TransactionController
 	EmailControllerV1Bean       *main_gateways_ws_v1.EmailController
+	SessionControllerV1Bean     *main_gateways_ws_v1.SessionController
 }
 
 func GetControllerBeans() *ControllerBeans {
@@ -34,5 +35,6 @@ func subscriptControllerBeans() *ControllerBeans {
 		RabbitMqControllerV1Bean:    main_gateways_ws_beans_factories.NewRabbitMqControllerBean().Get(),
 		TransactionControllerV1Bean: main_gateways_ws_beans_factories.NewTransactionControllerBean().Get(),
 		EmailControllerV1Bean:       main_gateways_ws_beans_factories.NewEmailControllerBean().Get(),
+		SessionControllerV1Bean:     main_gateways_ws_beans_factories.NewSessionControllerBean().Get(),
 	}
 }

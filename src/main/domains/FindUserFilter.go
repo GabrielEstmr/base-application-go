@@ -1,61 +1,27 @@
 package main_domains
 
-import "time"
+import (
+	main_domains_enums "baseapplicationgo/main/domains/enums"
+	"time"
+)
 
 type FindUserFilter struct {
-	name                  []string
-	documentNumber        []string
-	birthday              []time.Time
-	startCreatedDate      time.Time
-	endCreatedDate        time.Time
-	startLastModifiedDate time.Time
-	endLastModifiedDate   time.Time
-}
-
-func NewFindUserFilter(
-	name []string,
-	documentNumber []string,
-	birthday []time.Time,
-	startCreatedDate time.Time,
-	endCreatedDate time.Time,
-	startLastModifiedDate time.Time,
-	endLastModifiedDate time.Time,
-) *FindUserFilter {
-	return &FindUserFilter{
-		name:                  name,
-		documentNumber:        documentNumber,
-		birthday:              birthday,
-		startCreatedDate:      startCreatedDate,
-		endCreatedDate:        endCreatedDate,
-		startLastModifiedDate: startLastModifiedDate,
-		endLastModifiedDate:   endLastModifiedDate,
-	}
-}
-
-func (f FindUserFilter) GetName() []string {
-	return f.name
-}
-
-func (f FindUserFilter) GetDocumentNumber() []string {
-	return f.documentNumber
-}
-
-func (f FindUserFilter) GetBirthday() []time.Time {
-	return f.birthday
-}
-
-func (f FindUserFilter) GetStartCreatedDate() time.Time {
-	return f.startCreatedDate
-}
-
-func (f FindUserFilter) GetEndCreatedDate() time.Time {
-	return f.endCreatedDate
-}
-
-func (f FindUserFilter) GetStartLastModifiedDate() time.Time {
-	return f.startLastModifiedDate
-}
-
-func (f FindUserFilter) GetEndLastModifiedDate() time.Time {
-	return f.endLastModifiedDate
+	Ids                   []string
+	AccountIds            []string
+	AuthProviderIds       []string
+	DocumentIds           []string
+	UserNames             []string
+	FirstNames            []string
+	LastNames             []string
+	Emails                []string
+	EmailsVerified        []bool
+	Statuses              []main_domains_enums.UserStatus
+	Roles                 []string
+	ProviderTypes         []main_domains_enums.AuthProviderType
+	StartBirthdayDate     time.Time
+	EndBirthdayDate       time.Time
+	StartCreatedDate      time.Time
+	EndCreatedDate        time.Time
+	StartLastModifiedDate time.Time
+	EndLastModifiedDate   time.Time
 }

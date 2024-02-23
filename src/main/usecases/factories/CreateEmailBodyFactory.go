@@ -32,8 +32,7 @@ func (this *CreateEmailBodyFactory) Get(ctx context.Context,
 	span := this.spanGateway.Get(ctx, "CreateEmailBodyFactory-Get")
 	defer span.End()
 	this.logsMonitoringGateway.DEBUG(span,
-		fmt.Sprintf("CreateEmailBodyFactory. emailType: %s",
-			main_domains_enums.GetEmailTemplateTypeDescription(emailType)))
+		fmt.Sprintf("CreateEmailBodyFactory. emailType: %s", emailType.Name()))
 
 	if emailType == main_domains_enums.EMAIL_TYPE_WELCOME_EMAIL {
 		return this.createWelcomeEmailTemplateBody

@@ -8,6 +8,7 @@ import (
 	main_gateways_ws_v1_request "baseapplicationgo/main/gateways/ws/v1/request"
 	main_gateways_ws_v1_response "baseapplicationgo/main/gateways/ws/v1/response"
 	main_usecases "baseapplicationgo/main/usecases"
+	main_usecases_lockers "baseapplicationgo/main/usecases/lockers"
 	main_utils_messages "baseapplicationgo/main/utils/messages"
 	"encoding/json"
 	"fmt"
@@ -20,20 +21,32 @@ const _USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY = "controllers.param.missi
 const _USER_CONTROLLER_MSG_KEY_ARCH_ISSUE = "exceptions.architecture.application.issue"
 
 const _USER_CONTROLLER_PATH_PREFIX = "/api/v1/users/"
+const _USER_CONTROLLER_PATH_SUFFIX_ENABLE_EXTERNAL = "/authentication-providers/external-provider/enable"
+const _USER_CONTROLLER_PATH_SUFFIX_ENABLE_INTERNAL = "/authentication-providers/internal-provider/enable"
+const _USER_CONTROLLER_PATH_SUFFIX_REQ_CHANGE_PASS_INTERNAL = "/authentication-providers/internal-provider/enable/change-password"
+const _USER_CONTROLLER_PATH_SUFFIX_ENABLE_CHANGE_PASS_INTERNAL = "/authentication-providers/internal-provider/enable/validate-change-password"
 
 type UserController struct {
-	createNewUser         *main_usecases.CreateNewUser
-	findUserById          *main_usecases.FindUserById
-	findUsersByFilter     *main_usecases.FindUsersByFilter
-	messageUtils          main_utils_messages.ApplicationMessages
-	logsMonitoringGateway main_gateways.LogsMonitoringGateway
-	spanGateway           main_gateways.SpanGateway
+	createNewUser              *main_usecases_lockers.AtomicLockedCreateNewUser
+	findUserById               *main_usecases.FindUserById
+	findUsersByFilter          *main_usecases.FindUsersByFilter
+	enableInternalProviderUser *main_usecases_lockers.AtomicLockedEnableInternalProviderUser
+	enableExternalProviderUser *main_usecases_lockers.AtomicLockedEnableExternalProviderUser
+	requestPasswordChange      *main_usecases_lockers.AtomicLockedCreateInternalAuthUserPasswordChangeRequest
+	changePassword             *main_usecases_lockers.AtomicLockedChangeInternalProviderUserPassword
+	messageUtils               main_utils_messages.ApplicationMessages
+	logsMonitoringGateway      main_gateways.LogsMonitoringGateway
+	spanGateway                main_gateways.SpanGateway
 }
 
 func NewUserController(
-	createNewUser *main_usecases.CreateNewUser,
+	createNewUser *main_usecases_lockers.AtomicLockedCreateNewUser,
 	findUserById *main_usecases.FindUserById,
 	findUsersByFilter *main_usecases.FindUsersByFilter,
+	enableInternalProviderUser *main_usecases_lockers.AtomicLockedEnableInternalProviderUser,
+	enableExternalProviderUser *main_usecases_lockers.AtomicLockedEnableExternalProviderUser,
+	requestPasswordChange *main_usecases_lockers.AtomicLockedCreateInternalAuthUserPasswordChangeRequest,
+	changePassword *main_usecases_lockers.AtomicLockedChangeInternalProviderUserPassword,
 	logsMonitoringGateway main_gateways.LogsMonitoringGateway,
 	spanGateway main_gateways.SpanGateway,
 ) *UserController {
@@ -41,6 +54,10 @@ func NewUserController(
 		createNewUser,
 		findUserById,
 		findUsersByFilter,
+		enableInternalProviderUser,
+		enableExternalProviderUser,
+		requestPasswordChange,
+		changePassword,
 		*main_utils_messages.NewApplicationMessages(),
 		logsMonitoringGateway,
 		spanGateway,
@@ -52,20 +69,9 @@ func (this *UserController) CreateUser(_ http.ResponseWriter, r *http.Request) (
 	main_domains_exceptions.ApplicationException,
 ) {
 
-	//ctx := context.Background()
 	span := this.spanGateway.Get(r.Context(), "UserController-CreateUser")
 	defer span.End()
-
 	this.logsMonitoringGateway.INFO(span, "Creating a new user")
-
-	//roll := 1 + rand.Intn(6)
-	//rollCnt, err := meter.Int64Counter("dice.rolls")
-	//rollValueAttr := attribute.Int("roll.value", roll)
-	//if err != nil {
-	//	panic(err)
-	//}
-	//span.SetAttributes(rollValueAttr)
-	//rollCnt.Add(r.Context(), 1)
 
 	requestBody, err := io.ReadAll(r.Body)
 	if err != nil || len(requestBody) == 0 {
@@ -103,8 +109,184 @@ func (this *UserController) CreateUser(_ http.ResponseWriter, r *http.Request) (
 		main_gateways_ws_v1_response.NewUserResponse(persistedUser)), nil
 }
 
+func (this *UserController) EnableInternalAuthUser(_ http.ResponseWriter, r *http.Request) (
+	main_gateways_ws_commonsresources.ControllerResponse,
+	main_domains_exceptions.ApplicationException,
+) {
+
+	span := this.spanGateway.Get(r.Context(), "UserController-EnableInternalAuthUser")
+	defer span.End()
+	this.logsMonitoringGateway.INFO(span, "Enabling a new user")
+
+	id := strings.TrimSuffix(strings.TrimPrefix(r.URL.Path, _USER_CONTROLLER_PATH_PREFIX),
+		_USER_CONTROLLER_PATH_SUFFIX_ENABLE_INTERNAL)
+
+	requestBody, err := io.ReadAll(r.Body)
+	if err != nil || len(requestBody) == 0 {
+		return *new(main_gateways_ws_commonsresources.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY))
+	}
+
+	var userRequest main_gateways_ws_v1_request.EnableInternalUserRequest
+	if err = json.Unmarshal(requestBody, &userRequest); err != nil {
+		return *new(main_gateways_ws_commonsresources.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY))
+	}
+
+	bodyErr := userRequest.Validate()
+	if bodyErr != nil {
+		this.logsMonitoringGateway.ERROR(span, bodyErr.Error())
+		return *new(main_gateways_ws_commonsresources.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				bodyErr.Error())
+	}
+
+	enabledUser, errApp := this.enableInternalProviderUser.Execute(span.GetCtx(), id, userRequest.Email, userRequest.VerificationCode)
+	if errApp != nil {
+		this.logsMonitoringGateway.ERROR(span, errApp.Error())
+		return *new(main_gateways_ws_commonsresources.ControllerResponse), errApp
+	}
+
+	return *main_gateways_ws_commonsresources.NewControllerResponse(
+		http.StatusCreated,
+		main_gateways_ws_v1_response.NewUserResponse(enabledUser)), nil
+}
+
+func (this *UserController) EnableExternalAuthUser(_ http.ResponseWriter, r *http.Request) (
+	main_gateways_ws_commonsresources.ControllerResponse,
+	main_domains_exceptions.ApplicationException,
+) {
+
+	span := this.spanGateway.Get(r.Context(), "UserController-EnableExternalAuthUser")
+	defer span.End()
+	this.logsMonitoringGateway.INFO(span, "Enabling a new user")
+
+	id := strings.TrimSuffix(strings.TrimPrefix(r.URL.Path, _USER_CONTROLLER_PATH_PREFIX),
+		_USER_CONTROLLER_PATH_SUFFIX_ENABLE_EXTERNAL)
+
+	requestBody, err := io.ReadAll(r.Body)
+	if err != nil || len(requestBody) == 0 {
+		return *new(main_gateways_ws_commonsresources.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY))
+	}
+
+	var userRequest main_gateways_ws_v1_request.EnableExternalUserRequest
+	if err = json.Unmarshal(requestBody, &userRequest); err != nil {
+		return *new(main_gateways_ws_commonsresources.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY))
+	}
+
+	bodyErr := userRequest.Validate()
+	if bodyErr != nil {
+		this.logsMonitoringGateway.ERROR(span, bodyErr.Error())
+		return *new(main_gateways_ws_commonsresources.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				bodyErr.Error())
+	}
+
+	enabledUser, errApp := this.enableExternalProviderUser.Execute(span.GetCtx(), id, userRequest.ToDomain())
+	if errApp != nil {
+		this.logsMonitoringGateway.ERROR(span, errApp.Error())
+		return *new(main_gateways_ws_commonsresources.ControllerResponse), errApp
+	}
+
+	return *main_gateways_ws_commonsresources.NewControllerResponse(
+		http.StatusCreated,
+		main_gateways_ws_v1_response.NewUserResponse(enabledUser)), nil
+}
+
+func (this *UserController) RequestChangePasswordInternalProvider(_ http.ResponseWriter, r *http.Request) (
+	main_gateways_ws_commonsresources.ControllerResponse,
+	main_domains_exceptions.ApplicationException,
+) {
+
+	span := this.spanGateway.Get(r.Context(), "UserController-RequestChangePasswordInternalProvider")
+	defer span.End()
+	this.logsMonitoringGateway.INFO(span, "Changing password for internal provider")
+
+	id := strings.TrimSuffix(strings.TrimPrefix(r.URL.Path, _USER_CONTROLLER_PATH_PREFIX),
+		_USER_CONTROLLER_PATH_SUFFIX_REQ_CHANGE_PASS_INTERNAL)
+
+	requestBody, err := io.ReadAll(r.Body)
+	if err != nil || len(requestBody) == 0 {
+		return *new(main_gateways_ws_commonsresources.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY))
+	}
+
+	errApp := this.requestPasswordChange.Execute(span.GetCtx(), id)
+	if errApp != nil {
+		this.logsMonitoringGateway.ERROR(span, errApp.Error())
+		return *new(main_gateways_ws_commonsresources.ControllerResponse), errApp
+	}
+
+	return *main_gateways_ws_commonsresources.NewControllerResponse(
+		http.StatusAccepted,
+		nil), nil
+}
+
+func (this *UserController) ValidateChangePasswordInternalProvider(_ http.ResponseWriter, r *http.Request) (
+	main_gateways_ws_commonsresources.ControllerResponse,
+	main_domains_exceptions.ApplicationException,
+) {
+
+	span := this.spanGateway.Get(r.Context(), "UserController-ValidateChangePasswordInternalProvider")
+	defer span.End()
+	this.logsMonitoringGateway.INFO(span, "Validating Changing password")
+
+	id := strings.TrimSuffix(strings.TrimPrefix(r.URL.Path, _USER_CONTROLLER_PATH_PREFIX),
+		_USER_CONTROLLER_PATH_SUFFIX_ENABLE_CHANGE_PASS_INTERNAL)
+
+	requestBody, err := io.ReadAll(r.Body)
+	if err != nil || len(requestBody) == 0 {
+		return *new(main_gateways_ws_commonsresources.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY))
+	}
+
+	var changePasswordRequest main_gateways_ws_v1_request.ChangeUserPasswordRequest
+	if err = json.Unmarshal(requestBody, &changePasswordRequest); err != nil {
+		return *new(main_gateways_ws_commonsresources.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				this.messageUtils.GetDefaultLocale(
+					_USER_CONTROLLER_MSG_KEY_MALFORMED_REQUEST_BODY))
+	}
+
+	bodyErr := changePasswordRequest.Validate()
+	if bodyErr != nil {
+		this.logsMonitoringGateway.ERROR(span, bodyErr.Error())
+		return *new(main_gateways_ws_commonsresources.ControllerResponse),
+			main_domains_exceptions.NewBadRequestExceptionSglMsg(
+				bodyErr.Error())
+	}
+
+	passwordChange, errApp := this.changePassword.Execute(
+		span.GetCtx(),
+		id,
+		changePasswordRequest.Password,
+		changePasswordRequest.VerificationCode)
+	if errApp != nil {
+		this.logsMonitoringGateway.ERROR(span, errApp.Error())
+		return *new(main_gateways_ws_commonsresources.ControllerResponse), errApp
+	}
+
+	return *main_gateways_ws_commonsresources.NewControllerResponse(
+		http.StatusCreated,
+		main_gateways_ws_v1_response.NewUserResponse(passwordChange)), nil
+}
+
 func (this *UserController) FindUserById(
-	w http.ResponseWriter,
+	_ http.ResponseWriter,
 	r *http.Request,
 ) (
 	main_gateways_ws_commonsresources.ControllerResponse,

@@ -15,7 +15,6 @@ type TransactionDocument struct {
 }
 
 func NewTransactionDocument(transaction main_domains.Transaction) TransactionDocument {
-	// TODO: create id from user.id
 	return TransactionDocument{
 		AccountId:        transaction.GetAccountId(),
 		OperationTypeId:  transaction.GetOperationTypeId(),

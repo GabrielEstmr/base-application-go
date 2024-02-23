@@ -12,8 +12,6 @@ import (
 	"log"
 )
 
-const _REPROCESS_EMAIL_RABBITMQ_URI_YML_IDX = "RabbitMQ.URI"
-
 type ReprocessEmailEventProducer struct {
 	spanGateway main_gateways.SpanGateway
 }
@@ -28,7 +26,7 @@ func (this *ReprocessEmailEventProducer) Produce(
 	span := this.spanGateway.Get(ctx, "ReprocessEmailEventProducer - Produce")
 	defer span.End()
 
-	rabbitMqURI := main_configs_yml.GetYmlValueByName(_REPROCESS_EMAIL_RABBITMQ_URI_YML_IDX)
+	rabbitMqURI := main_configs_yml.GetYmlValueByName(main_configs_yml.RabbitMQURI)
 	conn, errConn := amqp091.Dial(rabbitMqURI)
 	if errConn != nil {
 		return errConn
@@ -47,7 +45,7 @@ func (this *ReprocessEmailEventProducer) Produce(
 
 	err := ch.PublishWithContext(span.GetCtx(),
 		main_configs_rabbitmq_paramaters.EXCHANGE_RM_NOTIFICATION_REPROCESS_EMAIL,
-		main_configs_rabbitmq_paramaters.ROUTING_RM_NOTIFICATION_REPROCESS_EMAIL,
+		main_configs_rabbitmq_paramaters.ROUTING_RM_NOTIFICATION_CREATE_EMAIL,
 		false,
 		false,
 		amqp091.Publishing{

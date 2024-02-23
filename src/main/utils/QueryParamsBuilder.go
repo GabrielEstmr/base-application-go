@@ -24,7 +24,7 @@ func NewQueryParams(obj interface{}) *QueryParams {
 
 func QueryParamsToObject(
 	any *QueryParams,
-	w http.ResponseWriter,
+	_ http.ResponseWriter,
 	r *http.Request,
 ) (
 	*QueryParams,

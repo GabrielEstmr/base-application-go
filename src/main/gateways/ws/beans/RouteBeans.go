@@ -53,6 +53,27 @@ func getFunctionBeans() map[string]Route {
 			),
 		},
 		{
+			URI:    API_V1_PREFIX + "/users/{id}/authentication-providers/internal-provider/enable",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.UserControllerV1Bean.EnableInternalAuthUser),
+			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP,
+				main_gateways_ws_middlewares.NewAcceptJsonContentTypeHeaderMiddleware().ServeHTTP,
+			),
+		},
+		{
+			URI:    API_V1_PREFIX + "/users/{id}/authentication-providers/external-provider/enable",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.UserControllerV1Bean.EnableExternalAuthUser),
+			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP,
+			),
+		},
+		{
 			URI:    API_V1_PREFIX + "/users/{id}",
 			Method: http.MethodGet,
 			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
@@ -130,6 +151,42 @@ func getFunctionBeans() map[string]Route {
 			Handler: *main_gateways_ws_commons.NewMiddlewares(
 				main_gateways_ws_middlewares.NewAcceptJsonContentTypeHeaderMiddleware().ServeHTTP,
 			),
+		},
+		{
+			URI:    API_V1_PREFIX + "/sessions/external-provider/token",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.SessionControllerV1Bean.CreateExternalProviderSession),
+			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP),
+		},
+		{
+			URI:    API_V1_PREFIX + "/sessions/internal-provider/token",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.SessionControllerV1Bean.CreateInternalProviderSession),
+			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP),
+		},
+		{
+			URI:    API_V1_PREFIX + "/sessions/refresh-token",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.SessionControllerV1Bean.RefreshSession),
+			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP),
+		},
+		{
+			URI:    API_V1_PREFIX + "/sessions/logout",
+			Method: http.MethodPost,
+			ControllerParams: *main_gateways_ws_commons.NewControllerParams(
+				beans.SessionControllerV1Bean.RefreshSession),
+			AuthRequired: false,
+			Handler: *main_gateways_ws_commons.NewMiddlewares(
+				main_gateways_ws_middlewares.NewAcceptJsonAcceptHeaderMiddleware().ServeHTTP),
 		},
 	}
 

@@ -84,7 +84,7 @@ func (this *ReprocessEmailListener) Listen() {
 				d.MessageId,
 			)
 
-			this.logsMonitoringGateway.INFO(span, messageQueue)
+			this.logsMonitoringGateway.DEBUG(span, messageQueue)
 
 			var event main_gateways_rabbitmq_resources.Event
 			msgB, errM := event.GetMessageJSON(d.Body)

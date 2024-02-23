@@ -12,8 +12,6 @@ import (
 	"log"
 )
 
-const _RABBITMQ_URI_YML_IDX = "RabbitMQ.URI"
-
 type RabbiMQTransactionProducer struct {
 	spanGateway main_gateways.SpanGateway
 }
@@ -29,7 +27,7 @@ func (this *RabbiMQTransactionProducer) Produce(
 	span := this.spanGateway.Get(ctx, "RabbiMQTransactionProducer - Produce")
 	defer span.End()
 
-	rabbitMqURI := main_configs_yml.GetYmlValueByName(_RABBITMQ_URI_YML_IDX)
+	rabbitMqURI := main_configs_yml.GetYmlValueByName(main_configs_yml.RabbitMQURI)
 	conn, errConn := amqp091.Dial(rabbitMqURI)
 	if errConn != nil {
 		return errConn

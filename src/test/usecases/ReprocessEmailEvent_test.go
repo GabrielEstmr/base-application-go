@@ -26,6 +26,7 @@ type testReprocessEmailEventInputs struct {
 type testReprocessEmailEventFields struct {
 	emailDatabaseGateway                main_gateways.EmailDatabaseGateway
 	createEmailBodySendAndPersistAsSent main_usecases_interfaces.CreateEmailBodySendAndPersistAsSent
+	lockGateway                         main_gateways.DistributedLockGateway
 	logsMonitoringGateway               main_gateways.LogsMonitoringGateway
 	spanGateway                         main_gateways.SpanGateway
 	messageUtils                        main_utils_messages.ApplicationMessages
@@ -57,6 +58,7 @@ func TestReprocessEmailEvent_Execute_ShouldReturnNewResourceNotFoundExceptionWhe
 	fields := testReprocessEmailEventFields{
 		emailDatabaseGatewayMock,
 		new(test_mocks.CreateEmailBodySendAndPersistAsSentMock),
+		new(test_mocks.LockGatewayMock),
 		new(test_mocks.LogsMonitoringGatewayMock),
 		new(test_mocks.SpanGatewayMockImpl),
 		messageUtilsMock,
@@ -99,6 +101,7 @@ func TestReprocessEmailEvent_Execute_ShouldReturnNilWhenEmailIsEmpty(t *testing.
 	fields := testReprocessEmailEventFields{
 		emailDatabaseGatewayMock,
 		new(test_mocks.CreateEmailBodySendAndPersistAsSentMock),
+		new(test_mocks.LockGatewayMock),
 		new(test_mocks.LogsMonitoringGatewayMock),
 		new(test_mocks.SpanGatewayMockImpl),
 		messageUtilsMock,
@@ -149,6 +152,7 @@ func TestReprocessEmailEvent_Execute_ShouldNotReprocessEmailEventEmailAsSentOrEr
 		fields := testReprocessEmailEventFields{
 			emailDatabaseGatewayMock,
 			new(test_mocks.CreateEmailBodySendAndPersistAsSentMock),
+			new(test_mocks.LockGatewayMock),
 			new(test_mocks.LogsMonitoringGatewayMock),
 			new(test_mocks.SpanGatewayMockImpl),
 			messageUtilsMock,
@@ -211,6 +215,7 @@ func TestReprocessEmailEvent_Execute_ShouldReturnInternalServerErrorExceptionWhe
 		fields := testReprocessEmailEventFields{
 			emailDatabaseGatewayMock,
 			createEmailBodyMock,
+			new(test_mocks.LockGatewayMock),
 			new(test_mocks.LogsMonitoringGatewayMock),
 			new(test_mocks.SpanGatewayMockImpl),
 			messageUtilsMock,
@@ -271,6 +276,7 @@ func TestReprocessEmailEvent_Execute_ShouldReprocessEmailEventWhenEmailIsAsStart
 		fields := testReprocessEmailEventFields{
 			emailDatabaseGatewayMock,
 			createEmailBodyMock,
+			new(test_mocks.LockGatewayMock),
 			new(test_mocks.LogsMonitoringGatewayMock),
 			new(test_mocks.SpanGatewayMockImpl),
 			messageUtilsMock,
@@ -302,6 +308,7 @@ func testReprocessEmailEvent_Execute_RunTests(t *testing.T, params []testReproce
 			provider := main_usecases.NewReprocessEmailEventAllArgs(
 				tt.fields.emailDatabaseGateway,
 				tt.fields.createEmailBodySendAndPersistAsSent,
+				tt.fields.lockGateway,
 				tt.fields.logsMonitoringGateway,
 				tt.fields.spanGateway,
 				tt.fields.messageUtils)

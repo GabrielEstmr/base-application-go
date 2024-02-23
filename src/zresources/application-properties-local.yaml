@@ -1,10 +1,12 @@
 # Application Properties
 Application.Port:
-  value: 8080
+  value: 8081
+Application.log.level:
+  value: DEBUG
 
 # MongoDB Properties
 MongoDB.URI:
-  value: mongodb://admin:admin@localhost:27017
+  value: mongodb://localhost:27017/?directConnection=true&readPreference=primary&replicaSet=rs0
 MongoDB.DatabaseName:
   value: dbApplicationGo
 
@@ -13,8 +15,24 @@ RabbitMQ.URI:
   value: amqp://admin:admin@localhost:5672/dev01_mktplace
 
 ## Rest Integration Properties
+Integration.authProvider.url:
+  value: http://localhost:8080
+Integration.authProvider.timeout-in-milliseconds:
+  value: 1000
+Integration.authProvider.client.id:
+  value: insomnia_test
+Integration.authProvider.client.secret:
+  value: K0GfhwoJEBKAsDPDCOAzWsoJ0Fu74ji5
+Integration.authProvider.realm:
+  value: myrealm
+Integration.authProvider.client.id.token.exchange:
+  value: keycloak_client
+Integration.authProvider.token.public.secret:
+  value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmJ8jvjD4wXx5JWA0y9vvNkhFvgZgrptatuyvm34JYeYpc74Ft3UR6Gp0BdfcGtUXbBbwB5NBq5McREJkcnqsNAm2AVIuwgPudENmoYLy+5imwDIZucf0sePS9USoC0JYefpfCPJokF9zFHIxiLvh+lVQuOqWmw9nGyffmInyCYy5YFBufcnBX16n3TTrbce8AUQmUl3Puj742RpZhpe9UJd/mhVOwF2DbqwUVc1h6Z+46y3z1gESAJeb8uIhM6s6bXh9t2gRSojzwJfyNlKu91tCwvHYY59lWfKiDo+gihQvC07pXf1llqe4Cp3HJ0d6W5PJ64PWQXatznOy680gzwIDAQAB
+
+## Rest Integration Properties
 #Integration.mp-order-search.url:
-#  value: https://mkt-ingress-prd.luizalabs.com/mp-order-search
+#  value: ${INTEGRATION_MP_ORDER_SEARCH_URL}/mp-order-search
 
 # Cache Properties
 Redis.hosts:

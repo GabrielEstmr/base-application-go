@@ -2,7 +2,6 @@ package main_gateways_ws_v1_response
 
 import (
 	main_domains "baseapplicationgo/main/domains"
-	main_domains_enums "baseapplicationgo/main/domains/enums"
 )
 
 type EmailParamsResponse struct {
@@ -19,7 +18,7 @@ func NewEmailParamsResponse(
 ) *EmailParamsResponse {
 	return &EmailParamsResponse{
 		AppOwner:          emailParams.GetAppOwner(),
-		EmailTemplateType: main_domains_enums.GetEmailTemplateTypeDescription(emailParams.GetEmailTemplateType()),
+		EmailTemplateType: emailParams.GetEmailTemplateType().Name(),
 		RequestUserId:     emailParams.GetRequestUserId(),
 		To:                emailParams.GetTo(),
 		Subject:           emailParams.GetSubject(),

@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-// TODO: ver como colocar swagger
 func ConfigRoutes(r *mux.Router, routes map[string]main_gateways_ws_beans.Route) *mux.Router {
 	for _, route := range routes {
 		subRouter := r.PathPrefix(route.URI).Subrouter()

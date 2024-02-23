@@ -9,8 +9,6 @@ import (
 
 const _MSG_EMAIL_BEAN_INITIALIZING = "Initializing email clients"
 const _MSG_EMAIL_BEAN_FINISHED = "Email clients successfully initialized"
-const _GMAIL_EMAIL_CLIENT_EMAIL_KEY = "Email.gmail.credentials.email"
-const _GMAIL_EMAIL_CLIENT_PASSWORD_KEY = "Email.gmail.credentials.password"
 
 var once sync.Once
 var emailClientsProps *map[string]main_configs_email_resources.EmailClientProps
@@ -38,7 +36,7 @@ func getEmailConfigs() *map[string]main_configs_email_resources.EmailClientProps
 }
 
 func getGmailCredentials() main_configs_email_resources.EmailClientProps {
-	gmailClientEmail := main_configs_yml.GetYmlValueByName(_GMAIL_EMAIL_CLIENT_EMAIL_KEY)
-	gmailClientPassword := main_configs_yml.GetYmlValueByName(_GMAIL_EMAIL_CLIENT_PASSWORD_KEY)
+	gmailClientEmail := main_configs_yml.GetYmlValueByName(main_configs_yml.EmailGmailCredentialsEmail)
+	gmailClientPassword := main_configs_yml.GetYmlValueByName(main_configs_yml.EmailGmailCredentialsPassword)
 	return *main_configs_email_resources.NewEmailClientProps(main_configs_email_resources.GMAIL, gmailClientEmail, gmailClientPassword)
 }

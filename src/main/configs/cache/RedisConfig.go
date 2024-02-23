@@ -11,8 +11,6 @@ import (
 const _MSG_ATTEMPT_TO_CONNECT_TO_REDIS_CLIENT = "Attempt to connect to redis client %s"
 const _MSG_SUCESSFULLY_CONNECTED_TO_REDIS_CLIENT = "Successfully connected to redis client %s"
 
-const _REDIS_HOST_NODE1 = "Redis.hosts"
-
 var redisClientBean *redis.Client
 var once sync.Once
 
@@ -28,7 +26,7 @@ func GetRedisClusterBean() *redis.Client {
 }
 
 func getRedisCluster() *redis.Client {
-	redisHost := main_configs_yml.GetYmlValueByName(_REDIS_HOST_NODE1)
+	redisHost := main_configs_yml.GetYmlValueByName(main_configs_yml.RedisHosts)
 
 	slog.Info(_MSG_ATTEMPT_TO_CONNECT_TO_REDIS_CLIENT, redisHost)
 

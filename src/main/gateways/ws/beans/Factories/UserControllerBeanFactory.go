@@ -20,9 +20,13 @@ func (this *UserControllerBean) Get() *main_gateways_ws_v1.UserController {
 	var spanGatewayImpl main_gateways.SpanGateway = main_gateways_spans.NewSpanGatewayImpl()
 	usecaseBeans := main_usecases_beans.GetUsecaseBeans()
 	userController := *main_gateways_ws_v1.NewUserController(
-		usecaseBeans.CreateNewUser,
+		usecaseBeans.AtomicLockedCreateNewUser,
 		usecaseBeans.FindUserById,
 		usecaseBeans.FindUsersByFilter,
+		usecaseBeans.AtomicLockedEnableInternalProviderUser,
+		usecaseBeans.AtomicLockedEnableExternalProviderUser,
+		usecaseBeans.AtomicLockedCreateInternalAuthUserPasswordChangeRequest,
+		usecaseBeans.AtomicLockedChangeInternalProviderUserPassword,
 		logsMonitoringGateway,
 		spanGatewayImpl,
 	)

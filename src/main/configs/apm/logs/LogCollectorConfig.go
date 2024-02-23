@@ -13,10 +13,6 @@ const _MSG_INIT_LOG_EXPORTER = "Initializing logs exporter"
 const _MSG_FINAL_LOG_PROVIDER = "Log provider has been instantiated"
 const _MSG_ERROR_LOG_EXPORTER_TIMEOUT_CONFIG = "Error to instantiate logs exporter. Timeout config is not a number"
 
-const _METRIC_APM_CLUSTER_LOKI_HOST_YML = "Apm.server.loki.collector.http.host"
-const _METRIC_APM_CLUSTER_LOKI_TIMEOUT_YML = "Apm.server.loki.collector.http.timeout.milliseconds"
-const _APP_NAME_YML = "Apm.server.name"
-
 var onceLogs sync.Once
 var logProviderBean *main_configs_apm_logs_resources.LogProviderConfig
 
@@ -32,13 +28,15 @@ func GetLogProviderBean() *main_configs_apm_logs_resources.LogProviderConfig {
 func getLogProvider() *main_configs_apm_logs_resources.LogProviderConfig {
 	log.Println(_MSG_INIT_LOG_EXPORTER)
 
-	timeout, err := strconv.Atoi(main_configs_yml.GetYmlValueByName(_METRIC_APM_CLUSTER_LOKI_TIMEOUT_YML))
+	timeout, err := strconv.Atoi(main_configs_yml.GetYmlValueByName(main_configs_yml.ApmServerLokiCollectorHttpTimeoutMilliseconds))
 	main_error.FailOnError(err, _MSG_ERROR_LOG_EXPORTER_TIMEOUT_CONFIG)
 
 	log.Println(_MSG_FINAL_LOG_PROVIDER)
+
 	return main_configs_apm_logs_resources.NewLogProviderConfig(
-		main_configs_yml.GetYmlValueByName(_APP_NAME_YML),
-		main_configs_yml.GetYmlValueByName(_METRIC_APM_CLUSTER_LOKI_HOST_YML),
+		main_configs_yml.GetYmlValueByName(main_configs_yml.ApmServerName),
+		main_configs_yml.GetYmlValueByName(main_configs_yml.ApmServerLokiCollectorHttpHost),
+		new(main_configs_apm_logs_resources.LogProfile).FromValue(main_configs_yml.GetYmlValueByName(main_configs_yml.ApplicationLogLevel)),
 		timeout,
 	)
 }

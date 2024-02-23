@@ -17,8 +17,6 @@ const _MSG_RABBITMQ_CLOSE_CONNECT_FAILURE = "Failed to close RabbitMQ connection
 const _MSG_RABBITMQ_CLOSE_CHANNEL_FAILURE = "Failed to close RabbitMQ channel"
 const _MSG_RABBITMQ_DECLARE_QUEUE_FAILURE = "Failed to declare a queue"
 
-const _RABBITMQ_URI_YML_IDX = "RabbitMQ.URI"
-
 func CloseRabbitMqConnection(conn *amqp091.Connection) {
 	err := conn.Close()
 	main_configs_error.FailOnError(err, _MSG_RABBITMQ_CLOSE_CONNECT_FAILURE)
@@ -30,7 +28,7 @@ func CloseRabbitMqChannel(ch *amqp091.Channel) {
 }
 
 func GetConnection() *amqp091.Connection {
-	rabbitMqURI := main_configs_yml.GetYmlValueByName(_RABBITMQ_URI_YML_IDX)
+	rabbitMqURI := main_configs_yml.GetYmlValueByName(main_configs_yml.RabbitMQURI)
 	log.Println(fmt.Sprintf(_MSG_TRYING_TO_CONNECT_TO_RABBITMQ, rabbitMqURI))
 
 	conn, err := amqp091.Dial(rabbitMqURI)
@@ -45,7 +43,7 @@ func GetChannel(conn *amqp091.Connection) *amqp091.Channel {
 }
 
 func SetAmqpConfig() {
-	rabbitMqURI := main_configs_yml.GetYmlValueByName(_RABBITMQ_URI_YML_IDX)
+	rabbitMqURI := main_configs_yml.GetYmlValueByName(main_configs_yml.RabbitMQURI)
 	log.Println(fmt.Sprintf(_MSG_TRYING_TO_CONNECT_TO_RABBITMQ, rabbitMqURI))
 
 	conn := GetConnection()

@@ -57,7 +57,7 @@ func (this *ReprocessEmailEvent) Execute(ctx context.Context, id string,
 	}
 
 	if email.IsEmpty() {
-		this.logsMonitoringGateway.INFO(span,
+		this.logsMonitoringGateway.DEBUG(span,
 			fmt.Sprintf("Email not found. Id: %s", id))
 		return *new(main_domains.Email), nil
 	}

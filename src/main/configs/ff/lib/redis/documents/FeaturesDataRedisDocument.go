@@ -2,6 +2,7 @@ package main_configs_ff_lib_redis_documents
 
 import (
 	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
+	"reflect"
 )
 
 type FeaturesDataRedisDocument struct {
@@ -20,13 +21,14 @@ func NewFeaturesDataRedisDocument(featuresData main_configs_ff_lib_resources.Fea
 	}
 }
 
-func (this *FeaturesDataRedisDocument) IsEmpty() bool {
-	return *this == FeaturesDataRedisDocument{}
+func (this FeaturesDataRedisDocument) IsEmpty() bool {
+	document := *new(FeaturesDataRedisDocument)
+	return reflect.DeepEqual(this, document)
 }
 
-func (this *FeaturesDataRedisDocument) ToDomain() main_configs_ff_lib_resources.FeaturesData {
+func (this FeaturesDataRedisDocument) ToDomain() main_configs_ff_lib_resources.FeaturesData {
 	if this.IsEmpty() {
-		return main_configs_ff_lib_resources.FeaturesData{}
+		return *new(main_configs_ff_lib_resources.FeaturesData)
 	}
 	return *main_configs_ff_lib_resources.NewFeaturesData(
 		this.Key,

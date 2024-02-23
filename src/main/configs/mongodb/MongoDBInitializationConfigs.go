@@ -10,7 +10,7 @@ const _MSG_MONGODB_BEANS_INITIATED = "MongoDB configuration beans successfully i
 
 func InitMongoConfigBeans() {
 	slog.Info(_MSG_INITIALIZING_MONGODB_BEANS)
-	GetMongoDBClient()
+	GetMongoDBDatabaseBean()
 	CreateIndexes(main_configs_mongo_indexes.GetUserIndexes())
 	slog.Info(_MSG_MONGODB_BEANS_INITIATED)
 }

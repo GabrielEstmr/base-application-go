@@ -7,30 +7,55 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const _DOCUMENT_NUMBER = "documentNumber"
+const _USER_DOCUMENT_NUMBER = "documentId"
+const _USER_DOCUMENT_USERNAME = "userName"
+const _USER_DOCUMENT_EMAIL = "email"
 const _EMAIL_REPO_STATUS = "status"
 const _EMAIL_REPO_EMAIL_PARAMS_EMAIL_TYPE = "emailParams.emailTemplateType"
+const _EMAIL_REPO_EMAIL_EVENT_ID = "eventId"
 
 func GetUserIndexes() []IndexConfig {
 	return []IndexConfig{
 		{
 			CollectionName: main_configs_mongo_collections.USERS_COLLECTION_NAME,
 			Index: mongo.IndexModel{
-				Keys: bson.D{{_DOCUMENT_NUMBER, 1}},
+				Keys:    bson.D{{_USER_DOCUMENT_NUMBER, 1}},
+				Options: options.Index().SetUnique(true),
+			},
+		},
+		{
+			CollectionName: main_configs_mongo_collections.USERS_COLLECTION_NAME,
+			Index: mongo.IndexModel{
+				Keys:    bson.D{{_USER_DOCUMENT_USERNAME, 1}},
+				Options: options.Index().SetUnique(true),
+			},
+		},
+		{
+			CollectionName: main_configs_mongo_collections.USERS_COLLECTION_NAME,
+			Index: mongo.IndexModel{
+				Keys:    bson.D{{_USER_DOCUMENT_EMAIL, 1}},
+				Options: options.Index().SetUnique(true),
 			},
 		},
 		{
 			CollectionName: main_configs_mongo_collections.EMAILS_COLLECTION_NAME,
 			Index: mongo.IndexModel{
 				Keys:    bson.D{{_EMAIL_REPO_STATUS, 1}},
-				Options: options.Index().SetUnique(false).SetExpireAfterSeconds(30),
+				Options: options.Index().SetUnique(false).SetExpireAfterSeconds(60 * 60 * 24 * 30),
 			},
 		},
 		{
 			CollectionName: main_configs_mongo_collections.EMAILS_COLLECTION_NAME,
 			Index: mongo.IndexModel{
 				Keys:    bson.D{{_EMAIL_REPO_EMAIL_PARAMS_EMAIL_TYPE, 1}},
-				Options: options.Index().SetUnique(false).SetExpireAfterSeconds(30),
+				Options: options.Index().SetUnique(false).SetExpireAfterSeconds(60 * 60 * 24 * 30),
+			},
+		},
+		{
+			CollectionName: main_configs_mongo_collections.EMAILS_COLLECTION_NAME,
+			Index: mongo.IndexModel{
+				Keys:    bson.D{{_EMAIL_REPO_EMAIL_EVENT_ID, 1}},
+				Options: options.Index().SetUnique(true).SetExpireAfterSeconds(60 * 60 * 24 * 30),
 			},
 		},
 	}

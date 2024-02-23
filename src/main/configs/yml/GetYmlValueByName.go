@@ -1,7 +1,7 @@
 package main_configs_yml
 
-func GetYmlValueByName(propertyName string) string {
+func GetYmlValueByName(propertyName YmlToken) string {
 	properties := *GetYmlConfigBean()
-	property := properties[propertyName]
+	property := properties[propertyName.GetToken()]
 	return property.Value
 }

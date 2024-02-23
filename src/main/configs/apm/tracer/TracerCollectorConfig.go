@@ -16,9 +16,6 @@ const _MSG_ERROR_TRACER_EXPORTER = "Error to instantiate tracer exporter"
 const _MSG_ERROR_TRACER_RESOURCE = "Error to instantiate tracer resource"
 const _MSG_ERROR_SHUTDOWN_TRACER_PROVIDER = "Error to shutdown tracer provider"
 
-const _TRACER_APM_CLUSTER_OTLP_ENDPOINT_YML = "Apm.server.otlp.collector.grpc.host"
-const _TRACER_APM_SERVER_NAME_YML = "Apm.server.name"
-
 var onceTracer sync.Once
 var tracerProviderBean *trace.TracerProvider
 
@@ -35,7 +32,7 @@ func getTracerProvider(mainCtx *context.Context) *trace.TracerProvider {
 
 	ctx := *mainCtx
 
-	otlpEndpoint := main_configs_yml.GetYmlValueByName(_TRACER_APM_CLUSTER_OTLP_ENDPOINT_YML)
+	otlpEndpoint := main_configs_yml.GetYmlValueByName(main_configs_yml.ApmServerOtlpCollectorGrpcHost)
 	log.Println(otlpEndpoint)
 
 	insecureOpt := otlptracegrpc.WithInsecure()
@@ -45,7 +42,7 @@ func getTracerProvider(mainCtx *context.Context) *trace.TracerProvider {
 	tracerExporter, err := otlptracegrpc.New(ctx, endpointOpt, insecureOpt)
 	main_configs_error.FailOnError(err, _MSG_ERROR_TRACER_EXPORTER)
 
-	serverName := main_configs_yml.GetYmlValueByName(_TRACER_APM_SERVER_NAME_YML)
+	serverName := main_configs_yml.GetYmlValueByName(main_configs_yml.ApmServerName)
 	log.Println(serverName)
 
 	tracerResource, err := resource.Merge(

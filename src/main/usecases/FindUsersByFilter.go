@@ -37,9 +37,9 @@ func (this *FindUsersByFilter) Execute(
 	pageable main_domains.Pageable) (main_domains.Page, main_domains_exceptions.ApplicationException) {
 	span := this.spanGateway.Get(ctx, "FindUsersByFilter-Execute")
 	defer span.End()
-	this.logsMonitoringGateway.DEBUG(span, fmt.Sprintf("FindUsersByFilter-Execute"))
+	this.logsMonitoringGateway.INFO(span, fmt.Sprintf("FindUsersByFilter-Execute"))
 
-	page, err := this.userDatabaseGateway.FindByFilter(span.GetCtx(), filter, pageable)
+	page, err := this.userDatabaseGateway.FindByFilter(span.GetCtx(), filter, pageable, nil)
 	if err != nil {
 		return main_domains.Page{},
 			main_domains_exceptions.NewInternalServerErrorExceptionSglMsg(

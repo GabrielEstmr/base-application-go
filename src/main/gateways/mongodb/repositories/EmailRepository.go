@@ -36,7 +36,7 @@ type EmailRepository struct {
 
 func NewEmailRepository() *EmailRepository {
 	return &EmailRepository{
-		database:    main_configs_mongo.GetMongoDBClient(),
+		database:    main_configs_mongo.GetMongoDBDatabaseBean(),
 		spanGateway: main_gateways_spans.NewSpanGatewayImpl(),
 	}
 }
@@ -60,7 +60,7 @@ func (this *EmailRepository) Save(ctx context.Context, email main_gateways_mongo
 	return email, nil
 }
 
-func (this *EmailRepository) FindById(ctx context.Context, id string) (*main_gateways_mongodb_documents.EmailDocument, error) {
+func (this *EmailRepository) FindById(ctx context.Context, id string) (main_gateways_mongodb_documents.EmailDocument, error) {
 	span := this.spanGateway.Get(ctx, "EmailRepository-FindById")
 	defer span.End()
 
@@ -68,20 +68,20 @@ func (this *EmailRepository) FindById(ctx context.Context, id string) (*main_gat
 	var result main_gateways_mongodb_documents.EmailDocument
 	objectId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
-		return &result, nil
+		return result, nil
 	}
 	filter := bson.D{{_EMAILS_IDX_INDICATOR_MONGO_ID, objectId}}
 	err2 := collection.FindOne(span.GetCtx(), filter).Decode(&result)
 	if err2 != nil {
 		if errors.Is(err2, mongo.ErrNoDocuments) {
-			return &result, nil
+			return result, nil
 		}
-		return &result, err2
+		return result, err2
 	}
-	return &result, nil
+	return result, nil
 }
 
-func (this *EmailRepository) FindByEventId(ctx context.Context, eventId string) (*main_gateways_mongodb_documents.EmailDocument, error) {
+func (this *EmailRepository) FindByEventId(ctx context.Context, eventId string) (main_gateways_mongodb_documents.EmailDocument, error) {
 	span := this.spanGateway.Get(ctx, "EmailRepository-FindById")
 	defer span.End()
 
@@ -89,14 +89,14 @@ func (this *EmailRepository) FindByEventId(ctx context.Context, eventId string) 
 	var result main_gateways_mongodb_documents.EmailDocument
 
 	filter := bson.D{{_EMAIL_REPO_EVENT_ID, eventId}}
-	err2 := collection.FindOne(span.GetCtx(), filter).Decode(&result)
+	err2 := collection.FindOne(span.GetCtx(), filter).Decode(result)
 	if err2 != nil {
 		if errors.Is(err2, mongo.ErrNoDocuments) {
-			return &result, nil
+			return result, nil
 		}
-		return &result, err2
+		return result, err2
 	}
-	return &result, nil
+	return result, nil
 }
 
 func (this *EmailRepository) Update(ctx context.Context, email main_gateways_mongodb_documents.EmailDocument) (main_gateways_mongodb_documents.EmailDocument, error) {

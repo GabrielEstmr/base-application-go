@@ -1,6 +1,9 @@
 package main_domains_features
 
-import main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
+import (
+	main_configs_ff_lib_resources "baseapplicationgo/main/configs/ff/lib/resources"
+	"reflect"
+)
 
 type FeaturesData struct {
 	key          string
@@ -30,7 +33,7 @@ func NewFeaturesData(
 		defaultValue: feature.GetDefaultValue()}
 }
 
-func (this *FeaturesData) ToGatewayResource() *main_configs_ff_lib_resources.FeaturesData {
+func (this FeaturesData) ToGatewayResource() *main_configs_ff_lib_resources.FeaturesData {
 	return main_configs_ff_lib_resources.NewFeaturesData(
 		this.key,
 		this.group,
@@ -39,34 +42,35 @@ func (this *FeaturesData) ToGatewayResource() *main_configs_ff_lib_resources.Fea
 	)
 }
 
-func (this *FeaturesData) IsEmpty() bool {
-	return *this == FeaturesData{}
+func (this FeaturesData) IsEmpty() bool {
+	document := *new(FeaturesData)
+	return reflect.DeepEqual(this, document)
 }
 
-func (this *FeaturesData) GetKey() string {
+func (this FeaturesData) GetKey() string {
 	return this.key
 }
 
-func (this *FeaturesData) GetGroup() string {
+func (this FeaturesData) GetGroup() string {
 	return this.group
 }
 
-func (this *FeaturesData) GetDescription() string {
+func (this FeaturesData) GetDescription() string {
 	return this.description
 }
 
-func (this *FeaturesData) GetDefaultValue() bool {
+func (this FeaturesData) GetDefaultValue() bool {
 	return this.defaultValue
 }
 
-func (this *FeaturesData) SetDefaultValue(defaultValue bool) {
+func (this FeaturesData) SetDefaultValue(defaultValue bool) {
 	this.defaultValue = defaultValue
 }
 
-func (this *FeaturesData) IsEnabled() bool {
+func (this FeaturesData) IsEnabled() bool {
 	return this.defaultValue == true
 }
 
-func (this *FeaturesData) IsDisabled() bool {
+func (this FeaturesData) IsDisabled() bool {
 	return this.defaultValue == false
 }

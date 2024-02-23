@@ -48,7 +48,7 @@ func (this *CreateTransactionAmqpEvent) Execute(
 	span := this.spanGateway.Get(ctx, "CreateTransactionAmqpEvent-Execute")
 	defer span.End()
 
-	this.logsMonitoringGateway.DEBUG(span,
+	this.logsMonitoringGateway.INFO(span,
 		fmt.Sprintf("Creating new transaction event with accountId: %s", transaction.GetAccountId()))
 
 	return this.transactionEventProducerGateway.Send(span.GetCtx(), transaction)

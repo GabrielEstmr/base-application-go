@@ -17,7 +17,6 @@ var AmqpBindingQueue = []main_configs_rabbitmq_paramaters.AmqpBindingQueueProper
 		false,
 		nil,
 	),
-
 	*main_configs_rabbitmq_paramaters.NewAmqpBindingQueueProperties(
 		QUEUE_RM_NOTIFICATION_CREATE_EMAIL,
 		ROUTING_RM_NOTIFICATION_CREATE_EMAIL,
@@ -32,7 +31,6 @@ var AmqpBindingQueue = []main_configs_rabbitmq_paramaters.AmqpBindingQueueProper
 		false,
 		nil,
 	),
-
 	*main_configs_rabbitmq_paramaters.NewAmqpBindingQueueProperties(
 		QUEUE_RM_NOTIFICATION_REPROCESS_EMAIL,
 		ROUTING_RM_NOTIFICATION_REPROCESS_EMAIL,

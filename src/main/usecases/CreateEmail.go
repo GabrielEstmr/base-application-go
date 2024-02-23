@@ -16,9 +16,9 @@ import (
 	"time"
 )
 
-const _MSG_CREATE_NEW_EMAIL_ARCH_ISSUE = "exceptions.architecture.application.issue"
-
 type CreateEmail struct {
+	_MSG_ARCH_ISSUE                     string
+	_MSG_LOCK_ISSUE                     string
 	emailDatabaseGateway                main_gateways.EmailDatabaseGateway
 	createEmailBodySendAndPersistAsSent main_usecases_interfaces.CreateEmailBodySendAndPersistAsSent
 	lockGateway                         main_gateways.DistributedLockGateway
@@ -36,6 +36,8 @@ func NewCreateEmailAllArgs(
 	messageUtils main_utils_messages.ApplicationMessages,
 ) *CreateEmail {
 	return &CreateEmail{
+		_MSG_ARCH_ISSUE:                     "exceptions.architecture.application.issue",
+		_MSG_LOCK_ISSUE:                     "providers.general.lock.issue",
 		emailDatabaseGateway:                emailDatabaseGateway,
 		createEmailBodySendAndPersistAsSent: createEmailBodySendAndPersistAsSent,
 		lockGateway:                         lockGateway,
@@ -56,17 +58,19 @@ func (this *CreateEmail) Execute(
 
 	span := this.spanGateway.Get(ctx, "CreateEmail-Execute")
 	defer span.End()
-	this.logsMonitoringGateway.INFO(span,
+	this.logsMonitoringGateway.DEBUG(span,
 		fmt.Sprintf("Creating new email. eventId: %s", msgId))
 
 	if main_utils.NewStringUtils().IsEmpty(msgId) {
 		return this.logAndReturnArchError(span, errors.New("empty msgId"))
 	}
 
-	lock := this.lockGateway.Get(span.GetCtx(), msgId, 90*time.Second)
-	errLock := lock.Lock()
+	singleLock := this.lockGateway.GetWithScope(span.GetCtx(), "CreateEmail-Execute", msgId, 90*time.Second)
+	errLock := singleLock.Lock()
 
 	if errLock == nil {
+		defer this.unlockAndLogIfError(span, singleLock)
+
 		email := *main_domains.NewEmail(msgId, emailParams, main_domains_enums.EMAIL_STATUS_STARTED)
 		persistedEmail, errSave := this.emailDatabaseGateway.Save(span.GetCtx(), email)
 		if errSave != nil {
@@ -78,13 +82,11 @@ func (this *CreateEmail) Execute(
 			return this.logAndReturnArchError(span, errUpdateSent)
 		}
 
-		this.unlockAndLogIfError(span, lock)
 		return persistedSentEmail, nil
 	} else {
-		this.unlockAndLogIfError(span, lock)
-		return main_domains.Email{},
+		return *new(main_domains.Email),
 			main_domains_exceptions.NewConflictExceptionSglMsg(this.messageUtils.GetDefaultLocale(
-				_MSG_CREATE_NEW_TRANSACTION_LOCK_ISSUE))
+				this._MSG_LOCK_ISSUE))
 	}
 }
 
@@ -95,7 +97,7 @@ func (this *CreateEmail) logAndReturnArchError(
 	this.logsMonitoringGateway.ERROR(span, err.Error())
 	return main_domains.Email{}, main_domains_exceptions.
 		NewInternalServerErrorExceptionSglMsg(this.messageUtils.
-			GetDefaultLocale(_MSG_CREATE_NEW_EMAIL_ARCH_ISSUE))
+			GetDefaultLocale(this._MSG_ARCH_ISSUE))
 }
 
 func (this *CreateEmail) unlockAndLogIfError(span main_domains_apm.SpanLogInfo, lock *lock.SingleLock) {

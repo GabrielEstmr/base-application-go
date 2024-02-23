@@ -12,8 +12,6 @@ import (
 const _MSG_ERROR_METRIC_EXPORTER = "Error to instantiate metric exporter"
 const _MSG_ERROR_SHUTDOWN_METRIC_PROVIDER = "Error to shutdown metric provider"
 
-const _METRIC_APM_CLUSTER_OTLP_ENDPOINT_YML = "Apm.server.otlp.collector.grpc.host"
-
 var onceMetric sync.Once
 var metricProviderBean *metric.MeterProvider
 
@@ -30,7 +28,7 @@ func getMetricProvider(mainCtx *context.Context) *metric.MeterProvider {
 
 	ctx := *mainCtx
 
-	otlpEndpoint := main_configs_yml.GetYmlValueByName(_METRIC_APM_CLUSTER_OTLP_ENDPOINT_YML)
+	otlpEndpoint := main_configs_yml.GetYmlValueByName(main_configs_yml.ApmServerOtlpCollectorGrpcHost)
 	insecureMetricOpt := otlpmetricgrpc.WithInsecure()
 	endpointMetricOpt := otlpmetricgrpc.WithEndpoint(otlpEndpoint)
 

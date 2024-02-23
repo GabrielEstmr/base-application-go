@@ -10,7 +10,7 @@ const _MSG_INDEX_CREATED = "Index Created. Collection: %s, IndexName: %s"
 
 func CreateIndexes(indexes []main_configs_mongo_indexes.IndexConfig) {
 	for _, value := range indexes {
-		name, err := GetMongoDBClient().Collection(value.CollectionName).Indexes().CreateOne(context.TODO(), value.Index)
+		name, err := GetMongoDBDatabaseBean().Collection(value.CollectionName).Indexes().CreateOne(context.TODO(), value.Index)
 		if err != nil {
 			panic(err)
 		}

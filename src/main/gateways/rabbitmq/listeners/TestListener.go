@@ -70,7 +70,7 @@ func (this *ListenerTest) Listen() {
 				d.MessageId,
 			)
 
-			this.logsMonitoringGateway.INFO(span, messageQueue)
+			this.logsMonitoringGateway.DEBUG(span, messageQueue)
 
 			var event main_gateways_rabbitmq_resources.Event
 			if err = json.Unmarshal(d.Body, &event); err != nil {

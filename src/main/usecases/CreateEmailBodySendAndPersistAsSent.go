@@ -42,7 +42,7 @@ func (this *CreateEmailBodySendAndPersistAsSent) Execute(
 
 	span := this.spanGateway.Get(ctx, "CreateEmailBodySendAndPersistAsSent-Execute")
 	defer span.End()
-	this.logsMonitoringGateway.INFO(span,
+	this.logsMonitoringGateway.DEBUG(span,
 		fmt.Sprintf("Creating email body and setting as sent. eventId: %s", email.GetEventId()))
 
 	if email.GetEmailParams().IsEmpty() {

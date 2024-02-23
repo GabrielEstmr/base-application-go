@@ -30,9 +30,7 @@ func (this *SendEmailGatewayFactory) Get(ctx context.Context,
 
 	span := this.spanGateway.Get(ctx, "CreateEmail-Execute")
 	defer span.End()
-	this.logsMonitoringGateway.DEBUG(span,
-		fmt.Sprintf("EmailGatewayFactory. emailType: %s",
-			main_domains_enums.GetEmailTemplateTypeDescription(emailType)))
+	this.logsMonitoringGateway.DEBUG(span, fmt.Sprintf("EmailGatewayFactory. emailType: %s", emailType.Name()))
 
 	if emailType == main_domains_enums.EMAIL_TYPE_WELCOME_EMAIL {
 		return this.gmailEmailGatewayImpl

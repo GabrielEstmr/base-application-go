@@ -24,7 +24,7 @@ type TransactionRepository struct {
 
 func NewTransactionRepository() *TransactionRepository {
 	return &TransactionRepository{
-		database:    main_configs_mongo.GetMongoDBClient(),
+		database:    main_configs_mongo.GetMongoDBDatabaseBean(),
 		spanGateway: main_gateways_spans.NewSpanGatewayImpl(),
 	}
 }

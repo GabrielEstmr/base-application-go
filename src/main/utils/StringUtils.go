@@ -1,6 +1,6 @@
 package main_utils
 
-const _STRING_UTILS_EMPTY_STRING = ""
+const STRING_UTILS_EMPTY_STRING = ""
 
 type StringUtils struct {
 }
@@ -10,5 +10,5 @@ func NewStringUtils() *StringUtils {
 }
 
 func (this *StringUtils) IsEmpty(value string) bool {
-	return value == _STRING_UTILS_EMPTY_STRING
+	return value == STRING_UTILS_EMPTY_STRING
 }

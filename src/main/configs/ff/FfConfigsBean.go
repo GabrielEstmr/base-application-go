@@ -20,7 +20,6 @@ const _MSG_ERROR_INSTANTIATE_FEATURES_METHODS_FACTORY = "Error to get features m
 const _MSG_ERROR_REGISTER_FEATURES = "Error to register features"
 
 const _FF_FEATURES_DB_NAME = "ff-features"
-const _APP_NAME_YML = "Apm.server.name"
 
 var once sync.Once
 var ffConfigData *main_configs_ff_lib.FfConfig = nil
@@ -39,11 +38,11 @@ func getFfConfigData() *main_configs_ff_lib.FfConfig {
 	log.Println(_MSG_INITIALIZING_FEATURES_BEANS)
 
 	configData := main_configs_ff_lib.NewFfConfigDataBean(
-		main_configs_mongo.GetMongoDBClient(),
+		main_configs_mongo.GetMongoDBDatabaseBean(),
 		main_configs_ff_lib.MONGO,
 		true,
 		main_configs_cache.GetRedisClusterBean(),
-		main_configs_yml.GetYmlValueByName(_APP_NAME_YML),
+		main_configs_yml.GetYmlValueByName(main_configs_yml.ApmServerName),
 		main_configs_ff_lib.REDIS,
 		_FF_FEATURES_DB_NAME,
 	)

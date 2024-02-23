@@ -22,26 +22,54 @@ import (
 const _USERS_COLLECTION_NAME = main_configs_mongo_collections.USERS_COLLECTION_NAME
 const _USERS_IDX_INDICATOR_MONGO_ID = main_configs_mongo.DEFAULT_BSON_ID_NAME
 
-const _USER_REPO_ID = "_id"
-const _USER_REPO_NAME = "name"
-const _USER_REPO_DOCUMENT_NUMBER = "documentNumber"
-const _USER_REPO_BIRTHDAY = "birthday"
-const _USER_REPO_CREATED_DATE = "createdDate"
-const _USER_REPO_LAST_MODIFIED_DATE = "lastModifiedDate"
-
 type UserRepository struct {
-	database    *mongo.Database
-	spanGateway main_gateways.SpanGateway
+	_ACCOUNT_ID         string
+	_AUTH_PROVIDER_ID   string
+	_DOCUMENT_ID        string
+	_USER_NAME          string
+	_FIRST_NAME         string
+	_LAST_NAME          string
+	_EMAIL              string
+	_EMAIL_VERIFIED     string
+	_STATUS             string
+	_ROLES              string
+	_BIRTHDAY           string
+	_PHONE_CONTACTS     string
+	_PROVIDER_TYPE      string
+	_CREATED_DATE       string
+	_LAST_MODIFIED_DATE string
+	database            *mongo.Database
+	spanGateway         main_gateways.SpanGateway
 }
 
 func NewUserRepository() *UserRepository {
 	return &UserRepository{
-		database:    main_configs_mongo.GetMongoDBClient(),
-		spanGateway: main_gateways_spans.NewSpanGatewayImpl(),
+		_ACCOUNT_ID:         "accountId",
+		_AUTH_PROVIDER_ID:   "authProviderId",
+		_DOCUMENT_ID:        "documentId",
+		_USER_NAME:          "userName",
+		_FIRST_NAME:         "firstName",
+		_LAST_NAME:          "lastName",
+		_EMAIL:              "email",
+		_EMAIL_VERIFIED:     "emailVerified",
+		_STATUS:             "status",
+		_ROLES:              "roles",
+		_BIRTHDAY:           "birthday",
+		_PHONE_CONTACTS:     "phoneContacts",
+		_PROVIDER_TYPE:      "providerType",
+		_CREATED_DATE:       "createdDate",
+		_LAST_MODIFIED_DATE: "lastModifiedDate",
+		database:            main_configs_mongo.GetMongoDBDatabaseBean(),
+		spanGateway:         main_gateways_spans.NewSpanGatewayImpl(),
 	}
 }
 
-func (this *UserRepository) Save(ctx context.Context, user main_gateways_mongodb_documents.UserDocument) (main_gateways_mongodb_documents.UserDocument, error) {
+func (this *UserRepository) Save(
+	ctx context.Context,
+	user main_gateways_mongodb_documents.UserDocument,
+	options main_domains.DatabaseOptions,
+) (main_gateways_mongodb_documents.UserDocument, error) {
+
 	span := this.spanGateway.Get(ctx, "UserRepository-Save")
 	defer span.End()
 
@@ -50,17 +78,87 @@ func (this *UserRepository) Save(ctx context.Context, user main_gateways_mongodb
 	user.CreatedDate = now
 	user.LastModifiedDate = now
 
-	result, err := collection.InsertOne(context.TODO(), user)
-	if err != nil {
-		return main_gateways_mongodb_documents.UserDocument{}, err
+	optTest := options.GetPropertyByName("session").(mongo.SessionContext)
+	fmt.Println(optTest)
+
+	fnInsert := func(
+		ctx context.Context,
+		user main_gateways_mongodb_documents.UserDocument,
+		options main_domains.DatabaseOptions,
+	) (*mongo.InsertOneResult, error) {
+		if options == nil {
+			return collection.InsertOne(ctx, user)
+		} else {
+			return collection.InsertOne(options.GetSession(), user)
+		}
 	}
 
+	result, err := fnInsert(ctx, user, options)
+	if err != nil {
+		return *new(main_gateways_mongodb_documents.UserDocument), err
+	}
 	oid, _ := result.InsertedID.(primitive.ObjectID)
 	user.Id = oid
 	return user, nil
 }
 
-func (this *UserRepository) FindById(ctx context.Context, id string) (*main_gateways_mongodb_documents.UserDocument, error) {
+func (this *UserRepository) Update(
+	ctx context.Context,
+	user main_gateways_mongodb_documents.UserDocument,
+	options main_domains.DatabaseOptions,
+) (
+	main_gateways_mongodb_documents.UserDocument, error) {
+	span := this.spanGateway.Get(ctx, "UserRepository-Update")
+	defer span.End()
+
+	collection := this.database.Collection(_USERS_COLLECTION_NAME)
+	now := primitive.NewDateTimeFromTime(time.Now())
+	user.LastModifiedDate = now
+
+	filter := bson.D{{_EMAILS_IDX_INDICATOR_MONGO_ID, user.Id}}
+	update := bson.D{{"$set", bson.D{
+		{this._ACCOUNT_ID, user.AccountId},
+		{this._AUTH_PROVIDER_ID, user.AuthProviderId},
+		{this._DOCUMENT_ID, user.DocumentId},
+		{this._USER_NAME, user.UserName},
+		{this._FIRST_NAME, user.FirstName},
+		{this._LAST_NAME, user.LastName},
+		{this._EMAIL, user.Email},
+		{this._EMAIL_VERIFIED, user.EmailVerified},
+		{this._STATUS, user.Status},
+		{this._ROLES, user.Roles},
+		{this._BIRTHDAY, user.Birthday},
+		{this._PHONE_CONTACTS, user.PhoneContacts},
+		{this._PROVIDER_TYPE, user.ProviderType},
+		{this._CREATED_DATE, user.CreatedDate},
+		{this._LAST_MODIFIED_DATE, user.LastModifiedDate},
+	}}}
+
+	fnUpdate := func(
+		ctx context.Context,
+		filter bson.D,
+		update bson.D,
+		options main_domains.DatabaseOptions,
+	) (*mongo.UpdateResult, error) {
+		if options == nil {
+			return collection.UpdateOne(ctx, filter, update)
+		} else {
+			return collection.UpdateOne(options.GetSession(), filter, update)
+		}
+	}
+
+	_, err := fnUpdate(span.GetCtx(), filter, update, options)
+	if err != nil {
+		return *new(main_gateways_mongodb_documents.UserDocument), err
+	}
+	return user, nil
+}
+
+func (this *UserRepository) FindById(
+	ctx context.Context,
+	id string,
+	options main_domains.DatabaseOptions,
+) (main_gateways_mongodb_documents.UserDocument, error) {
 	span := this.spanGateway.Get(ctx, "UserRepository-FindById")
 	defer span.End()
 
@@ -68,38 +166,129 @@ func (this *UserRepository) FindById(ctx context.Context, id string) (*main_gate
 	var result main_gateways_mongodb_documents.UserDocument
 	objectId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
-		return &result, nil
+		return result, err
 	}
+
 	filter := bson.D{{_USERS_IDX_INDICATOR_MONGO_ID, objectId}}
-	err2 := collection.FindOne(span.GetCtx(), filter).Decode(&result)
-	if err2 != nil {
-		if errors.Is(err2, mongo.ErrNoDocuments) {
-			return &result, nil
+	fnFindOne := func(
+		ctx context.Context,
+		options main_domains.DatabaseOptions,
+	) error {
+		if options == nil {
+			return collection.FindOne(span.GetCtx(), filter).Decode(&result)
 		}
-		return &result, err2
+		return collection.FindOne(options.GetSession(), filter).Decode(&result)
 	}
-	return &result, nil
+
+	errFind := fnFindOne(span.GetCtx(), options)
+	if errFind != nil {
+		if errors.Is(errFind, mongo.ErrNoDocuments) {
+			return result, nil
+		}
+		return result, errFind
+	}
+	return result, nil
 }
 
-func (this *UserRepository) FindByDocumentNumber(ctx context.Context, documentNumber string) (*main_gateways_mongodb_documents.UserDocument, error) {
+func (this *UserRepository) FindByDocumentId(
+	ctx context.Context,
+	documentId string,
+	options main_domains.DatabaseOptions,
+) (main_gateways_mongodb_documents.UserDocument, error) {
 	span := this.spanGateway.Get(ctx, "UserRepository-FindByDocumentNumber")
 	defer span.End()
 
 	collection := this.database.Collection(_USERS_COLLECTION_NAME)
-	filter := bson.D{{_USER_REPO_DOCUMENT_NUMBER, documentNumber}}
 	var result main_gateways_mongodb_documents.UserDocument
-	err := collection.FindOne(span.GetCtx(), filter).Decode(&result)
-	if err != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) {
-			return &result, nil
+	filter := bson.D{{this._DOCUMENT_ID, documentId}}
+	fnFindOne := func(
+		ctx context.Context,
+		options main_domains.DatabaseOptions,
+	) error {
+		if options == nil {
+			return collection.FindOne(span.GetCtx(), filter).Decode(&result)
 		}
-		return &result, err
+		return collection.FindOne(options.GetPropertyByName("session").(mongo.SessionContext), filter).Decode(&result)
 	}
-	return &result, nil
+
+	errFind := fnFindOne(span.GetCtx(), options)
+	if errFind != nil {
+		if errors.Is(errFind, mongo.ErrNoDocuments) {
+			return result, nil
+		}
+		return result, errFind
+	}
+	return result, nil
 }
 
-func (this *UserRepository) FindByFilter(ctx context.Context, filter main_domains.FindUserFilter,
-	pageable main_domains.Pageable) (*main_domains.Page, error) {
+func (this *UserRepository) FindByUserName(
+	ctx context.Context,
+	userName string,
+	options main_domains.DatabaseOptions,
+) (main_gateways_mongodb_documents.UserDocument, error) {
+	span := this.spanGateway.Get(ctx, "UserRepository-FindByUserName")
+	defer span.End()
+
+	collection := this.database.Collection(_USERS_COLLECTION_NAME)
+	var result main_gateways_mongodb_documents.UserDocument
+	filter := bson.D{{this._USER_NAME, userName}}
+	fnFindOne := func(
+		ctx context.Context,
+		options main_domains.DatabaseOptions,
+	) error {
+		if options == nil {
+			return collection.FindOne(span.GetCtx(), filter).Decode(&result)
+		}
+		return collection.FindOne(options.GetPropertyByName("session").(mongo.SessionContext), filter).Decode(&result)
+	}
+
+	errFind := fnFindOne(span.GetCtx(), options)
+	if errFind != nil {
+		if errors.Is(errFind, mongo.ErrNoDocuments) {
+			return result, nil
+		}
+		return result, errFind
+	}
+	return result, nil
+}
+
+func (this *UserRepository) FindByEmail(
+	ctx context.Context,
+	email string,
+	options main_domains.DatabaseOptions,
+) (main_gateways_mongodb_documents.UserDocument, error) {
+	span := this.spanGateway.Get(ctx, "UserRepository-FindByEmail")
+	defer span.End()
+
+	collection := this.database.Collection(_USERS_COLLECTION_NAME)
+	var result main_gateways_mongodb_documents.UserDocument
+	filter := bson.D{{this._EMAIL, email}}
+	fnFindOne := func(
+		ctx context.Context,
+		options main_domains.DatabaseOptions,
+	) error {
+		if options == nil {
+			return collection.FindOne(span.GetCtx(), filter).Decode(&result)
+		}
+		return collection.FindOne(options.GetPropertyByName("session").(mongo.SessionContext), filter).Decode(&result)
+	}
+
+	errFind := fnFindOne(span.GetCtx(), options)
+	if errFind != nil {
+		if errors.Is(errFind, mongo.ErrNoDocuments) {
+			return result, nil
+		}
+		return result, errFind
+	}
+	return result, nil
+}
+
+func (this *UserRepository) FindByFilter(
+	ctx context.Context,
+	filter main_domains.FindUserFilter,
+	pageable main_domains.Pageable,
+	options main_domains.DatabaseOptions,
+) (main_domains.Page, error) {
 	span := this.spanGateway.Get(ctx, "UserRepository-FindByFilter")
 	defer span.End()
 
@@ -108,7 +297,7 @@ func (this *UserRepository) FindByFilter(ctx context.Context, filter main_domain
 	log.Println(len(pageable.GetSort()))
 	if pageable.HasEmptySort() {
 		defaultSort := make(map[string]int)
-		defaultSort[_USER_REPO_ID] = 1
+		defaultSort[_USERS_IDX_INDICATOR_MONGO_ID] = 1
 		pageable.SetSort(defaultSort)
 	}
 
@@ -116,48 +305,113 @@ func (this *UserRepository) FindByFilter(ctx context.Context, filter main_domain
 
 	filterCriterias := bson.D{}
 
-	if len(filter.GetName()) > 0 {
+	if len(filter.Ids) > 0 {
 		filterCriterias = append(filterCriterias,
-			bson.E{Key: _USER_REPO_NAME, Value: bson.M{"$in": filter.GetName()}})
+			bson.E{Key: _USERS_IDX_INDICATOR_MONGO_ID, Value: bson.M{"$in": filter.Ids}})
 	}
-	if len(filter.GetDocumentNumber()) > 0 {
+	if len(filter.AccountIds) > 0 {
 		filterCriterias = append(filterCriterias,
-			bson.E{Key: _USER_REPO_DOCUMENT_NUMBER, Value: bson.M{"$in": filter.GetDocumentNumber()}})
+			bson.E{Key: this._ACCOUNT_ID, Value: bson.M{"$in": filter.AccountIds}})
 	}
-	if len(filter.GetBirthday()) > 0 {
+	if len(filter.AuthProviderIds) > 0 {
 		filterCriterias = append(filterCriterias,
-			bson.E{Key: _USER_REPO_BIRTHDAY, Value: bson.M{"$in": filter.GetBirthday()}})
+			bson.E{Key: this._AUTH_PROVIDER_ID, Value: bson.M{"$in": filter.AuthProviderIds}})
 	}
-	if !filter.GetStartCreatedDate().IsZero() {
+	if len(filter.DocumentIds) > 0 {
 		filterCriterias = append(filterCriterias,
-			bson.E{Key: _USER_REPO_CREATED_DATE, Value: bson.M{"$gte": filter.GetStartCreatedDate()}})
+			bson.E{Key: this._DOCUMENT_ID, Value: bson.M{"$in": filter.DocumentIds}})
 	}
-	if !filter.GetEndCreatedDate().IsZero() {
+	if len(filter.UserNames) > 0 {
 		filterCriterias = append(filterCriterias,
-			bson.E{Key: _USER_REPO_CREATED_DATE, Value: bson.M{"$lt": filter.GetEndCreatedDate()}})
+			bson.E{Key: this._USER_NAME, Value: bson.M{"$in": filter.UserNames}})
 	}
-	if !filter.GetStartLastModifiedDate().IsZero() {
+	if len(filter.FirstNames) > 0 {
 		filterCriterias = append(filterCriterias,
-			bson.E{Key: _USER_REPO_LAST_MODIFIED_DATE, Value: bson.M{"$gte": filter.GetStartLastModifiedDate()}})
+			bson.E{Key: this._FIRST_NAME, Value: bson.M{"$in": filter.FirstNames}})
 	}
-	if !filter.GetEndLastModifiedDate().IsZero() {
+	if len(filter.LastNames) > 0 {
 		filterCriterias = append(filterCriterias,
-			bson.E{Key: _USER_REPO_LAST_MODIFIED_DATE, Value: bson.M{"$lt": filter.GetEndLastModifiedDate()}})
+			bson.E{Key: this._LAST_NAME, Value: bson.M{"$in": filter.LastNames}})
+	}
+	if len(filter.Emails) > 0 {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._EMAIL, Value: bson.M{"$in": filter.Emails}})
+	}
+	if len(filter.EmailsVerified) > 0 {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._EMAIL_VERIFIED, Value: bson.M{"$in": filter.EmailsVerified}})
+	}
+	if len(filter.Statuses) > 0 {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._STATUS, Value: bson.M{"$in": filter.Statuses}})
+	}
+	if len(filter.Roles) > 0 {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._ROLES, Value: bson.M{"$in": filter.Roles}})
+	}
+	if len(filter.ProviderTypes) > 0 {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._PROVIDER_TYPE, Value: bson.M{"$in": filter.ProviderTypes}})
+	}
+	if !filter.StartBirthdayDate.IsZero() {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._BIRTHDAY, Value: bson.M{"$gte": filter.StartBirthdayDate}})
+	}
+	if !filter.EndBirthdayDate.IsZero() {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._BIRTHDAY, Value: bson.M{"$lt": filter.EndBirthdayDate}})
+	}
+	if !filter.StartCreatedDate.IsZero() {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._CREATED_DATE, Value: bson.M{"$gte": filter.StartCreatedDate}})
+	}
+	if !filter.EndCreatedDate.IsZero() {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._CREATED_DATE, Value: bson.M{"$lt": filter.EndCreatedDate}})
+	}
+	if !filter.StartLastModifiedDate.IsZero() {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._LAST_MODIFIED_DATE, Value: bson.M{"$gte": filter.StartLastModifiedDate}})
+	}
+	if !filter.EndLastModifiedDate.IsZero() {
+		filterCriterias = append(filterCriterias,
+			bson.E{Key: this._LAST_MODIFIED_DATE, Value: bson.M{"$lt": filter.EndLastModifiedDate}})
+	}
+
+	fnFind := func(
+		options main_domains.DatabaseOptions,
+	) (*mongo.Cursor, error) {
+		if options == nil {
+			return collection.Find(context.TODO(), filterCriterias, opt)
+		}
+		return collection.Find(options.GetSession(), filterCriterias, opt)
 	}
 
 	var results []main_gateways_mongodb_documents.UserDocument
-	cursor, err := collection.Find(context.TODO(), filterCriterias, opt)
+	cursor, err := fnFind(options)
+	if err != nil {
+		return *new(main_domains.Page), err
+	}
 	if err = cursor.All(span.GetCtx(), &results); err != nil {
-		panic(err)
+		return *new(main_domains.Page), err
 	}
 	for _, result := range results {
 		res, _ := json.Marshal(result)
 		fmt.Println(string(res))
 	}
 
-	numberDocs, err := collection.CountDocuments(span.GetCtx(), filterCriterias)
+	fnCount := func(
+		options main_domains.DatabaseOptions,
+	) (int64, error) {
+		if options == nil {
+			return collection.CountDocuments(context.TODO(), filterCriterias)
+		}
+		return collection.CountDocuments(options.GetSession(), filterCriterias)
+	}
+
+	numberDocs, err := fnCount(options)
 	if err != nil {
-		return nil, err
+		return *new(main_domains.Page), err
 	}
 
 	var contents []any
@@ -165,5 +419,5 @@ func (this *UserRepository) FindByFilter(ctx context.Context, filter main_domain
 		contents = append(contents, value)
 	}
 
-	return main_domains.NewPage(contents, pageable.GetPage(), pageable.GetSize(), numberDocs), nil
+	return *main_domains.NewPage(contents, pageable.GetPage(), pageable.GetSize(), numberDocs), nil
 }
